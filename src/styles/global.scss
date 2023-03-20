@@ -1,3 +1,13 @@
+@use "./colors.scss" as *;
+@use "./form.scss" as *;
+
 * {
   box-sizing: border-box;
+}
+
+.body {
+  font-size: clamp(0.75rem, 0.5vw + 0.55rem ,6rem);
+  color: $white;
+  background-color: $violet-500;
+  margin: 0;
 }
