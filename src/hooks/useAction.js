@@ -1,4 +1,4 @@
-const { useDispatch } = require("react-redux");
+import { useDispatch } from "react-redux";
 
 const useAction = (action) => {
   const dispatch = useDispatch();
