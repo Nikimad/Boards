@@ -1,0 +1,46 @@
+@use "./variables.scss" as *;
+@use "./colors.scss" as *;
+
+.form {
+  display: grid;
+  gap: 1em;
+
+  &__title {
+    margin: 0;
+  }
+
+  &__label {
+    display: grid;
+    gap: 0.5em;
+
+    &__title {
+      font-weight: 700;
+    }
+  }
+
+  &__input {
+    font: inherit;
+    color: inherit;
+    outline: none;
+    border: $border;
+    border-radius: $br;
+    background-color: transparent;
+    padding: 0.3em 1em;
+  }
+
+  &__submit {
+    width: 100%;
+    font: inherit;
+    font-weight: 700;
+    color: $white;
+    border: none;
+    border-radius: $br;
+    background-color: $violet-200;
+    cursor: pointer;
+    padding: 0.3em 1em;
+
+    &:hover {
+        background-color: $violet-100;
+    }
+  }
+}
