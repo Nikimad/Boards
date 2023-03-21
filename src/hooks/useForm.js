@@ -20,7 +20,7 @@ const useForm = (externalState, submitAction) => {
       case ACTIONS.reset:
         return { ...initialState };
       case ACTIONS.validate:
-        return { ...state, ...validate(state) };
+        return { ...state, ...validate(state.fields, state.validators) };
       default:
         return state;
     }
