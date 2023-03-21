@@ -3,15 +3,16 @@
 
 .form {
   display: grid;
-  gap: 1em;
 
   &__title {
     margin: 0;
   }
 
   &__label {
+    position: relative;
     display: grid;
     gap: 0.5em;
+    padding-bottom: 1.5em;
 
     &__title {
       font-weight: 700;
@@ -40,7 +41,14 @@
     padding: 0.3em 1em;
 
     &:hover {
-        background-color: $violet-100;
+      background-color: $violet-100;
     }
+  }
+
+  &__error {
+    position: absolute;
+    bottom: 0;
+    color: $red;
+    padding: 0.25em 0 0.25em 0.5em;
   }
 }
