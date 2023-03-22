@@ -27,6 +27,7 @@ button:not(:disabled) {
   font-family: $ff, sans-serif;
   color: $white;
   background-color: $violet-500;
+  overflow: hidden;
   margin: 0;
 }
 
