@@ -1,0 +1,23 @@
+@use "/src/styles/variables.scss" as *;
+@use "/src/styles/colors.scss" as *;
+
+.board {
+  display: grid;
+  grid-template-columns: min-content min-content;
+  gap: 0.25em;
+  text-decoration: none;
+  font-weight: 700;
+  color: $gray;
+  border-radius: 0 $br $br 0;
+  transition: $trans;
+  padding: 0.625em 1em;
+
+  &[data-current="true"] {
+    color: $white;
+    background-color: $violet-100;
+  }
+
+  &:not([data-current="true"]):hover {
+    color: $white;
+  }
+}
