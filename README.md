@@ -1,6 +1,6 @@
 #  Boards manager
 
-[Deploy link](https://boards-manager.vercel.app/)
+[Deploy link](https://boards-eight.vercel.app/)
 
 [snp internship 2022](https://snp.agency/en)
 
