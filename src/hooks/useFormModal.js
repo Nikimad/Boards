@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useCallback, useEffect } from "react";
 
 const useFormModal = (
   validate,
@@ -7,15 +7,15 @@ const useFormModal = (
   resetModal,
   dispatchAction
 ) => {
-  const submit = (e) => {
+  const submit = useCallback((e) => {
     e.preventDefault();
     validate();
-  };
+  }, [validate]);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     resetForm();
     resetModal();
-  };
+  }, [resetForm, resetModal]);
 
   useEffect(() => {
     if (isValid) {
