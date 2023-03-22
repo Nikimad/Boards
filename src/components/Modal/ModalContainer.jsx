@@ -6,7 +6,7 @@ const ModalContainer = ({ status, onReset, onClose, children }) => {
     (e) => {
       if (e.key === "Escape" && status === "show") onReset();
     },
-    [onReset]
+    [onReset, status]
   );
   
   const handleContentClick = (e) => e.stopPropagation();
@@ -23,7 +23,7 @@ const ModalContainer = ({ status, onReset, onClose, children }) => {
       clearTimeout(timeout);
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [onClose, handleEscape]);
+  }, [onClose, status, handleEscape]);
 
   return (
     <Modal
