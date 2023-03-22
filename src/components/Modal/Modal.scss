@@ -15,7 +15,7 @@
     background-color: $violet-400;
     border-radius: $br;
     max-height: 90vh;
-    width: 50%;
+    width: 85%;
     overflow: auto;
     padding: 1em;
   }
@@ -33,6 +33,14 @@
 
     .modal__content {
       animation: out $trans;
+    }
+  }
+}
+
+@media screen and (min-width: $bp) {
+  .modal {
+    &__content {
+      width: 50%;
     }
   }
 }
