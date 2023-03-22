@@ -1,8 +1,8 @@
 const getInitialState = ({ fields, validators }) => {
-  const fieldsNames = Object.keys(fields);
+  const validationFieldsNames = Object.keys(validators);
 
   const isValid = false;
-  const errors = fieldsNames.reduce((acc, fieldName) => {
+  const errors = validationFieldsNames.reduce((acc, fieldName) => {
     acc[fieldName] = null;
     return acc;
   }, {});
