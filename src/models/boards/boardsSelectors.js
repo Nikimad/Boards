@@ -7,3 +7,8 @@ const rootSelector = createSelector(
 );
 
 export const boardsSelectors = boardsAdapter.getSelectors(rootSelector);
+
+export const selectBoardsCount = createSelector(
+  boardsSelectors.selectIds,
+  (ids) => ids.length,
+);
