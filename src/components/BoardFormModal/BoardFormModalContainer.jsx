@@ -23,7 +23,7 @@ const BoardFormModalContainer = ({ modalStatus, resetModal, closeModal }) => {
     addBoard({
       id: getId(),
       ...state.fields,
-    }),
+    })
   );
 
   return (

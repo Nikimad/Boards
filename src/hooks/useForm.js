@@ -26,19 +26,31 @@ const useForm = (externalState) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const changeAction = useCallback(({ name, value }) => ({
-    type: ACTIONS.change,
-    payload: { [name]: value },
-  }), [ACTIONS.change]);
-  const resetAction = useCallback(() => ({ type: ACTIONS.reset }), [ACTIONS.reset]);
-  const validateAction = useCallback(() => ({ type: ACTIONS.validate }), [ACTIONS.validate]);
+  const changeAction = useCallback(
+    ({ name, value }) => ({
+      type: ACTIONS.change,
+      payload: { [name]: value },
+    }),
+    [ACTIONS.change]
+  );
+  const resetAction = useCallback(
+    () => ({ type: ACTIONS.reset }),
+    [ACTIONS.reset]
+  );
+  const validateAction = useCallback(
+    () => ({ type: ACTIONS.validate }),
+    [ACTIONS.validate]
+  );
 
   const changeForm = useCallback(
     ({ target }) => dispatch(changeAction(target)),
     [changeAction]
   );
   const resetForm = useCallback(() => dispatch(resetAction()), [resetAction]);
-  const validateForm = useCallback(() => dispatch(validateAction()), [validateAction]);
+  const validateForm = useCallback(
+    () => dispatch(validateAction()),
+    [validateAction]
+  );
 
   return [state, changeForm, resetForm, validateForm];
 };

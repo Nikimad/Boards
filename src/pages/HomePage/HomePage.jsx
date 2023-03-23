@@ -3,7 +3,6 @@ import Sidebar from "../../components/Sidebar";
 import Header from "../../components/Header";
 import TasksPanel from "../../components/TasksPanel";
 
-
 const HomePage = () => (
   <Wrapper>
     <Sidebar />

@@ -8,7 +8,7 @@ const TasksPanel = ({ tasksIds, isBoardChoosen }) => (
       tasksIds.map((id) => <Task key={id} id={id} />)
     ) : (
       <div className="tasks__panel__plug">
-        <Icon  width="3em"/>
+        <Icon width="3em" />
         <p>{isBoardChoosen ? "No tasks on this board yet" : "Choose board"}</p>
       </div>
     )}

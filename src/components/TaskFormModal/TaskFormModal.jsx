@@ -10,7 +10,11 @@ const TaskFormModal = ({
   onClose,
 }) => (
   <Modal status={modalStatus} onReset={onReset} onClose={onClose}>
-    <form className="form" onSubmit={onSubmit} onSubmitCapture={onSubmitCapture}>
+    <form
+      className="form"
+      onSubmit={onSubmit}
+      onSubmitCapture={onSubmitCapture}
+    >
       <h2 className="form__title">Add New Task</h2>
       <label className="form__label">
         <span className="form__label__title">Title</span>

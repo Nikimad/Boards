@@ -3,9 +3,9 @@ import { boardsSelectors } from "../../models/boards/boardsSelectors";
 import BoardsNav from "./BoardsNav";
 
 const BoardsNavContainer = (props) => {
-    const boardsIds = useSelector(boardsSelectors.selectIds);
+  const boardsIds = useSelector(boardsSelectors.selectIds);
 
-    return <BoardsNav {...props} boardsIds={boardsIds} />
+  return <BoardsNav {...props} boardsIds={boardsIds} />;
 };
 
 export default BoardsNavContainer;

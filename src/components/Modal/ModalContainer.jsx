@@ -8,11 +8,11 @@ const ModalContainer = ({ status, onReset, onClose, children }) => {
     },
     [onReset, status]
   );
-  
+
   const handleContentClick = (e) => e.stopPropagation();
-  
+
   const handleResetModal = () => {
-    if (status === 'reset') onClose();
+    if (status === "reset") onClose();
   };
 
   useEffect(() => {

@@ -3,7 +3,7 @@ import boards from "../models/boards/boardsSlice";
 import tasks from "../models/tasks/tasksSlice";
 import observer from "../models/observer/observerSlice";
 import { loadState, saveState } from "../helpers/localStorageHandlers";
-import  throttle  from "lodash/throttle";
+import throttle from "lodash/throttle";
 
 const state = loadState();
 
@@ -16,4 +16,6 @@ export const store = configureStore({
   preloadedState: state,
 });
 
-store.subscribe(throttle(() => saveState(store.getState()), 1000, { leading: false }));
+store.subscribe(
+  throttle(() => saveState(store.getState()), 1000, { leading: false })
+);

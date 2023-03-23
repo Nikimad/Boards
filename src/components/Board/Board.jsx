@@ -1,5 +1,5 @@
 import "./Board.scss";
-import {ReactComponent as Icon} from "../../assets/svg/doc.svg";
+import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
 
 const Board = ({ title, isCurrent, onClick }) => (
   <a

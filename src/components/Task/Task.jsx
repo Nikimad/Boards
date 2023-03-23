@@ -1,7 +1,14 @@
 import Modal from "../Modal";
 import "./Task.scss";
 
-const Task = ({ title, id, showModal, modalStatus, resetModal, closeModal}) => (
+const Task = ({
+  title,
+  id,
+  showModal,
+  modalStatus,
+  resetModal,
+  closeModal,
+}) => (
   <li className="task" onDoubleClick={showModal}>
     <h3 className="task__title">{title}</h3>
     <p className="task__temp">{new Date(id).toTimeString()}</p>
@@ -12,7 +19,6 @@ const Task = ({ title, id, showModal, modalStatus, resetModal, closeModal}) => (
       </div>
     </Modal>
   </li>
-
 );
 
 export default Task;
