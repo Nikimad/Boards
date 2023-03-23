@@ -1,6 +1,5 @@
 import TaskFormModal from "./TaskFormModal";
 import { addTask } from "../../models/tasks/tasksSlice";
-import useAction from "../../hooks/useAction";
 import useForm from "../../hooks/useForm";
 import useFormModal from "../../hooks/useFormModal";
 import getId from "../../helpers/getId";
@@ -16,23 +15,21 @@ const TaskFormModalContainer = ({ modalStatus, resetModal, closeModal }) => {
     },
   });
 
-  const [reset, submit] = useFormModal(
-    validateForm,
+  const [submit, reset] = useFormModal(
     state.isValid,
     resetForm,
     resetModal,
-    useAction(
-      addTask({
-        id: getId(),
-        ...state.fields,
-      })
-    )
+    addTask({
+      id: getId(),
+      ...state.fields,
+    })
   );
 
   return (
     <TaskFormModal
       state={state}
       onChange={changeForm}
+      onSubmitCapture={validateForm}
       onSubmit={submit}
       modalStatus={modalStatus}
       onReset={reset}
