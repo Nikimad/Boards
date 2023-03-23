@@ -1,30 +1,28 @@
-import { useCallback, useEffect } from "react";
+import { useCallback } from "react";
+import useAction from "./useAction";
 
 const useFormModal = (
-  validate,
   isValid,
   resetForm,
   resetModal,
-  dispatchAction
+  submitAction
 ) => {
-  const submit = useCallback((e) => {
-    e.preventDefault();
-    validate();
-  }, [validate]);
+  const dispatchSubmitAction = useAction(submitAction);
 
   const reset = useCallback(() => {
     resetForm();
     resetModal();
   }, [resetForm, resetModal]);
 
-  useEffect(() => {
+  const submit = useCallback((e) => {
+    e.preventDefault();
     if (isValid) {
-      dispatchAction();
+      dispatchSubmitAction();
       reset();
     }
-  }, [isValid]);
+  }, [isValid, dispatchSubmitAction, reset]);
 
-  return [reset, submit];
+  return [submit, reset];
 };
 
 export default useFormModal;
