@@ -23,18 +23,18 @@
   }
 
   &[data-status="show"] {
-    animation: appear $trans;
+    animation: appear $trans forwards;
 
     .modal__content {
-      animation: in $trans;
+      animation: in $trans forwards;
     }
   }
 
   &[data-status="reset"] {
-    animation: disappear $trans;
+    animation: disappear $trans forwards;
 
     .modal__content {
-      animation: out $trans;
+      animation: out $trans forwards;
     }
   }
 }

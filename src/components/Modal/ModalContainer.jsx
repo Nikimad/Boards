@@ -10,26 +10,25 @@ const ModalContainer = ({ status, onReset, onClose, children }) => {
   );
   
   const handleContentClick = (e) => e.stopPropagation();
+  
+  const handleResetModal = () => {
+    if (status === 'reset') onClose();
+  };
 
   useEffect(() => {
-    let timeout;
-    if (status === "reset") {
-      timeout = setTimeout(onClose, 200);
-    }
-
     document.addEventListener("keydown", handleEscape);
 
     return () => {
-      clearTimeout(timeout);
       document.removeEventListener("keydown", handleEscape);
     };
-  }, [onClose, status, handleEscape]);
+  }, [handleEscape]);
 
   return (
     <Modal
       status={status}
       onReset={onReset}
       onContentClick={handleContentClick}
+      onContentAnimationEnd={handleResetModal}
       children={children}
     />
   );
