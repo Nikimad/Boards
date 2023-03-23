@@ -18,9 +18,11 @@ input {
   padding: 0;
 }
 
-button:not(:disabled) {
+button:not(:disabled),
+input:not(:disabled)[type="submit"] {
   cursor: pointer;
 }
+
 
 .body {
   font-size: clamp(0.75rem, 0.5vw + 0.55rem ,6rem);
