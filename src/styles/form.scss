@@ -23,6 +23,7 @@
   &__input {
     border: $border;
     border-radius: $br;
+    background-color: $violet-400;
     padding: 0.3em 1em;
   }
 
@@ -41,8 +42,18 @@
 
   &__error {
     position: absolute;
+    z-index: -1;
     bottom: 0;
     color: $red;
+    animation: error-in $trans;
     padding-left: 0.5em;
+  }
+}
+
+@keyframes error-in {
+  from {
+    transform: translateY(-100%);
+  } to {
+    transform: translateY(0);
   }
 }
