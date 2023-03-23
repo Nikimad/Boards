@@ -1,6 +1,5 @@
 import BoardFormModal from "./BoardFormModal";
 import { addBoard } from "../../models/boards/boardsSlice";
-import useAction from "../../hooks/useAction";
 import useForm from "../../hooks/useForm";
 import useFormModal from "../../hooks/useFormModal";
 import getId from "../../helpers/getId";
@@ -17,24 +16,23 @@ const BoardFormModalContainer = ({ modalStatus, resetModal, closeModal }) => {
     },
   });
 
-  const [reset, submit] = useFormModal(
-    validateForm,
+  const [submit, reset] = useFormModal(
     state.isValid,
     resetForm,
     resetModal,
-    useAction(
-      addBoard({
-        id: getId(),
-        ...state.fields,
-      })
-    )
+    addBoard({
+      id: getId(),
+      ...state.fields,
+    }),
   );
 
   return (
     <BoardFormModal
       state={state}
       onChange={changeForm}
+      onSubmitCapture={validateForm}
       onSubmit={submit}
+      onAfterSubmit={validateForm}
       modalStatus={modalStatus}
       onReset={reset}
       onClose={closeModal}
