@@ -7,22 +7,22 @@ import { selectBoardsCount } from "../../models/boards/boardsSelectors";
 const SidebarContainer = () => {
   const modalProps = useModal();
   const [isHidden, setIsHidden] = useState(false);
-  const [isMobile, setIsMobile] = useState(false);
+  const [isHideable, setIsHideable] = useState(true);
   const boardsCount = useSelector(selectBoardsCount);
 
   const handleResize = useCallback(() => {
-    if (!isMobile && window.innerWidth <= 800) {
-      setIsMobile(true);
+    if (!isHideable && window.innerWidth <= 800) {
+      setIsHideable(true);
     }
-    if (isMobile && window.innerWidth > 800) {
-      setIsMobile(false);
+    if (isHideable && window.innerWidth > 800) {
+      setIsHideable(false);
       if (isHidden) setIsHidden(false);
     }
-  }, [isMobile, isHidden]);
+  }, [isHideable, isHidden]);
+
+  useEffect(handleResize, []);
 
   useEffect(() => {
-    handleResize();
-
     window.addEventListener("resize", handleResize);
 
     return () => {
@@ -31,7 +31,7 @@ const SidebarContainer = () => {
   }, [handleResize]);
 
   const toggleIsHidden = () => {
-    if (isMobile) setIsHidden(!isHidden);
+    if (isHideable) setIsHidden(!isHidden);
   };
 
   return (
