@@ -50,7 +50,8 @@
 @keyframes appear {
   from {
     opacity: 0;
-  } to {
+  }
+  to {
     opacity: 1;
   }
 }
@@ -58,7 +59,8 @@
 @keyframes disappear {
   from {
     opacity: 1;
-  } to {
+  }
+  to {
     opacity: 0;
   }
 }
@@ -66,7 +68,8 @@
 @keyframes in {
   from {
     transform: translateY(-100vh);
-  } to {
+  }
+  to {
     transform: translateY(0);
   }
 }
@@ -74,7 +77,8 @@
 @keyframes out {
   from {
     transform: translateY(0);
-  } to {
+  }
+  to {
     transform: translateY(100vh);
   }
 }

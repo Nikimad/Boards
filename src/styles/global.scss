@@ -23,9 +23,8 @@ input:not(:disabled)[type="submit"] {
   cursor: pointer;
 }
 
-
 .body {
-  font-size: clamp(0.75rem, 0.5vw + 0.55rem ,6rem);
+  font-size: clamp(0.75rem, 0.5vw + 0.55rem, 6rem);
   font-family: $ff, sans-serif;
   color: $white;
   background-color: $violet-500;

@@ -9,7 +9,6 @@
   border-bottom: $border;
   padding: 1em;
 
-
   &__title {
     font-size: 1.3em;
     padding-left: 1.5em;
@@ -40,7 +39,6 @@
       background-color: $violet-100;
     }
   }
-  
 }
 
 @media screen and (min-width: $bp) {
