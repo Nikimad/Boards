@@ -1,0 +1,41 @@
+@use "/src/styles/variables.scss" as *;
+@use "/src/styles/colors.scss" as *;
+
+.task {
+  flex-grow: 1;
+  max-width: 33%;
+  display: grid;
+  gap: 0.5em;
+  background-color: $violet-400;
+  border-radius: $br;
+  word-break: break-all;
+  height: fit-content;
+  cursor: pointer;
+  transition: 0.3s;
+  padding: 1em;
+
+  &__title {
+    font-size: 1em;
+    margin: 0;
+  }
+
+  &__temp {
+    font-size: 0.5em;
+    font-weight: 900;
+    color: $gray;
+    margin: 0;
+  }
+
+  &__review {
+    cursor: auto;
+    max-width: 100%;
+  }
+
+  &::marker {
+    content: "";
+  }
+
+  &:not(.task__review):hover {
+    transform: scale(1.01);
+  }
+}

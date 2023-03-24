@@ -1,0 +1,84 @@
+@use "/src/styles/variables.scss" as *;
+@use "/src/styles/colors.scss" as *;
+@use "/src/styles/mixins.scss" as *;
+
+.modal {
+  position: fixed;
+  z-index: 2;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: $black50;
+
+  &__content {
+    position: fixed;
+    background-color: $violet-400;
+    border-radius: $br;
+    max-height: 90vh;
+    width: 85%;
+    overflow: auto;
+    padding: 1em;
+    @include scroll-bar;
+  }
+
+  &[data-status="show"] {
+    animation: appear $trans forwards;
+
+    .modal__content {
+      animation: in $trans forwards;
+    }
+  }
+
+  &[data-status="reset"] {
+    animation: disappear $trans forwards;
+
+    .modal__content {
+      animation: out $trans forwards;
+    }
+  }
+}
+
+@media screen and (min-width: $bp) {
+  .modal {
+    &__content {
+      width: 50%;
+    }
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes disappear {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes in {
+  from {
+    transform: translateY(-100vh);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@keyframes out {
+  from {
+    transform: translateY(0);
+  }
+  to {
+    transform: translateY(100vh);
+  }
+}

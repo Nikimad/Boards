@@ -1,0 +1,61 @@
+@use "/src/styles/variables.scss" as *;
+@use "/src/styles/colors.scss" as *;
+
+.header {
+  display: grid;
+  gap: 0.5em;
+  grid-template-columns: auto auto;
+  background-color: $violet-400;
+  border-bottom: $border;
+  padding: 1em;
+
+  &__title {
+    font-size: 1.3em;
+    padding-left: 1.5em;
+    margin: 0;
+  }
+
+  &__button {
+    flex-shrink: 0;
+    justify-self: end;
+    grid-row-start: 1;
+    grid-column-start: 2;
+    color: $white;
+    font-weight: 700;
+    background-color: $violet-200;
+    border-radius: $br;
+    max-width: 50px;
+    padding: 0.25em 1em;
+
+    &__text {
+      display: none;
+    }
+
+    &:disabled {
+      background-color: $gray;
+    }
+
+    &:not(:disabled):hover {
+      background-color: $violet-100;
+    }
+  }
+}
+
+@media screen and (min-width: $bp) {
+  .header {
+    display: flex;
+    justify-content: space-between;
+
+    &__title {
+      padding-left: 0;
+    }
+
+    &__button {
+      max-width: 100%;
+
+      &__text {
+        display: inline;
+      }
+    }
+  }
+}

@@ -1,0 +1,14 @@
+@use "/src/styles/variables.scss" as *;
+
+.wrapper {
+    display: grid;
+    grid-template-rows: min-content 1fr;
+    height: 100vh;
+    height: 100svh;
+}
+
+@media screen and (min-width: $bp) {
+    .wrapper {
+        grid-template-columns: auto 1fr;
+    }
+}

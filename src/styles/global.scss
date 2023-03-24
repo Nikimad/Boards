@@ -1,0 +1,37 @@
+@use "./variables.scss" as *;
+@use "./colors.scss" as *;
+@use "./fonts.scss" as *;
+@use "./form.scss" as *;
+
+* {
+  box-sizing: border-box;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+  background-color: transparent;
+  outline: none;
+  border: none;
+  transition: $trans;
+  padding: 0;
+}
+
+button:not(:disabled),
+input:not(:disabled)[type="submit"] {
+  cursor: pointer;
+}
+
+.body {
+  font-size: clamp(0.75rem, 0.5vw + 0.55rem, 6rem);
+  font-family: $ff, sans-serif;
+  color: $white;
+  background-color: $violet-500;
+  overflow: hidden;
+  margin: 0;
+}
+
+.logo {
+  height: 2em;
+}
