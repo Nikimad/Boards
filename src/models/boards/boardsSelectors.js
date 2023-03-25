@@ -1,14 +1,23 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { boardsAdapter } from "./boardsAdapter";
+import { selectCurrentBoardId } from "../observer/observerSelectors";
 
 const rootSelector = createSelector(
   (state) => state,
-  (state) => state.boards
+  (state) => state.boards,
 );
 
-export const boardsSelectors = boardsAdapter.getSelectors(rootSelector);
+export const selectBoards = createSelector(
+  rootSelector,
+  (boards) => boards.items,
+);
+
+export const selectCurrentBoard = createSelector(
+  selectCurrentBoardId,
+  selectBoards,
+  (id, boards) => boards.find((board) => board.id === id),
+);
 
 export const selectBoardsCount = createSelector(
-  boardsSelectors.selectIds,
-  (ids) => ids.length
+  selectBoards,
+  (boards) => boards.length,
 );
