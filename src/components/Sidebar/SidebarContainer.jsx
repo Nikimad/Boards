@@ -3,12 +3,18 @@ import { useState, useCallback, useEffect } from "react";
 import useModal from "../../hooks/useModal";
 import { useSelector } from "react-redux";
 import { selectBoardsCount } from "../../models/boards/boardsSelectors";
+import useStateDepAction from "../../hooks/useStateDepAction";
+import { addBoard } from "../../models/boards/boardsSlice";
+import getId from "../../helpers/getId";
+import debounce from "lodash/debounce";
 
 const SidebarContainer = () => {
-  const modalProps = useModal();
+  const { showModal, ...modalProps} = useModal();
+  const dispatchStateDepAddBoard = useStateDepAction(addBoard);
   const [isHidden, setIsHidden] = useState(false);
   const [isHideable, setIsHideable] = useState(true);
   const boardsCount = useSelector(selectBoardsCount);
+
 
   const handleResize = useCallback(() => {
     if (!isHideable && window.innerWidth <= 800) {
@@ -20,18 +26,27 @@ const SidebarContainer = () => {
     }
   }, [isHideable, isHidden]);
 
-  useEffect(handleResize, []);
+  const debouncedHandleResize = debounce(handleResize, 500);
 
   useEffect(() => {
-    window.addEventListener("resize", handleResize);
+    debouncedHandleResize();
+    window.addEventListener("resize", debouncedHandleResize);
 
     return () => {
-      window.removeEventListener("resize", handleResize);
+      window.removeEventListener("resize", debouncedHandleResize);
     };
-  }, [handleResize]);
+  }, [debouncedHandleResize]);
 
   const toggleIsHidden = () => {
     if (isHideable) setIsHidden(!isHidden);
+  };
+
+  const handleAddBoard = (values) => {
+    dispatchStateDepAddBoard({
+      id: getId(),
+      ...values,
+    });
+    modalProps.resetModal();
   };
 
   return (
@@ -39,7 +54,9 @@ const SidebarContainer = () => {
       boardsCount={boardsCount}
       onClick={toggleIsHidden}
       isHidden={isHidden}
+      showModal={showModal}
       modalProps={modalProps}
+      onSubmit={handleAddBoard}
     />
   );
 };
