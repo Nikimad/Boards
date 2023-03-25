@@ -1,11 +1,11 @@
 import { useSelector } from "react-redux";
-import { boardsSelectors } from "../../models/boards/boardsSelectors";
+import { selectBoards } from "../../models/boards/boardsSelectors";
 import BoardsNav from "./BoardsNav";
 
 const BoardsNavContainer = (props) => {
-  const boardsIds = useSelector(boardsSelectors.selectIds);
+  const boards = useSelector(selectBoards);
 
-  return <BoardsNav {...props} boardsIds={boardsIds} />;
+  return <BoardsNav {...props} boards={boards} />;
 };
 
 export default BoardsNavContainer;
