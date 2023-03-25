@@ -4,15 +4,15 @@ import "./Modal.scss";
 const modalEl = document.getElementById("modal");
 
 const Modal = ({
-  status,
-  onReset,
+  modalStatus,
+  resetModal,
   onContentClick,
   onContentAnimationEnd,
   children,
 }) =>
   createPortal(
-    status === "close" ? null : (
-      <div className="modal" data-status={status} onClick={onReset}>
+    modalStatus === "close" ? null : (
+      <div className="modal" data-status={modalStatus} onClick={resetModal}>
         <div
           className="modal__content"
           onClick={onContentClick}

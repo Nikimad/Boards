@@ -1,18 +1,18 @@
 import { useCallback, useEffect } from "react";
 import Modal from "./Modal";
 
-const ModalContainer = ({ status, onReset, onClose, children }) => {
+const ModalContainer = ({modalStatus, resetModal, closeModal, children }) => {
   const handleEscape = useCallback(
     (e) => {
-      if (e.key === "Escape" && status === "show") onReset();
+      if (e.key === "Escape" && modalStatus === "show") resetModal();
     },
-    [onReset, status]
+    [resetModal, modalStatus]
   );
 
   const handleContentClick = (e) => e.stopPropagation();
 
   const handleResetModal = () => {
-    if (status === "reset") onClose();
+    if (modalStatus === "reset") closeModal();
   };
 
   useEffect(() => {
@@ -25,8 +25,8 @@ const ModalContainer = ({ status, onReset, onClose, children }) => {
 
   return (
     <Modal
-      status={status}
-      onReset={onReset}
+      modalStatus={modalStatus}
+      resetModal={resetModal}
       onContentClick={handleContentClick}
       onContentAnimationEnd={handleResetModal}
       children={children}
