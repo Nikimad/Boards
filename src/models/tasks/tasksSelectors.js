@@ -1,9 +1,18 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { tasksAdapter } from "./tasksAdapter";
+import { selectCurrentTasksIds } from "../observer/observerSelectors";
 
 const rootSelector = createSelector(
   (state) => state,
-  (state) => state.tasks
+  (state) => state.tasks,
 );
 
-export const tasksSelectors = tasksAdapter.getSelectors(rootSelector);
+export const selectTasks = createSelector(
+  rootSelector,
+  (tasks) => tasks.items,
+);
+
+export const selectCurrentTasks = createSelector(
+  selectCurrentTasksIds,
+  selectTasks,
+  (ids, tasks) => tasks.filter((task) => ids.includes(task.id)),
+);

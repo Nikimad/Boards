@@ -1,14 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { tasksAdapter } from "./tasksAdapter";
 
 const tasksSlice = createSlice({
   name: "tasks",
-  initialState: tasksAdapter.getInitialState(),
+  initialState: {
+    items: [],
+  },
   reducers: {
-    addTask: tasksAdapter.addOne,
+    addTask(state, {payload}) {
+      state.items = [ payload, ...state.items]
+    },
+    removeTask(state, { payload }) {
+      state.items = state.items.filter((board) => board.id !== payload);
+    },
+    updateTask(state, { payload }) {
+      state.items = state.items.map((board) =>
+        board.id === payload.id ? { ...board, ...payload.changes } : board
+      );
+    },
   },
 });
 
-export const { addTask } = tasksSlice.actions;
+export const { addTask, removeTask, updateTask } = tasksSlice.actions;
 
 export default tasksSlice.reducer;
