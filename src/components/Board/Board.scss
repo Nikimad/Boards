@@ -3,7 +3,7 @@
 
 .board {
   display: grid;
-  grid-template-columns: min-content auto;
+  grid-template-columns: min-content auto min-content;
   gap: 0.25em;
   text-decoration: none;
   font-weight: 700;
@@ -19,5 +19,18 @@
 
   &:not([data-current="true"]):hover {
     color: $white;
+  }
+
+  :nth-child(3n) {
+    visibility: hidden;
+    transition: $trans;
+    opacity: 0;
+  }
+
+  &[data-current="true"]:hover {
+    :nth-child(3n) {
+      visibility: visible;
+      opacity: 1;
+    }
   }
 }
