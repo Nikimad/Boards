@@ -19,7 +19,7 @@ input {
 }
 
 button:not(:disabled),
-input:not(:disabled)[type="submit"] {
+input:not(:disabled):is([type="submit"], [type="button"]) {
   cursor: pointer;
 }
 
