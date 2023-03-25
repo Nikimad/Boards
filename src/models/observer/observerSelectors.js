@@ -20,7 +20,7 @@ export const selectBoardsTasks = createSelector(
   (observer) => observer.boardsTasks
 );
 
-export const selectCurrentTasks = createSelector(
+export const selectCurrentTasksIds = createSelector(
   selectCurrentBoardId,
   selectBoardsTasks,
   (boardId, boardsTasks) => boardsTasks[boardId]
