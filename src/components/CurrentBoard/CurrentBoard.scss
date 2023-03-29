@@ -1,0 +1,37 @@
+@use "/src/styles/variables.scss" as *;
+@use '/src/styles/colors.scss' as *;
+
+.current-board {
+  display: grid;
+  grid-template-columns: max-content min-content;
+  align-items: center;
+  gap: 0.5rem;
+
+  &__title {
+    font-weight: 900;
+    margin: 0;
+  }
+
+  &__edit {
+    display: flex;
+    width: 1.2em;
+
+    &:hover,
+    &:focus {
+      color: $violet-200;
+    }
+
+    &:active {
+      color: $violet-100;
+    }
+  }
+
+}
+
+@media screen and (min-width: $bp) {
+  .current-board {
+    :last-child {
+      display: none;
+    }
+  }
+}
