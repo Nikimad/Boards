@@ -7,10 +7,6 @@ const NavigationContainer = (props) => {
   const boardsCount = useSelector(selectBoardsCount);
   const currentBoardId = useSelector(selectCurrentBoardId);
 
-  const s = useSelector(q => q);
-
-  console.log(s);
-
   return <Navigation {...{ ...props, boardsCount, currentBoardId }} />;
 };
 
