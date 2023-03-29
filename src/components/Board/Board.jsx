@@ -19,25 +19,17 @@ const Board = ({
     onClick={onClick}
     data-current={isCurrent}
   >
-    <Icon width={"1.5em"} />
-    <span>{boardValues.title}</span>
-    <Edit width={"1.5em"} onClick={showModal} />
+    <Icon />
+    <span className="board__title">{boardValues.title}</span>
+    <Edit onClick={showModal} />
 
     <Modal {...modalProps}>
       <BoardForm
         formTitle="Edit Board"
         initialValues={boardValues}
         onSubmit={onSubmit}
-      >
-        <fieldset>
-          <label>
-            <input className="form__submit" type="submit" value="Save" />
-          </label>
-          <label>
-            <input className="form__submit" type="button" value="Remove" onClick={onRemove} />
-          </label>
-        </fieldset>
-      </BoardForm>
+        onRemove={onRemove}
+      />
     </Modal>
   </a>
 );
