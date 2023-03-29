@@ -2,13 +2,15 @@
 @use "/src/styles/mixins.scss" as *;
 
 .tasks__panel {
+    grid-area: panel;
     display: flex;
     flex-wrap: wrap;
+    gap: 0.5rem;
     align-content: flex-start;
-    gap: 1em;
+    height: 100%;
     overflow: auto;
+    padding: 1rem;
     margin: 0;
-    padding: 1em;
     @include scroll-bar;
 
     &__plug {
