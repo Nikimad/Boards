@@ -10,7 +10,7 @@ const boardsSlice = createSlice({
       state.items = [payload, ...state.items];
     },
     removeBoard(state, { payload }) {
-      state.items = state.items.filter((board) => board.id !== payload);
+      state.items = state.items.filter((board) => board.id !== payload.id);
     },
     updateBoard(state, { payload }) {
       state.items = state.items.map((board) =>
