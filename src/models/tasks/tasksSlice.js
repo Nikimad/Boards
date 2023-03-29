@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { removeBoard } from "../boards/boardsSlice";
 
 const tasksSlice = createSlice({
   name: "tasks",
@@ -17,6 +18,11 @@ const tasksSlice = createSlice({
         board.id === payload.id ? { ...board, ...payload.changes } : board
       );
     },
+  },
+  extraReducers(builder) {
+    builder.addCase(removeBoard, (state, { payload }) => {
+      state.items = state.items.filter((task) => !payload.tasks.includes(task.id));
+    });
   },
 });
 
