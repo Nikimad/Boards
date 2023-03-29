@@ -8,17 +8,18 @@
 }
 
 button,
-input {
+input,
+select {
   font: inherit;
   color: inherit;
   background-color: transparent;
-  outline: none;
   border: none;
   transition: $trans;
   padding: 0;
 }
 
 button:not(:disabled),
+select:not(:disabled),
 input:not(:disabled):is([type="submit"], [type="button"]) {
   cursor: pointer;
 }
@@ -30,8 +31,4 @@ input:not(:disabled):is([type="submit"], [type="button"]) {
   background-color: $violet-500;
   overflow: hidden;
   margin: 0;
-}
-
-.logo {
-  height: 2em;
 }
