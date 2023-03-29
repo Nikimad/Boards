@@ -1,8 +1,9 @@
 import { Form, Field, ErrorMessage } from "formik";
+import FormControls from "../FormControls/FormControls";
 
-const BoardForm = ({ formTitle, children }) => (
+const BoardForm = ({ formTitle, onRemove }) => (
   <Form className="form">
-    <h2 className="form__tile">{formTitle}</h2>
+    <h2 className="form__title">{formTitle}</h2>
     <label className="form__label">
       <span className="form__label__title">Title</span>
       <Field className="form__input" name="title" type="text" />
@@ -10,7 +11,7 @@ const BoardForm = ({ formTitle, children }) => (
         {(msg) => <span className="form__error">{msg}</span>}
       </ErrorMessage>
     </label>
-    {children}
+    <FormControls submitTitle={formTitle} onRemove={onRemove} />
   </Form>
 );
 
