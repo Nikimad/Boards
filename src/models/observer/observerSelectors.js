@@ -10,11 +10,6 @@ export const selectCurrentBoardId = createSelector(
   (observer) => observer.boardId
 );
 
-export const selectCurrentTaskId = createSelector(
-  rootSelector,
-  (observer) => observer.taskId
-);
-
 export const selectBoardsTasks = createSelector(
   rootSelector,
   (observer) => observer.boardsTasks
@@ -23,5 +18,5 @@ export const selectBoardsTasks = createSelector(
 export const selectCurrentTasksIds = createSelector(
   selectCurrentBoardId,
   selectBoardsTasks,
-  (boardId, boardsTasks) => boardsTasks[boardId]
+  (boardId, boardsTasks) => boardsTasks[boardId] ?? [],
 );
