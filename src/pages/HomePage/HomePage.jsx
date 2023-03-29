@@ -1,12 +1,10 @@
 import Wrapper from "../../components/Wrapper";
-import Sidebar from "../../components/Sidebar";
-import Header from "../../components/Header";
+import AppControls from "../../components/AppControls";
 import TasksPanel from "../../components/TasksPanel";
 
 const HomePage = () => (
   <Wrapper>
-    <Sidebar />
-    <Header />
+    <AppControls />
     <TasksPanel />
   </Wrapper>
 );
