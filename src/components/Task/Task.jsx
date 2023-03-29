@@ -1,6 +1,7 @@
 import Modal from "../Modal";
 import "./Task.scss";
 import { ReactComponent as Edit } from "../../assets/svg/edit.svg";
+import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
 import TaskForm from "../TaskForm";
 
 const Task = ({
@@ -12,34 +13,28 @@ const Task = ({
   onSubmit,
   onRemove,
 }) => (
-  <li className="task" onDoubleClick={showModal}>
+  <li className="task task__preview" onDoubleClick={showModal}>
     <h3 className="task__title">{taskValues.title}</h3>
+    <div className="task__status-indicator" data-status={taskValues.status}></div>
     <Modal {...modalProps}>
       {isEdit ? (
         <TaskForm
           formTitle="Edit Task"
           initialValues={taskValues}
           onSubmit={onSubmit}
-        >
-          <fieldset>
-            <label>
-              <input className="form__submit" type="submit" value="Save" />
-            </label>
-            <label>
-              <input
-                className="form__submit"
-                type="button"
-                value="Remove"
-                onClick={onRemove}
-              />
-            </label>
-          </fieldset>
-        </TaskForm>
+          onRemove={onRemove}
+        />
       ) : (
         <div className="task task__review">
           <h3 className="task__title">{taskValues.title}</h3>
-          <Edit onClick={onEdit} width={"2em"} />
-          <button onClick={onRemove}>Remove</button>
+          <div className="task__description">
+            <p><span className="task__description__heading">Status:</span> <span className="task__description__status">{taskValues.status}</span></p>
+            { taskValues.description.length > 0 ? <p className="task__description__main"><span className="task__description__heading">Description</span> {taskValues.description}</p> : null }
+          </div>
+          <div className="task__controls">
+            <Edit onClick={onEdit} />
+            <Delete onClick={onRemove} />
+          </div>
         </div>
       )}
     </Modal>
