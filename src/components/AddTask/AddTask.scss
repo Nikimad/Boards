@@ -1,0 +1,25 @@
+@use "/src/styles/variables.scss" as *;
+@use "/src/styles/colors.scss" as *;
+
+.add-task {
+    font-weight: 700;
+    background-color: $violet-200;
+    border-radius: $br;
+    padding: 0.5rem 1rem;
+
+    &__text {
+       display: none;
+    }
+
+    &:hover {
+        background-color: $violet-100;
+    }
+}
+
+@media screen and (min-width: $bp) {
+    .add-task {
+        &__text {
+            display: inline;
+        }
+    }
+}
