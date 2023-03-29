@@ -3,14 +3,17 @@ import * as Yup from "yup";
 const getTaskFormProps = (
   initialValues = {
     title: "",
+    description: "",
+    status: "todo",
   }
 ) => ({
   initialValues,
   validationSchema: Yup.object({
     title: Yup.string()
-      .min(5, "Title must be 5 characters or more")
-      .max(10, "Title must be 10 characters or less")
+      .max(30, "Title must be 30 characters or less")
       .required("Title is required"),
+    description: Yup.string()
+      .max(240, "Description must be 240 characters or less")
   }),
 });
 
