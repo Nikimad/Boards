@@ -1,36 +1,19 @@
 import "./Board.scss";
 import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
 import { ReactComponent as Edit } from "../../assets/svg/edit.svg";
-import Modal from "../Modal";
-import BoardForm from "../BoardForm";
+import EditBoard from "../EditBoard";
 
-const Board = ({
-  boardValues,
-  isCurrent,
-  onClick,
-  showModal,
-  modalProps,
-  onSubmit,
-  onRemove,
-}) => (
+const Board = ({ board, isCurrent, onClick, showModal, modalProps }) => (
   <a
     className="board"
-    href={`/${boardValues.title}`}
+    href={`/${board.title}`}
     onClick={onClick}
     data-current={isCurrent}
   >
     <Icon />
-    <span className="board__title">{boardValues.title}</span>
+    <span className="board__title">{board.title}</span>
     <Edit onClick={showModal} />
-
-    <Modal {...modalProps}>
-      <BoardForm
-        formTitle="Edit Board"
-        initialValues={boardValues}
-        onSubmit={onSubmit}
-        onRemove={onRemove}
-      />
-    </Modal>
+    <EditBoard {...{ board, modalProps }} />
   </a>
 );
 
