@@ -20,3 +20,9 @@ export const selectCurrentTasksIds = createSelector(
   selectBoardsTasks,
   (boardId, boardsTasks) => boardsTasks[boardId] ?? [],
 );
+
+export const selectBoardsTasksCurrent = createSelector(
+  selectCurrentBoardId,
+  selectCurrentTasksIds,
+  (id, taskIds) => [id, taskIds],
+);
