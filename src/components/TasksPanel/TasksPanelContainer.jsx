@@ -1,13 +1,12 @@
 import { useSelector } from "react-redux";
-import { selectCurrentBoardId } from "../../models/observer/observerSelectors";
+import { selectCurrentBoardId, selectCurrentTasksIds } from "../../models/observer/observerSelectors";
 import TasksPanel from "./TasksPanel";
-import { selectCurrentTasks } from "../../models/tasks/tasksSelectors";
 
 const TasksPanelContainer = () => {
   const currentBoardId = useSelector(selectCurrentBoardId);
-  const tasks = useSelector(selectCurrentTasks);
+  const tasksIds = useSelector(selectCurrentTasksIds);
 
-  return <TasksPanel tasks={tasks} isBoardChoosen={Boolean(currentBoardId)} />;
+  return <TasksPanel tasksIds={tasksIds} isBoardChoosen={Boolean(currentBoardId)} />;
 };
 
 export default TasksPanelContainer;

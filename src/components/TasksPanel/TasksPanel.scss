@@ -2,18 +2,19 @@
 @use "/src/styles/mixins.scss" as *;
 
 .tasks__panel {
+    position: relative;
     grid-area: panel;
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(3, minmax(300px, 1fr));
     gap: 0.5rem;
-    align-content: flex-start;
     height: 100%;
-    overflow: auto;
+    overflow-y: hidden;
     padding: 1rem;
     margin: 0;
     @include scroll-bar;
 
     &__plug {
+        position: absolute;
         display: flex;
         flex-direction: column;
         justify-content: center;
