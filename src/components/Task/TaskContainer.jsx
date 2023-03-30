@@ -25,8 +25,8 @@ const TaskContainer = ({ task }) => {
   };
 
   const handleRemoveTask = () => {
-    dispatchRemoveTask();
-    removeTask();
+    setTimeout(dispatchRemoveTask, 100);
+    resetModal();
   };
 
   return (
