@@ -29,7 +29,7 @@ const BoardContainer = ({ board, onClick }) => {
     modalProps.resetModal();
   };
   const handleRemoveBoard = () => {
-    dispatchRemoveBoard();
+    setTimeout(dispatchRemoveBoard, 100);
     modalProps.resetModal();
   };
 
