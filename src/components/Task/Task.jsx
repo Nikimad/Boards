@@ -15,7 +15,6 @@ const Task = ({
 }) => (
   <li className="task task__preview" onDoubleClick={showModal}>
     <h3 className="task__title">{taskValues.title}</h3>
-    <div className="task__status-indicator" data-status={taskValues.status}></div>
     <Modal {...modalProps}>
       {isEdit ? (
         <TaskForm
