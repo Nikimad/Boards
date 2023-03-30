@@ -16,6 +16,7 @@
   }
 
   &[data-empty="true"] {
+    visibility: hidden;
     transform: translateY(-100%);
   }
 
