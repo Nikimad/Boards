@@ -21,13 +21,10 @@ const TaskForm = ({ formTitle, onRemove }) => (
     <label className="form__label">
       <span className="form__label__title">Status</span>
       <Field className="form__input" name="status" component="select">
-        <option defaultValue='todo'>Todo</option>
+        <option defaultValue='todo' value="todo">Todo</option>
         <option value="doing">Doing</option>
         <option value="done">Done</option>
       </Field>
-      <ErrorMessage name="description">
-        {(msg) => <span className="form__error">{msg}</span>}
-      </ErrorMessage>
     </label>
     <FormControls submitTitle={formTitle} onRemove={onRemove} />
   </Form>
