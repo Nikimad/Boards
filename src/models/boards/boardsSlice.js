@@ -1,25 +1,38 @@
 import { createSlice } from "@reduxjs/toolkit";
+import getId from "../../helpers/getId";
 
 const boardsSlice = createSlice({
   name: "boards",
   initialState: {
-    items: [],
+    activeBoardId: null,
+    boards: {},
+    boardsIds: [],
   },
   reducers: {
+    setActiveBoardId(state, { payload }) {
+      state.activeBoardId = payload;
+    },
     addBoard(state, { payload }) {
-      state.items = [payload, ...state.items];
+      const id = getId();
+      state.boards[id] = { id, ...payload };
+      state.boardsIds = [id, ...state.boardsIds];
+    },
+    editBoard(state, { payload }) {
+      const { id, ...values } = payload;
+      state.boards[id] = {
+        ...state.boards[id],
+        ...values,
+      };
     },
     removeBoard(state, { payload }) {
-      state.items = state.items.filter((board) => board.id !== payload.id);
-    },
-    updateBoard(state, { payload }) {
-      state.items = state.items.map((board) =>
-        board.id === payload.id ? { ...board, ...payload.changes } : board
-      );
+      state.activeBoardId = null;
+      delete state.boards[payload];
+      state.boardsIds = state.boardsIds.filter((id) => id !== payload);
     },
   },
 });
 
-export const { addBoard, removeBoard, updateBoard } = boardsSlice.actions;
+export const { setActiveBoardId, addBoard, editBoard, removeBoard } =
+  boardsSlice.actions;
 
 export default boardsSlice.reducer;
