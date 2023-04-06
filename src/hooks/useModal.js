@@ -5,8 +5,9 @@ const useModal = () => {
   const resetModal = () => setModalStatus("reset");
   const showModal = () => setModalStatus("show");
   const closeModal = () => setModalStatus("close");
+  const toggleModal = () => modalStatus === "close" ? showModal() : resetModal();
 
-  return { modalStatus, showModal, resetModal, closeModal };
+  return { toggleModal, modalStatus, showModal, resetModal, closeModal };
 };
 
 export default useModal;
