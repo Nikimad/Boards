@@ -5,8 +5,9 @@ import useModal from "../../hooks/useModal";
 const ModalWrapper = ({ children }) => {
   const { toggleModal, ...modalProps } = useModal();
 
-  const [originToggler, ContentOrigin, ...childrenOrigin] =
+  const [originToggler, originContent, ...originChildren] =
     Children.toArray(children);
+
   const Toggler = cloneElement(originToggler, {
     ...originToggler.props,
     onClick: (e) => {
@@ -14,14 +15,15 @@ const ModalWrapper = ({ children }) => {
       toggleModal();
     },
   });
-  const Content = cloneElement(ContentOrigin, {
-    ...ContentOrigin.props,
+  
+  const Content = cloneElement(originContent, {
+    ...originContent.props,
     onSubmit: (e) => {
-      if (ContentOrigin.props.onSubmit) ContentOrigin.props.onSubmit(e);
+      if (originContent.props.onSubmit) originContent.props.onSubmit(e);
       toggleModal();
     },
     onReset: (e) => {
-      if (ContentOrigin.props.onReset) ContentOrigin.props.onReset(e);
+      if (originContent.props.onReset) originContent.props.onReset(e);
       toggleModal();
     },
   });
@@ -30,7 +32,7 @@ const ModalWrapper = ({ children }) => {
     <>
       {Toggler}
       <ModalContainer {...modalProps}>{Content}</ModalContainer>
-      {childrenOrigin}
+      {originChildren}
     </>
   );
 };

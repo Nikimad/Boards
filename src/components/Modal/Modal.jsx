@@ -12,12 +12,13 @@ const Modal = ({
 }) =>
   createPortal(
     modalStatus === "close" ? null : (
-      <div className="modal" data-status={modalStatus} onClick={resetModal}>
-        <div
-          className="modal__content"
-          onClick={onContentClick}
-          onAnimationEnd={onContentAnimationEnd}
-        >
+      <div
+        className="modal"
+        data-status={modalStatus}
+        onClick={resetModal}
+        onAnimationEnd={onContentAnimationEnd}
+      >
+        <div className="modal__content" onClick={onContentClick}>
           {children}
         </div>
       </div>
