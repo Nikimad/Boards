@@ -1,0 +1,46 @@
+@use "/src/styles/variables.scss" as *;
+@use "/src/styles/colors.scss" as *;
+@use "/src/styles/mixins.scss" as *;
+
+.panel {
+    grid-area: panel;
+    position: relative;
+    display: grid;
+    gap: 1rem;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    @include scroll-bar;
+
+    &__list {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-auto-rows: min-content;
+        padding: 1rem;
+    
+    }
+
+    &__plug {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        font-size: 1.5em;
+        font-weight: 900;
+        color: $gray;
+        height: 100%;
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: $bp) {
+    .panel__list {
+        grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
+    }
+}
+
+@media screen and (min-width: $bp-big) {
+    .panel__list {
+        grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
+    }
+}
