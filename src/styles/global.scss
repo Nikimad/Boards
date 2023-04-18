@@ -1,7 +1,6 @@
 @use "./variables.scss" as *;
 @use "./colors.scss" as *;
 @use "./fonts.scss" as *;
-@use "./form.scss" as *;
 
 * {
   box-sizing: border-box;
@@ -9,6 +8,7 @@
 
 button,
 input,
+textarea,
 select {
   font: inherit;
   color: inherit;
@@ -20,7 +20,7 @@ select {
 
 button:not(:disabled),
 select:not(:disabled),
-input:not(:disabled):is([type="submit"], [type="button"]) {
+input:not(:disabled):is([type="submit"], [type="reset"]) {
   cursor: pointer;
 }
 
