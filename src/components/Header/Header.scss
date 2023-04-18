@@ -11,17 +11,48 @@
   transition: $trans;
   padding: 0.5rem 1rem 0.75rem 0.5rem;
 
-  :last-child {
-    margin-left: auto;
+  &__active {
+    display: grid;
+    grid-template-columns: max-content;
+    align-items: center;
+
+    &__title {
+      font-weight: 900;
+      cursor: pointer;
+      transition: $trans;
+      padding-inline: 0.5rem 1rem;
+      margin: 0;
+
+      &:hover,
+      &:focus {
+        color: $violet-200;
+      }
+
+      &:active {
+        color: $violet-100;
+      }
+    }
   }
 
-  &[data-empty="true"] {
+  &__button {
+    margin-left: auto;
+    font-weight: 700;
+    background-color: $violet-200;
+    border-radius: $br;
+    padding: 0.5rem 1rem;
+
+    &__text {
+      display: none;
+    }
+
+    &:hover {
+      background-color: $violet-100;
+    }
+  }
+
+  &_empty {
     visibility: hidden;
     transform: translateY(-100%);
-  }
-
-  &[data-empty="false"] {
-    transform: translateY(0);
   }
 }
 
@@ -31,6 +62,12 @@
 
     & .logo-toggler {
       display: none;
+    }
+
+    &__button {
+      &__text {
+        display: inline;
+      }
     }
   }
 }
