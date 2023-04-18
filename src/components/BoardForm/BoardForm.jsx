@@ -1,9 +1,8 @@
-import { Form, Field, ErrorMessage } from "formik";
-import FormControls from "../FormControls/FormControls";
+import { Field, ErrorMessage } from "formik";
+import FormWrapper from "../FormWrapper";
 
-const BoardForm = ({ formTitle, onRemove }) => (
-  <Form className="form">
-    <h2 className="form__title">{formTitle}</h2>
+const BoardForm = (props) => (
+  <FormWrapper { ...props}>
     <label className="form__label">
       <span className="form__label__title">Title</span>
       <Field className="form__input" name="title" type="text" />
@@ -11,8 +10,7 @@ const BoardForm = ({ formTitle, onRemove }) => (
         {(msg) => <span className="form__error">{msg}</span>}
       </ErrorMessage>
     </label>
-    <FormControls submitTitle={formTitle} onRemove={onRemove} />
-  </Form>
+  </FormWrapper>
 );
 
 export default BoardForm;
