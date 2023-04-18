@@ -1,9 +1,11 @@
-import Wrapper from "../../altComponents/Wrapper";
-import AppControls from "../../altComponents/AppControls";
+import Wrapper from "../../components/Wrapper";
+import AppControls from "../../components/AppControls";
+import Panel from "../../components/Panel";
 
 const Page = () => (
   <Wrapper>
     <AppControls />
+    <Panel />
   </Wrapper>
 );
 
