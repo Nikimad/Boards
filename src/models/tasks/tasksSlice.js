@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import getId from "../../helpers/getId";
-import { removeBoard } from "../boards/boardsSlice";
+import { removeBoard, setActiveBoardId } from "../boards/boardsSlice";
 
 const tasksSlice = createSlice({
   name: "tasks",
@@ -32,20 +32,25 @@ const tasksSlice = createSlice({
     },
   },
   extraReducers(builder) {
-    builder.addCase(removeBoard, (state, { payload }) => {
-      const deletedTasksId = Object.entries(state.tasks).filter(
-        ([id, task]) => {
-          if (task.boardId === payload) return id;
-        }
-      );
-      state.tasksIds = state.tasksIds.filter(
-        (id) => !deletedTasksId.includes(id)
-      );
-      state.tasks = state.tasksIds.reduce((tasks, id) => {
-        tasks[id] = state.tasks[id];
-        return tasks;
-      }, {});
-    });
+    builder
+      .addCase(removeBoard, (state, { payload }) => {
+        const deletedTasksId = Object.entries(state.tasks).filter(
+          ([id, task]) => {
+            if (task.boardId === payload) return id;
+          }
+        );
+        state.tasksIds = state.tasksIds.filter(
+          (id) => !deletedTasksId.includes(id)
+        );
+        state.tasks = state.tasksIds.reduce((tasks, id) => {
+          tasks[id] = state.tasks[id];
+          return tasks;
+        }, {});
+        state.activeTaskId = null;
+      })
+      .addCase(setActiveBoardId, (state) => {
+        state.activeTaskId = null;
+      });
   },
 });
 
