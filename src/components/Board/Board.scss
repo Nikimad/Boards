@@ -12,9 +12,9 @@
   color: $gray;
   border-radius: 0 $br $br 0;
   transition: $trans;
-  padding: 1rem;
+  padding: 0.75rem;
 
-  &[data-current="true"] {
+  &_active {
     color: $white;
     background-color: $violet-100;
   }
@@ -23,30 +23,11 @@
     font-size: 1.2em;
   }
 
-  &:not([data-current="true"]):hover {
+  &:not([class$="_active"]):hover {
     color: $white;
   }
 
   :first-child {
     height: 100%;
-  }
-
-  :nth-child(3n) {
-    height: 100%;
-    visibility: hidden;
-    transition: $trans;
-    opacity: 0;
-  }
-}
-
-
-@media screen and (min-width: $bp) {
-  .board {
-    &[data-current="true"]:hover {
-      :nth-child(3n) {
-        visibility: visible;
-        opacity: 1;
-      }
-    }
   }
 }

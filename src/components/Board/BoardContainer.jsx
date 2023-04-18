@@ -1,32 +1,19 @@
 import { useSelector } from "react-redux";
-import { selectCurrentBoardId } from "../../models/observer/observerSelectors";
-import { setBoard } from "../../models/observer/observerSlice";
 import useAction from "../../hooks/useAction";
 import Board from "./Board";
-import useModal from "../../hooks/useModal";
+import { selectActiveBoardId } from "../../models/boards/boardsSelectors";
+import { setActiveBoardId } from "../../models/boards/boardsSlice";
 
-const BoardContainer = ({ board, onClick }) => {
-  const currentBoardId = useSelector(selectCurrentBoardId);
-
-  const dispatchSetBoard = useAction(setBoard(board.id));
-
-  const handleClick = (e) => {
+const BoardContainer = ({ board, toggleNav }) => {
+  const isActive = useSelector(selectActiveBoardId) === board.id;
+  const dispatchSetActiveBoardId = useAction(setActiveBoardId);
+  const setActiveBoard = (e) => {
     e.preventDefault();
-    dispatchSetBoard();
-    onClick();
+    dispatchSetActiveBoardId(board.id);
+    toggleNav();
   };
 
-  const { showModal, ...modalProps } = useModal();
-
-  return (
-    <Board
-      board={board}
-      isCurrent={currentBoardId === board.id}
-      onClick={handleClick}
-      showModal={showModal}
-      modalProps={modalProps}
-    />
-  );
+  return <Board { ...{...board, isActive, setActiveBoard}} />;
 };
 
 export default BoardContainer;

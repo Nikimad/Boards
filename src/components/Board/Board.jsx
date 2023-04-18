@@ -1,19 +1,14 @@
 import "./Board.scss";
 import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
-import { ReactComponent as Edit } from "../../assets/svg/edit.svg";
-import EditBoard from "../EditBoard";
 
-const Board = ({ board, isCurrent, onClick, showModal, modalProps }) => (
+const Board = ({ title, isActive, setActiveBoard }) => (
   <a
-    className="board"
-    href={`/${board.title}`}
-    onClick={onClick}
-    data-current={isCurrent}
+    onClick={setActiveBoard}
+    href={`/${title}`}
+    className={`board${isActive ? " board_active" : ""}`}
   >
     <Icon />
-    <span className="board__title">{board.title}</span>
-    <Edit onClick={showModal} />
-    <EditBoard {...{ board, modalProps }} />
+    <span className="board__title">{title}</span>
   </a>
 );
 
