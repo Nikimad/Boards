@@ -1,9 +1,9 @@
+import Navbar from "../Navbar";
 import Header from "../Header";
-import Navigation from "../Navigation";
 
 const AppControls = ({ isNavHidden, toggleNav }) => (
   <>
-    <Navigation {...{ isNavHidden, toggleNav }} />
+    <Navbar {...{ isNavHidden, toggleNav }} />
     <Header {...{ toggleNav }} />
   </>
 );
