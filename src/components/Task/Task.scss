@@ -1,97 +1,37 @@
 @use "/src/styles/variables.scss" as *;
 @use "/src/styles/colors.scss" as *;
 
-
 .task {
-  display: grid;
-  gap: 0.5em;
-  background-color: $violet-400;
-  border-radius: $br;
-  word-break: break-all;
-  height: fit-content;
-  cursor: pointer;
-  transition: 0.3s;
-
-  &__title {
-    font-size: 1.2em;
-    margin: 0;
-  }
-
-  &__preview {
-    display: flex;
-    align-items: center;
-    padding: 2rem;
-  }
-
-  &__status-indicator {
-    flex-shrink: 0;
-    height: 1rem;
-    width: 1rem;
-    border-radius: 100%;
-
-    &[data-status="todo"] {
-      background-color: red;
-    }
-
-    &[data-status="doing"] {
-      background-color: yellow;
-    }
-
-    &[data-status="done"] {
-      background-color: green;
-    }
-  }
-
-  &__description {
-    font-size: 0.75em;
-    background-color: $violet-500;
-    border-radius: $br;
+    display: grid;
+    grid-auto-rows: min-content;
+    gap: 1rem;
+    height: 100%;
+    width: 100%;
     padding: 1rem;
-    margin: 0;
 
-    &__heading {
-      font-weight: 700;
+    &__description {
+        background-color: $violet-400;
+        border-radius: $br;
+        white-space: pre-wrap;
+        padding: 2rem;
+        margin: 0;
     }
 
-    &__main {
-      display: grid;
-      gap: 0.5rem;
-      white-space: pre-wrap;
+    &__controls {
+        margin-top: auto;
     }
 
-    &__status {
-      font-weight: 400;
-      text-transform: capitalize;
+    &__button {
+        background-color: $violet-200;
+        border-radius: $br;
+        font-weight: 700;
+        height: fit-content;
+        width: fit-content;
+        padding: 0.5rem 1rem;
+
+        &:hover,
+        &:focus {
+            background-color: $violet-100;
+        }
     }
-  }
-
-  &__controls {
-    display: flex;
-    justify-content: space-between;
-    height: 1em;
-
-    > * {
-      cursor: pointer;
-      transition: $trans;
-
-      &:hover {
-        color: $violet-100;
-      }
-    }
-  }
-
-  &__review {
-    cursor: auto;
-    max-width: 100%;
-    padding: 0;
-  }
-  
-
-  &::marker {
-    content: "";
-  }
-
-  &:not(.task__review):hover {
-    transform: scale(1.01);
-  }
 }
