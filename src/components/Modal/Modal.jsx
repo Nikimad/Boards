@@ -1,5 +1,6 @@
 import { createPortal } from "react-dom";
 import "./Modal.scss";
+import PropTypes from "prop-types";
 
 const modalEl = document.getElementById("modal");
 
@@ -25,5 +26,13 @@ const Modal = ({
     ),
     modalEl
   );
+
+Modal.propTypes = {
+  modalStatus: PropTypes.string,
+  resetModal: PropTypes.func,
+  onContentClick: PropTypes.func,
+  onContentAnimationEnd: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
+};
 
 export default Modal;

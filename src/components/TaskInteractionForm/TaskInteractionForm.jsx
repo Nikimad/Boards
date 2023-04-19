@@ -1,5 +1,6 @@
 import { Form, Field } from "formik";
 import { ReactComponent as Select } from "../../assets/svg/select.svg";
+import PropTypes from "prop-types";
 
 const TaskInteractionForm = ({ subtasks, submitOnChange }) => (
   <Form className="form">
@@ -43,5 +44,12 @@ const TaskInteractionForm = ({ subtasks, submitOnChange }) => (
     </label>
   </Form>
 );
+
+TaskInteractionForm.propTypes = {
+  subtasks: PropTypes.arrayOf(
+    PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })
+  ),
+  submitOnChange: PropTypes.func,
+};
 
 export default TaskInteractionForm;

@@ -3,6 +3,7 @@ import LogoToggler from "../LogoToggler";
 import Modal from "../Modal";
 import BoardForm from "../BoardForm";
 import TaskForm from "../TaskForm";
+import PropTypes from "prop-types";
 
 const Header = ({
   toggleNav,
@@ -58,5 +59,30 @@ const Header = ({
     </header>
   </div>
 );
+
+Header.propTypes = {
+  toggleNav: PropTypes.func,
+  activeBoard: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+  }),
+  onEditBoard: PropTypes.func,
+  onRemoveBoard: PropTypes.func,
+  activeTask: PropTypes.shape({
+    title: PropTypes.string,
+    id: PropTypes.number,
+    boardId: PropTypes.number,
+    subtasks: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+      })
+    ),
+    checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
+  }),
+  createTask: PropTypes.func,
+  onEditTask: PropTypes.func,
+  onRemoveTask: PropTypes.func,
+};
 
 export default Header;

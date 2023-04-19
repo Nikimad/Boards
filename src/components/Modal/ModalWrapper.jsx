@@ -1,6 +1,7 @@
 import { Children, cloneElement } from "react";
 import ModalContainer from "./ModalContainer";
 import useModal from "../../hooks/useModal";
+import PropTypes from "prop-types";
 
 const ModalWrapper = ({ children }) => {
   const { toggleModal, ...modalProps } = useModal();
@@ -15,7 +16,7 @@ const ModalWrapper = ({ children }) => {
       toggleModal();
     },
   });
-  
+
   const Content = cloneElement(originContent, {
     ...originContent.props,
     onSubmit: (e) => {
@@ -35,6 +36,10 @@ const ModalWrapper = ({ children }) => {
       {originChildren}
     </>
   );
+};
+
+ModalWrapper.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
 };
 
 export default ModalWrapper;

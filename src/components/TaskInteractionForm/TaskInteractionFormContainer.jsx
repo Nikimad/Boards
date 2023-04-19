@@ -2,6 +2,7 @@ import TaskInteractionForm from "./TaskInteractionForm";
 import { Formik } from "formik";
 import useAction from "../../hooks/useAction";
 import { editTask } from "../../models/tasks/tasksSlice";
+import PropTypes from "prop-types";
 
 const TaskInteractionFormContainer = ({
   id,
@@ -30,6 +31,13 @@ const TaskInteractionFormContainer = ({
       }}
     </Formik>
   );
+};
+
+TaskInteractionFormContainer.propTypes = {
+  id: PropTypes.number,
+  status: PropTypes.string,
+  subtasks: PropTypes.array,
+  checkedSubtasks: PropTypes.array,
 };
 
 export default TaskInteractionFormContainer;

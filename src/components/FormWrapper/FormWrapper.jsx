@@ -1,6 +1,7 @@
 import "./FormWrapper.scss";
 import { Form } from "formik";
 import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
+import PropTypes from 'prop-types';
 
 const FormWrapper = ({ formTitle, submitTitle, isEdit, children }) => (
   <Form className="form">
@@ -23,5 +24,12 @@ const FormWrapper = ({ formTitle, submitTitle, isEdit, children }) => (
     </fieldset>
   </Form>
 );
+
+FormWrapper.propTypes = {
+  formTitle: PropTypes.string,
+  submitTitle: PropTypes.string,
+  isEdit: PropTypes.bool,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
+};
 
 export default FormWrapper;

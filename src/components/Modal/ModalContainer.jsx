@@ -1,7 +1,8 @@
 import { useCallback, useEffect } from "react";
 import Modal from "./Modal";
+import PropTypes from "prop-types";
 
-const ModalContainer = ({modalStatus, resetModal, closeModal, children }) => {
+const ModalContainer = ({ modalStatus, resetModal, closeModal, children }) => {
   const handleEscape = useCallback(
     (e) => {
       if (e.key === "Escape" && modalStatus === "show") resetModal();
@@ -32,6 +33,13 @@ const ModalContainer = ({modalStatus, resetModal, closeModal, children }) => {
       children={children}
     />
   );
+};
+
+ModalContainer.propTypes = {
+  modalStatus: PropTypes.string,
+  resetModal: PropTypes.func,
+  closeModal: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
 };
 
 export default ModalContainer;

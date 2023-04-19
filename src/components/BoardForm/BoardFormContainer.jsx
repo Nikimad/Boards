@@ -1,6 +1,7 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
 import BoardForm from "./BoardForm";
+import PropTypes from 'prop-types';
 
 const BoardFormContainer = ({ initialValues, onSubmit, onReset, ...props }) => {
   return (
@@ -21,6 +22,14 @@ const BoardFormContainer = ({ initialValues, onSubmit, onReset, ...props }) => {
       <BoardForm {...props} />
     </Formik>
   );
+};
+
+BoardFormContainer.propTypes = {
+  initialValues: PropTypes.shape({
+    title: PropTypes.string
+  }),
+  onSubmit: PropTypes.func,
+  onReset: PropTypes.func,
 };
 
 export default BoardFormContainer;

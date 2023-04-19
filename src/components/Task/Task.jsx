@@ -1,5 +1,6 @@
 import "./Task.scss";
 import TaskInteractionForm from "../TaskInteractionForm";
+import PropTypes from "prop-types";
 
 const Task = ({ task, onBack }) => (
   <div className="task">
@@ -14,5 +15,20 @@ const Task = ({ task, onBack }) => (
     </div>
   </div>
 );
+
+Task.propTypes = {
+  task: PropTypes.shape({
+    title: PropTypes.string,
+    id: PropTypes.number,
+    boardId: PropTypes.number,
+    subtasks: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+      })
+    ),
+  }),
+  onBack: PropTypes.func,
+};
 
 export default Task;

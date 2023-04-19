@@ -2,6 +2,7 @@ import "./TaskPreview.scss";
 import { ReactComponent as View } from "../../assets/svg/view.svg";
 import TaskInteractionForm from "../TaskInteractionForm";
 import Modal from "../Modal";
+import PropTypes from "prop-types";
 
 const TaskPreview = ({
   id,
@@ -31,5 +32,19 @@ const TaskPreview = ({
     </Modal>
   </div>
 );
+
+TaskPreview.propTypes = {
+  id: PropTypes.number,
+  title: PropTypes.string,
+  status: PropTypes.string,
+  subtasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+    })
+  ),
+  checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
+  setActiveTask: PropTypes.func,
+};
 
 export default TaskPreview;
