@@ -27,7 +27,7 @@ const TaskForm = ({ values, ...props }) => (
     </label>
     <FieldArray name="subtasks">
     {({ remove, push }) => (
-      <div className="subtasks">
+      <div className="subtasks form__label">
         <span className="form__label__title">Subtasks</span>
         {values.subtasks.length > 0 &&
           values.subtasks.map((subtask, index) => (
