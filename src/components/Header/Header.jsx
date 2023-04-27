@@ -1,18 +1,88 @@
 import "./Header.scss";
-import TaskFormModal from "../TaskFormModal";
+import LogoToggler from "../LogoToggler";
+import Modal from "../Modal";
+import BoardForm from "../BoardForm";
+import TaskForm from "../TaskForm";
+import PropTypes from "prop-types";
 
-const Header = ({ modalProps, currentBoard }) => (
-  <header className="header">
-    <h2 className="header__title">{currentBoard || "Choose board"}</h2>
-    <button
-      className="header__button"
-      onClick={modalProps.showModal}
-      disabled={!Boolean(currentBoard)}
-    >
-      +<span className="header__button__text"> Add New Task</span>
-    </button>
-    <TaskFormModal {...modalProps} />
-  </header>
+const Header = ({
+  toggleNav,
+  activeBoard,
+  onEditBoard,
+  onRemoveBoard,
+  activeTask,
+  createTask,
+  onEditTask,
+  onRemoveTask,
+}) => (
+  <div className="header__wrapper">
+    <header className={`header${!Boolean(activeBoard) ? " header_empty" : ""}`}>
+      <LogoToggler onClick={toggleNav} />
+      <div className="header__active">
+        <Modal>
+          <h2 className="header__active__title">
+            {Boolean(activeTask) ? activeTask?.title : activeBoard?.title}
+          </h2>
+          {Boolean(activeTask) ? (
+            <TaskForm
+              initialValues={activeTask}
+              isEdit={true}
+              onSubmit={onEditTask}
+              onReset={onRemoveTask}
+              formTitle="Edit task"
+              submitTitle="Edit"
+            />
+          ) : (
+            <BoardForm
+              initialValues={activeBoard}
+              isEdit={true}
+              onSubmit={onEditBoard}
+              onReset={onRemoveBoard}
+              formTitle="Edit board"
+              submitTitle="Edit"
+            />
+          )}
+        </Modal>
+      </div>
+      {Boolean(activeTask) ? null : (
+        <Modal>
+          <button className="header__button">
+            +<span className="header__button__text"> Add New Task</span>
+          </button>
+          <TaskForm
+            formTitle="Add new task"
+            submitTitle="Add task"
+            onSubmit={createTask}
+          />
+        </Modal>
+      )}
+    </header>
+  </div>
 );
+
+Header.propTypes = {
+  toggleNav: PropTypes.func,
+  activeBoard: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+  }),
+  onEditBoard: PropTypes.func,
+  onRemoveBoard: PropTypes.func,
+  activeTask: PropTypes.shape({
+    title: PropTypes.string,
+    id: PropTypes.number,
+    boardId: PropTypes.number,
+    subtasks: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+      })
+    ),
+    checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
+  }),
+  createTask: PropTypes.func,
+  onEditTask: PropTypes.func,
+  onRemoveTask: PropTypes.func,
+};
 
 export default Header;

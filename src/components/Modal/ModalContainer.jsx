@@ -1,18 +1,19 @@
 import { useCallback, useEffect } from "react";
 import Modal from "./Modal";
+import PropTypes from "prop-types";
 
-const ModalContainer = ({ status, onReset, onClose, children }) => {
+const ModalContainer = ({ modalStatus, resetModal, closeModal, children }) => {
   const handleEscape = useCallback(
     (e) => {
-      if (e.key === "Escape" && status === "show") onReset();
+      if (e.key === "Escape" && modalStatus === "show") resetModal();
     },
-    [onReset, status]
+    [resetModal, modalStatus]
   );
 
   const handleContentClick = (e) => e.stopPropagation();
 
   const handleResetModal = () => {
-    if (status === "reset") onClose();
+    if (modalStatus === "reset") closeModal();
   };
 
   useEffect(() => {
@@ -25,13 +26,20 @@ const ModalContainer = ({ status, onReset, onClose, children }) => {
 
   return (
     <Modal
-      status={status}
-      onReset={onReset}
+      modalStatus={modalStatus}
+      resetModal={resetModal}
       onContentClick={handleContentClick}
       onContentAnimationEnd={handleResetModal}
       children={children}
     />
   );
+};
+
+ModalContainer.propTypes = {
+  modalStatus: PropTypes.string,
+  resetModal: PropTypes.func,
+  closeModal: PropTypes.func,
+  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
 };
 
 export default ModalContainer;

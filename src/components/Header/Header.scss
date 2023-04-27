@@ -2,57 +2,69 @@
 @use "/src/styles/colors.scss" as *;
 
 .header {
-  display: grid;
-  gap: 0.5em;
-  grid-template-columns: auto auto;
+  grid-area: header;
+  display: flex;
+  align-items: center;
   background-color: $violet-400;
   border-bottom: $border;
-  padding: 1em;
+  width: 100%;
+  transition: $trans;
+  padding: 0.5rem 1rem 0.75rem 0.5rem;
 
-  &__title {
-    font-size: 1.3em;
-    padding-left: 1.5em;
-    margin: 0;
+  &__active {
+    display: grid;
+    grid-template-columns: max-content;
+    align-items: center;
+
+    &__title {
+      font-weight: 900;
+      cursor: pointer;
+      transition: $trans;
+      padding-inline: 0.5rem 1rem;
+      margin: 0;
+
+      &:hover,
+      &:focus {
+        color: $violet-200;
+      }
+
+      &:active {
+        color: $violet-100;
+      }
+    }
   }
 
   &__button {
-    flex-shrink: 0;
-    justify-self: end;
-    grid-row-start: 1;
-    grid-column-start: 2;
-    color: $white;
+    margin-left: auto;
     font-weight: 700;
     background-color: $violet-200;
     border-radius: $br;
-    max-width: 50px;
-    padding: 0.25em 1em;
+    padding: 0.5rem 1rem;
 
     &__text {
       display: none;
     }
 
-    &:disabled {
-      background-color: $gray;
-    }
-
-    &:not(:disabled):hover {
+    &:hover {
       background-color: $violet-100;
     }
+  }
+
+  &_empty {
+    visibility: hidden;
+    transform: translateY(-100%);
   }
 }
 
 @media screen and (min-width: $bp) {
   .header {
-    display: flex;
-    justify-content: space-between;
+    padding: 1rem 1rem 1rem 2rem;
 
-    &__title {
-      padding-left: 0;
+    & .logo-toggler {
+      display: none;
     }
 
     &__button {
-      max-width: 100%;
-
       &__text {
         display: inline;
       }

@@ -3,21 +3,30 @@
 
 .board {
   display: grid;
-  grid-template-columns: min-content auto;
-  gap: 0.25em;
+  align-items: center;
+  grid-template-columns: min-content auto min-content;
+  gap: 0.25rem;
   text-decoration: none;
-  font-weight: 700;
   color: $gray;
   border-radius: 0 $br $br 0;
   transition: $trans;
-  padding: 0.625em 1em;
+  padding: 0.75rem;
 
-  &[data-current="true"] {
+  &_active {
     color: $white;
     background-color: $violet-100;
   }
 
-  &:not([data-current="true"]):hover {
+  &__title {
+    font-size: 1.2em;
+    font-weight: 700;
+  }
+
+  &:not([class$="_active"]):hover {
     color: $white;
+  }
+
+  :first-child {
+    height: 100%;
   }
 }

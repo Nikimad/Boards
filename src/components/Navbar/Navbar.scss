@@ -1,0 +1,84 @@
+@use "/src/styles/variables.scss" as *;
+@use "/src/styles/colors.scss" as *;
+@use "/src/styles/mixins.scss" as *;
+
+.navbar {
+    grid-area: navbar;
+    position: fixed;
+    z-index: 1;
+    display: grid;
+    grid-template-rows: min-content auto 1fr;
+    transition: $trans;
+    height: 100%;
+    width: 100%;
+    background-color: $violet-400;
+    border-right: $border;
+
+    &[aria-hidden="true"] {
+        transform: translateX(-100%);
+    }
+
+    &[aria-hidden="false"] {
+        transform: translateX(0);
+    }
+
+    &__title {
+        width: 16ch;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        padding-left: 0.5rem;
+        margin: 0;
+    }
+
+    &__header {
+        display: grid;
+        grid-template-columns: min-content min-content;
+        row-gap: 1rem;
+        padding: 1rem 0 1rem 1rem;
+    }
+
+    &__counter {
+        grid-column: 1 / -1;
+        font-size: 0.75em;
+        letter-spacing: 0.1em;
+        font-weight: 900;
+        color: $gray;
+        text-transform: uppercase;
+        margin: 0;
+    }
+
+    &__nav {
+        display: grid;
+        grid-auto-rows: min-content;
+        gap: 0.5rem;
+        height: 100%;
+        overflow: auto;
+        transition: $trans;
+        @include scroll-bar;
+        padding-block: 0.5rem;
+        padding-right: 3rem;
+    }
+
+    &__button {
+        font-size: 1.2em;
+        text-align: left;
+        font-weight: 700;
+        color: $violet-200;
+        border-radius: 0 $br $br 0;
+        height: fit-content;
+        padding: 0.75rem;
+        margin-right: 3rem;
+
+        &:hover {
+            color: $white;
+            background-color: $violet-100;
+        }
+    }
+}
+
+@media screen and (min-width: $bp) {
+    .navbar {
+        position: static;
+    }
+}

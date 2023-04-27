@@ -1,17 +1,42 @@
-import Header from "./Header";
-import useModal from "../../hooks/useModal";
 import { useSelector } from "react-redux";
-import { selectCurrentBoardId } from "../../models/observer/observerSelectors";
-import { boardsSelectors } from "../../models/boards/boardsSelectors";
+import useAction from "../../hooks/useAction";
+import Header from "./Header";
+import { selectActiveBoard } from "../../models/boards/boardsSelectors";
+import { selectActiveTask } from "../../models/tasks/tasksSelectors";
+import { editBoard, removeBoard } from "../../models/boards/boardsSlice";
+import { addTask, editTask, removeTask } from "../../models/tasks/tasksSlice";
 
-const HeaderContainer = () => {
-  const modalProps = useModal();
-  const currentBoardId = useSelector(selectCurrentBoardId);
-  const currentBoard = useSelector((state) =>
-    boardsSelectors.selectById(state, currentBoardId)
+const HeaderContainer = (props) => {
+  const activeBoard = useSelector(selectActiveBoard);
+  const activeTask = useSelector(selectActiveTask);
+
+  const dispatchEditBoard = useAction(editBoard);
+  const dispatchRemoveBoard = useAction(removeBoard);
+  const dispatchAddTask = useAction(addTask);
+  const dispatchEditTask = useAction(editTask);
+  const dispatchRemoveTask = useAction(removeTask);
+
+  const onEditBoard = (values) => dispatchEditBoard(values);
+  const onRemoveBoard = () => dispatchRemoveBoard(activeBoard.id);
+  const createTask = (values) =>
+    dispatchAddTask({ boardId: activeBoard.id, ...values });
+  const onEditTask = (values) => dispatchEditTask(values);
+  const onRemoveTask = () => dispatchRemoveTask(activeTask.id);
+
+  return (
+    <Header
+      {...{
+        ...props,
+        activeBoard,
+        onEditBoard,
+        onRemoveBoard,
+        activeTask,
+        createTask,
+        onEditTask,
+        onRemoveTask,
+      }}
+    />
   );
-
-  return <Header modalProps={modalProps} currentBoard={currentBoard?.title} />;
 };
 
 export default HeaderContainer;

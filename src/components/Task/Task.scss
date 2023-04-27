@@ -2,40 +2,36 @@
 @use "/src/styles/colors.scss" as *;
 
 .task {
-  flex-grow: 1;
-  max-width: 33%;
-  display: grid;
-  gap: 0.5em;
-  background-color: $violet-400;
-  border-radius: $br;
-  word-break: break-all;
-  height: fit-content;
-  cursor: pointer;
-  transition: 0.3s;
-  padding: 1em;
+    display: grid;
+    grid-auto-rows: min-content;
+    gap: 1rem;
+    height: 100%;
+    width: 100%;
+    padding: 1rem;
 
-  &__title {
-    font-size: 1em;
-    margin: 0;
-  }
+    &__description {
+        background-color: $violet-400;
+        border-radius: $br;
+        white-space: pre-wrap;
+        padding: 2rem;
+        margin: 0;
+    }
 
-  &__temp {
-    font-size: 0.5em;
-    font-weight: 900;
-    color: $gray;
-    margin: 0;
-  }
+    &__controls {
+        margin-top: auto;
+    }
 
-  &__review {
-    cursor: auto;
-    max-width: 100%;
-  }
+    &__button {
+        background-color: $violet-200;
+        border-radius: $br;
+        font-weight: 700;
+        height: fit-content;
+        width: fit-content;
+        padding: 0.5rem 1rem;
 
-  &::marker {
-    content: "";
-  }
-
-  &:not(.task__review):hover {
-    transform: scale(1.01);
-  }
+        &:hover,
+        &:focus {
+            background-color: $violet-100;
+        }
+    }
 }

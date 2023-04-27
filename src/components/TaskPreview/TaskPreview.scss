@@ -1,0 +1,59 @@
+@use "/src/styles/variables.scss" as *;
+@use "/src/styles/colors.scss" as *;
+@use "/src/styles/mixins.scss" as *;
+
+.task-preview {
+    display: grid;
+    grid-template-columns: 1fr min-content;
+    align-items: center;
+    gap: 1rem;
+    color: $gray;
+    background-color: $violet-400;
+    border-radius: $br;
+    padding: 1rem;
+
+    &__content {
+        text-align: left;
+
+        &__title {
+            color: $white;
+            transition: $trans;
+            margin: 0;
+        }
+
+        &__text {
+            font-size: 0.75em;
+            font-weight: 700;
+            margin: 0;
+        }
+
+        &:hover &__title {
+            color: $violet-200;
+        }
+    }
+
+    &__open-review {
+        height: 2em;
+        width: 2em;
+
+        &:hover {
+            color: $violet-200;
+        }
+    }
+}
+
+.task-review {
+    display: grid;
+    gap: 1rem;
+
+    &__title {
+        font-size: 1.25em;
+        margin: 0;
+    }
+
+    .form {
+        background-color: $violet-500;
+        border-radius: $br;
+        padding: 1rem;
+    }
+}

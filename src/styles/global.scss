@@ -1,25 +1,26 @@
 @use "./variables.scss" as *;
 @use "./colors.scss" as *;
 @use "./fonts.scss" as *;
-@use "./form.scss" as *;
 
 * {
   box-sizing: border-box;
 }
 
 button,
-input {
+input,
+textarea,
+select {
   font: inherit;
   color: inherit;
   background-color: transparent;
-  outline: none;
   border: none;
   transition: $trans;
   padding: 0;
 }
 
 button:not(:disabled),
-input:not(:disabled)[type="submit"] {
+select:not(:disabled),
+input:not(:disabled):is([type="submit"], [type="reset"]) {
   cursor: pointer;
 }
 
@@ -30,8 +31,4 @@ input:not(:disabled)[type="submit"] {
   background-color: $violet-500;
   overflow: hidden;
   margin: 0;
-}
-
-.logo {
-  height: 2em;
 }

@@ -5,8 +5,8 @@
 [snp internship 2022](https://snp.agency/en)
 
 Features: 
-  - [ ] Data add
-  - [ ] Data edit
+  - [x] Data add
+  - [x] Data edit
   - [ ] Data filter
   - [ ] Routing
   - [ ] REST

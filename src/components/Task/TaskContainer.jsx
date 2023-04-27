@@ -1,13 +1,12 @@
-import { useSelector } from "react-redux";
-import { tasksSelectors } from "../../models/tasks/tasksSelectors";
-import useModal from "../../hooks/useModal";
 import Task from "./Task";
+import useAction from "../../hooks/useAction";
+import { setActiveTaskId } from "../../models/tasks/tasksSlice";
 
-const TaskContainer = ({ id }) => {
-  const task = useSelector((state) => tasksSelectors.selectById(state, id));
-  const modalProps = useModal();
+const TaskContainer = ({task}) => {
+  const dispatchSetActiveTask = useAction(setActiveTaskId);
+  const onBack = () => dispatchSetActiveTask(null);
 
-  return <Task {...task} {...modalProps} />;
+  return <Task { ...{task, onBack}} />;
 };
 
 export default TaskContainer;

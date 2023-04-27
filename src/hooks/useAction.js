@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 
 const useAction = (action) => {
   const dispatch = useDispatch();
-  return () => dispatch(action);
+  return (state) => dispatch(action(state));
 };
 
 export default useAction;
