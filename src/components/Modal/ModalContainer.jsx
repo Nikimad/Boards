@@ -1,6 +1,6 @@
+import PropTypes from "prop-types";
 import { useCallback, useEffect } from "react";
 import Modal from "./Modal";
-import PropTypes from "prop-types";
 
 const ModalContainer = ({ modalStatus, resetModal, closeModal, children }) => {
   const handleEscape = useCallback(

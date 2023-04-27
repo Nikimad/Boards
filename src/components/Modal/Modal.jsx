@@ -1,6 +1,6 @@
-import { createPortal } from "react-dom";
-import "./Modal.scss";
 import PropTypes from "prop-types";
+import { createPortal } from "react-dom";
+import s from "./Modal.module.scss";
 
 const modalEl = document.getElementById("modal");
 
@@ -14,12 +14,12 @@ const Modal = ({
   createPortal(
     modalStatus === "close" ? null : (
       <div
-        className="modal"
+        className={s.modal}
         data-status={modalStatus}
         onClick={resetModal}
         onAnimationEnd={onContentAnimationEnd}
       >
-        <div className="modal__content" onClick={onContentClick}>
+        <div className={s.modal__content} onClick={onContentClick}>
           {children}
         </div>
       </div>
@@ -32,7 +32,10 @@ Modal.propTypes = {
   resetModal: PropTypes.func,
   onContentClick: PropTypes.func,
   onContentAnimationEnd: PropTypes.func,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+  ]),
 };
 
 export default Modal;
