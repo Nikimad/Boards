@@ -31,7 +31,6 @@ const AppContorlsContainer = () => {
     if (isNavHideable) setIsNavHidden(!isNavHidden);
   };
 
-
   return <AppContols isNavHidden={isNavHidden} toggleNav={toggleIsNavHidden} />;
 };
 

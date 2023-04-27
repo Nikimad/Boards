@@ -1,11 +1,11 @@
+import PropTypes from "prop-types";
 import Navbar from "../Navbar";
 import Header from "../Header";
-import PropTypes from "prop-types";
 
 const AppControls = ({ isNavHidden, toggleNav }) => (
   <>
-    <Navbar {...{ isNavHidden, toggleNav }} />
-    <Header {...{ toggleNav }} />
+    <Navbar isNavHidden={isNavHidden} toggleNav={toggleNav} />
+    <Header toggleNav={toggleNav} />
   </>
 );
 
