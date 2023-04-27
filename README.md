@@ -6,7 +6,7 @@
 
 Features: 
   - [x] Data add
-  - [ ] Data edit
+  - [x] Data edit
   - [ ] Data filter
   - [ ] Routing
   - [ ] REST
