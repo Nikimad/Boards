@@ -1,3 +1,4 @@
+import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import Header from "./Header";
@@ -6,7 +7,7 @@ import { selectActiveTask } from "../../models/tasks/tasksSelectors";
 import { editBoard, removeBoard } from "../../models/boards/boardsSlice";
 import { addTask, editTask, removeTask } from "../../models/tasks/tasksSlice";
 
-const HeaderContainer = (props) => {
+const HeaderContainer = ({ toggleNav }) => {
   const activeBoard = useSelector(selectActiveBoard);
   const activeTask = useSelector(selectActiveTask);
 
@@ -25,18 +26,20 @@ const HeaderContainer = (props) => {
 
   return (
     <Header
-      {...{
-        ...props,
-        activeBoard,
-        onEditBoard,
-        onRemoveBoard,
-        activeTask,
-        createTask,
-        onEditTask,
-        onRemoveTask,
-      }}
+      toggleNav={toggleNav}
+      activeBoard={activeBoard}
+      onEditBoard={onEditBoard}
+      onRemoveBoard={onRemoveBoard}
+      activeTask={activeTask}
+      createTask={createTask}
+      onEditTask={onEditTask}
+      onRemoveTask={onRemoveTask}
     />
   );
+};
+
+HeaderContainer.propTypes = {
+  toggleNav: PropTypes.func,
 };
 
 export default HeaderContainer;
