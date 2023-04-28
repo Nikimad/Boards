@@ -1,9 +1,9 @@
-import "./Navbar.scss";
+import PropTypes from "prop-types";
 import LogoToggler from "../LogoToggler";
 import Board from "../Board";
 import Modal from "../Modal";
 import BoardForm from "../BoardForm";
-import PropTypes from "prop-types";
+import s from "./Navbar.module.scss";
 
 const Navbar = ({
   isNavHidden,
@@ -12,19 +12,19 @@ const Navbar = ({
   createBoard,
   items,
 }) => (
-  <div className="navbar" aria-hidden={isNavHidden}>
-    <div className="navbar__header">
+  <div className={s.navbar} aria-hidden={isNavHidden}>
+    <div className={s.navbar__header}>
       <LogoToggler onClick={toggleNav} isDisabled={!Boolean(activeBoardId)} />
-      <h1 className="navbar__title">Boards</h1>
-      <p className="navbar__counter">All boards ({items.length ?? 0})</p>
+      <h1 className={s.navbar__title}>Boards</h1>
+      <p className={s.navbar__counter}>All boards ({items.length ?? 0})</p>
     </div>
-    <nav className="navbar__nav">
+    <nav className={s.navbar__nav}>
       {items.map((board) => (
         <Board key={board.id} {...{ ...board, toggleNav }} />
       ))}
     </nav>
     <Modal>
-      <button className="navbar__button">+ Create New Board</button>
+      <button className={s.navbar__button}>+ Create New Board</button>
       <BoardForm
         onSubmit={createBoard}
         formTitle="Create new board"
