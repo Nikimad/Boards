@@ -20,7 +20,7 @@ const Navbar = ({
     </div>
     <nav className={s.navbar__nav}>
       {items.map((board) => (
-        <Board key={board.id} {...{ ...board, toggleNav }} />
+        <Board key={board.id} board={board} toggleNav={toggleNav} />
       ))}
     </nav>
     <Modal>
