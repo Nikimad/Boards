@@ -1,20 +1,21 @@
-import "./Panel.scss";
+import PropTypes from "prop-types";
+import cn from "classnames";
 import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
 import TaskPreview from "../TaskPreview";
 import Task from "../Task";
-import PropTypes from "prop-types";
+import s from "./Panel.module.scss";
 
 const Panel = ({ items, activeTask, activeBoardId }) => (
-  <div className={`panel ${Boolean(activeTask) ? "" : "panel__list"}`}>
+  <div className={cn(s.panel, {[s.panel__list]: Boolean(activeTask)})}>
     {Boolean(activeTask) ? (
       <Task task={activeTask} />
     ) : items.length > 0 ? (
-      items.map((task) => <TaskPreview key={task.id} {...{ task }} />)
+      items.map((task) => <TaskPreview key={task.id} task={task} />)
     ) : (
-      <div className="panel__plug">
+      <div className={s.panel__plug}>
         <Icon width="3em" />
         <p>
-          {Boolean(activeTask) ? "No tasks on this board yet" : "Choose board"}
+          {Boolean(activeBoardId) ? "No tasks on this board yet" : "Choose board"}
         </p>
       </div>
     )}
