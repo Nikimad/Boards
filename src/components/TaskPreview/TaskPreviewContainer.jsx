@@ -1,7 +1,7 @@
-import TaskPreview from "./TaskPreview";
+import PropTypes from "prop-types";
 import useAction from "../../hooks/useAction";
 import { setActiveTaskId } from "../../models/tasks/tasksSlice";
-import PropTypes from "prop-types";
+import TaskPreview from "./TaskPreview";
 
 const TaskPreviewContainer = ({ task }) => {
   const dispatchSetActiveTaskId = useAction(setActiveTaskId);
@@ -9,10 +9,8 @@ const TaskPreviewContainer = ({ task }) => {
 
   return (
     <TaskPreview
-      {...{
-        ...task,
-        setActiveTask,
-      }}
+      { ...task }
+      setActiveTask={setActiveTask}
     />
   );
 };
