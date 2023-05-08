@@ -1,8 +1,8 @@
-import AppContols from "./AppControls";
+import LayoutControls from "./LayoutControls";
 import { useState, useCallback, useEffect } from "react";
 import debounce from "lodash/debounce";
 
-const AppContorlsContainer = () => {
+const LayoutControlsContainer = () => {
   const [isNavHidden, setIsNavHidden] = useState(false);
   const [isNavHideable, setIsNavHideable] = useState(true);
 
@@ -31,7 +31,7 @@ const AppContorlsContainer = () => {
     if (isNavHideable) setIsNavHidden(!isNavHidden);
   };
 
-  return <AppContols isNavHidden={isNavHidden} toggleNav={toggleIsNavHidden} />;
+  return <LayoutControls isNavHidden={isNavHidden} toggleNav={toggleIsNavHidden} />;
 };
 
-export default AppContorlsContainer;
+export default LayoutControlsContainer;
