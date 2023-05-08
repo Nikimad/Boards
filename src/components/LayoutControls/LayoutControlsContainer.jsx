@@ -3,35 +3,35 @@ import { useState, useCallback, useEffect } from "react";
 import debounce from "lodash/debounce";
 
 const LayoutControlsContainer = () => {
-  const [isNavHidden, setIsNavHidden] = useState(false);
-  const [isNavHideable, setIsNavHideable] = useState(true);
+  const [isNavbarHidden, setIsNavbarHidden] = useState(false);
+  const [isNavbarHideable, setIsNavbarHideable] = useState(true);
 
-  const handleResize = useCallback(() => {
-    if (!isNavHideable && window.innerWidth <= 800) {
-      setIsNavHideable(true);
+  const handleWindowResize = useCallback(() => {
+    if (!isNavbarHideable && window.innerWidth <= 800) {
+      setIsNavbarHideable(true);
     }
-    if (isNavHideable && window.innerWidth > 800) {
-      setIsNavHideable(false);
-      if (isNavHidden) setIsNavHidden(false);
+    if (isNavbarHideable && window.innerWidth > 800) {
+      setIsNavbarHideable(false);
+      if (isNavbarHidden) setIsNavbarHidden(false);
     }
-  }, [isNavHideable, isNavHidden]);
+  }, [isNavbarHideable, isNavbarHidden]);
 
-  const debouncedHandleResize = debounce(handleResize, 500);
+  const debouncedHandleWindowResize = debounce(handleWindowResize, 500);
 
   useEffect(() => {
-    debouncedHandleResize();
-    window.addEventListener("resize", debouncedHandleResize);
+    debouncedHandleWindowResize();
+    window.addEventListener("resize", debouncedHandleWindowResize);
 
     return () => {
-      window.removeEventListener("resize", debouncedHandleResize);
+      window.removeEventListener("resize", debouncedHandleWindowResize);
     };
-  }, [debouncedHandleResize]);
+  }, [debouncedHandleWindowResize]);
 
-  const toggleIsNavHidden = () => {
-    if (isNavHideable) setIsNavHidden(!isNavHidden);
+  const toggleIsNavbarHidden = () => {
+    if (isNavbarHideable) setIsNavbarHidden(!isNavbarHidden);
   };
 
-  return <LayoutControls isNavHidden={isNavHidden} toggleNav={toggleIsNavHidden} />;
+  return <LayoutControls isNavbarHidden={isNavbarHidden} toggleNav={toggleIsNavbarHidden} />;
 };
 
 export default LayoutControlsContainer;
