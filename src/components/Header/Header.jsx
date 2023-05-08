@@ -7,7 +7,7 @@ import TaskForm from "../TaskForm";
 import s from "./Header.module.scss";
 
 const Header = ({
-  toggleNav,
+  toggleNavbar,
   activeBoard,
   onEditBoard,
   onRemoveBoard,
@@ -22,7 +22,7 @@ const Header = ({
         [s.header_empty]: !Boolean(activeBoard),
       })}
     >
-      <LogoToggler onClick={toggleNav} />
+      <LogoToggler onClick={toggleNavbar} />
       <div className={s.header__active}>
         <Modal>
           <h2 className={s.header__active__title}>

@@ -7,7 +7,7 @@ import { selectActiveTask } from "../../models/tasks/tasksSelectors";
 import { editBoard, removeBoard } from "../../models/boards/boardsSlice";
 import { addTask, editTask, removeTask } from "../../models/tasks/tasksSlice";
 
-const HeaderContainer = ({ toggleNav }) => {
+const HeaderContainer = ({ isNavbarHidden, toggleNavbar }) => {
   const activeBoard = useSelector(selectActiveBoard);
   const activeTask = useSelector(selectActiveTask);
 
@@ -18,7 +18,10 @@ const HeaderContainer = ({ toggleNav }) => {
   const dispatchRemoveTask = useAction(removeTask);
 
   const onEditBoard = (values) => dispatchEditBoard(values);
-  const onRemoveBoard = () => dispatchRemoveBoard(activeBoard.id);
+  const onRemoveBoard = () => {
+    if (isNavbarHidden) toggleNavbar();
+    dispatchRemoveBoard(activeBoard.id);
+  }
   const createTask = (values) =>
     dispatchAddTask({ boardId: activeBoard.id, ...values });
   const onEditTask = (values) => dispatchEditTask(values);
@@ -26,7 +29,7 @@ const HeaderContainer = ({ toggleNav }) => {
 
   return (
     <Header
-      toggleNav={toggleNav}
+      toggleNavbar={toggleNavbar}
       activeBoard={activeBoard}
       onEditBoard={onEditBoard}
       onRemoveBoard={onRemoveBoard}
@@ -39,7 +42,8 @@ const HeaderContainer = ({ toggleNav }) => {
 };
 
 HeaderContainer.propTypes = {
-  toggleNav: PropTypes.func,
+    isNavbarHidden: PropTypes.bool,
+    toggleNav: PropTypes.func,
 };
 
 export default HeaderContainer;
