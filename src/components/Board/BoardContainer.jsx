@@ -5,13 +5,13 @@ import { selectActiveBoardId } from "../../models/boards/boardsSelectors";
 import { setActiveBoardId } from "../../models/boards/boardsSlice";
 import Board from "./Board";
 
-const BoardContainer = ({ board, toggleNav }) => {
+const BoardContainer = ({ board, toggleNavbar }) => {
   const activeBoardId = useSelector(selectActiveBoardId);
   const dispatchSetActiveBoardId = useAction(setActiveBoardId);
   const setActiveBoard = (e) => {
     e.preventDefault();
     dispatchSetActiveBoardId(board.id);
-    toggleNav();
+    toggleNavbar();
   };
 
   return <Board board={board} isActive={activeBoardId === board.id} setActiveBoard={setActiveBoard} />;
@@ -22,7 +22,7 @@ BoardContainer.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
   }),
-  toggleNav: PropTypes.func,
+  toggleNavbar: PropTypes.func,
 };
 
 export default BoardContainer;
