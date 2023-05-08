@@ -5,6 +5,18 @@ const rootSelector = createSelector(
   (state) => state.boards
 );
 
+export const allBoardsSelector = createSelector(
+  rootSelector,
+  ({ boards, boardsIds }) => boardsIds.map((id) => boards[id])
+);
+
+export const activeBoardIdSelector = createSelector(
+  rootSelector,
+  ({ activeBoardId }) => activeBoardId
+);
+
+// Old
+
 export const selectActiveBoardId = createSelector(
   rootSelector,
   (boards) => boards.activeBoardId
