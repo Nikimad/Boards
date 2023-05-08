@@ -6,21 +6,21 @@ import BoardForm from "../BoardForm";
 import s from "./Navbar.module.scss";
 
 const Navbar = ({
-  isNavHidden,
-  toggleNav,
+  isNavbarHidden,
+  toggleNavbar,
   activeBoardId,
   createBoard,
-  items,
+  boards,
 }) => (
-  <div className={s.navbar} aria-hidden={isNavHidden}>
+  <div className={s.navbar} aria-hidden={isNavbarHidden}>
     <div className={s.navbar__header}>
-      <LogoToggler onClick={toggleNav} isDisabled={!Boolean(activeBoardId)} />
-      <h1 className={s.navbar__title}>Boards</h1>
-      <p className={s.navbar__counter}>All boards ({items.length ?? 0})</p>
+      <LogoToggler onClick={toggleNavbar} isDisabled={!Boolean(activeBoardId)} />
+      <h1 className={s.navbar__header__title}>Boards</h1>
+      <p className={s.navbar__header__text}>All boards ({boards.length ?? 0})</p>
     </div>
     <nav className={s.navbar__nav}>
-      {items.map((board) => (
-        <Board key={board.id} board={board} toggleNav={toggleNav} />
+      {boards.map((board) => (
+        <Board key={board.id} board={board} toggleNavbar={toggleNavbar} />
       ))}
     </nav>
     <Modal>
@@ -35,11 +35,11 @@ const Navbar = ({
 );
 
 Navbar.propTypes = {
-  isNavHidden: PropTypes.bool,
-  toggleNav: PropTypes.func,
+  isNavbarHidden: PropTypes.bool,
+  toggleNavbar: PropTypes.func,
   activeBoardId: PropTypes.number,
   createBoard: PropTypes.func,
-  items: PropTypes.array,
+  boards: PropTypes.array,
 };
 
 export default Navbar;

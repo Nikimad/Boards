@@ -4,29 +4,30 @@ import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import { addBoard } from "../../models/boards/boardsSlice";
 import {
-  selectBoardsArr,
-  selectActiveBoardId,
+  allBoardsSelector,
+  activeBoardIdSelector,
 } from "../../models/boards/boardsSelectors";
 
-const NavbarContainer = ({ isNavHidden, toggleNav }) => {
-  const items = useSelector(selectBoardsArr);
-  const activeBoardId = useSelector(selectActiveBoardId);
+const NavbarContainer = ({ isNavbarHidden, toggleNavbar }) => {
+  const boards = useSelector(allBoardsSelector);
+  const activeBoardId = useSelector(activeBoardIdSelector);
+
   const createBoard = useAction(addBoard);
 
   return (
     <Navbar
-      isNavHidden={isNavHidden}
-      toggleNav={toggleNav}
+      isNavbarHidden={isNavbarHidden}
+      toggleNavbar={toggleNavbar}
       createBoard={createBoard}
       activeBoardId={activeBoardId}
-      items={items}
+      boards={boards}
     />
   );
 };
 
 NavbarContainer.propTypes = {
-  isNavHidden: PropTypes.bool,
-  toggleNav: PropTypes.func,
+  isNavbarHidden: PropTypes.bool,
+  toggleNavbar: PropTypes.func,
 };
 
 export default NavbarContainer;
