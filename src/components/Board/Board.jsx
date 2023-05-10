@@ -1,26 +1,23 @@
-import PropTypes from 'prop-types';
-import cn from 'classnames';
+import PropTypes from "prop-types";
+import cn from "classnames";
 import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
 import s from "./Board.module.scss";
 
-const Board = ({ board, isActive, setActiveBoard }) => (
+const Board = ({ title, isActive, selectBoard }) => (
   <a
-    onClick={setActiveBoard}
-    href={`/${board.title}`}
-    className={cn(s.board, {[s.board_active]: isActive })}
+    onClick={selectBoard}
+    href={`/${title}`}
+    className={cn(s.board, { [s.board_active]: isActive })}
   >
     <Icon />
-    <span className={s.board__title}>{board.title}</span>
+    {title}
   </a>
 );
 
 Board.propTypes = {
-  board: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-  }),
+  title: PropTypes.string,
   isActive: PropTypes.bool,
-  setActiveBoard: PropTypes.func,
+  selectBoard: PropTypes.func,
 };
 
 export default Board;

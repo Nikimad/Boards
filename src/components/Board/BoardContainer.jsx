@@ -1,20 +1,29 @@
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
-import { selectActiveBoardId } from "../../models/boards/boardsSelectors";
+import { activeBoardIdSelector } from "../../models/boards/boardsSelectors";
 import { setActiveBoardId } from "../../models/boards/boardsSlice";
 import Board from "./Board";
 
 const BoardContainer = ({ board, toggleNavbar }) => {
-  const activeBoardId = useSelector(selectActiveBoardId);
+  const { id, title } = board;
+
+  const activeBoardId = useSelector(activeBoardIdSelector);
   const dispatchSetActiveBoardId = useAction(setActiveBoardId);
-  const setActiveBoard = (e) => {
+
+  const selectBoard = (e) => {
     e.preventDefault();
-    dispatchSetActiveBoardId(board.id);
+    dispatchSetActiveBoardId(id);
     toggleNavbar();
   };
 
-  return <Board board={board} isActive={activeBoardId === board.id} setActiveBoard={setActiveBoard} />;
+  return (
+    <Board
+      title={title}
+      isActive={activeBoardId === id}
+      selectBoard={selectBoard}
+    />
+  );
 };
 
 BoardContainer.propTypes = {
