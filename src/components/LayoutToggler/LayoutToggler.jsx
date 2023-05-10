@@ -1,16 +1,15 @@
 import PropTypes from "prop-types";
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg";
-import s from "./LogoToggler.module.scss";
+import { layout__toggler } from "./LayoutToggler.module.scss";
 
-const LogoToggler = ({ onClick, isDisabled }) => (
-  <button className={s.toggler} onClick={onClick} disabled={isDisabled}>
+const LogoToggler = ({ onClick, ...props }) => (
+  <button className={layout__toggler} onClick={onClick} {...props}>
     <Logo />
   </button>
 );
 
 LogoToggler.propTypes = {
   onClick: PropTypes.func,
-  isDisabled: PropTypes.bool,
 };
 
 export default LogoToggler;
