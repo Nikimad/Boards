@@ -1,0 +1,160 @@
+@use "./variables.scss" as *;
+@use "./colors.scss" as *;
+@use "./mixins.scss" as *;
+
+.form {
+    display: grid;
+    gap: 0.5rem;
+
+    &__label {
+        position: relative;
+        display: grid;
+        gap: 0.5rem;
+        padding-bottom: 1.5em;
+
+        &__title {
+            font-weight: 700;
+        }
+
+        &__error {
+            position: absolute;
+            z-index: -1;
+            bottom: 0;
+            color: $red;
+            animation: error-in $trans;
+            padding-left: 0.5em;
+        }
+
+        &_noerr {
+            padding-bottom: 0;
+        }
+    }
+
+    &__input {
+        border: $border;
+        border-radius: $br;
+        background-color: $violet-400;
+        padding: 0.5rem 1rem;
+    }
+
+    &__select {
+        &__appearance {
+            position: absolute;
+            height: 1em;
+            width: 1em;
+            right: 20px;
+            bottom: 10px;
+            transition: $trans;
+            pointer-events: none;
+        }
+
+        &:hover + &__appearance {
+            color: $violet-100;
+        }
+    }
+
+    &__textarea {
+        @include scroll-bar;
+        resize: none;
+        height: 100px;
+    }
+
+    &__fieldset {
+        border: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    &__check {
+        display: grid;
+        grid-template-columns: min-content max-content;
+        align-items: center;
+        gap: 0.5rem;
+        cursor: pointer;
+        background-color: $violet-500;
+        border-radius: $br;
+        padding: 0.5rem 1rem;
+
+        &__box {
+            height: 1em;
+            width: 1em;
+            border: $border;
+            border-radius: 5px;
+        }
+
+        &__input {
+            @include visually-hidden;
+        }
+
+        &__input:checked + &__box {
+            background-image: url("/src/assets/svg/check.svg");
+            background-repeat: no-repeat;
+            background-position: center;
+            background-size: 65%;
+            background-color: $violet-100;
+        }
+
+        &__input:not(:checked):hover + &__box {
+            background-color: $violet-400;
+        }
+
+        &__input:focus + &__box {
+            outline: 1px solid currentColor;
+        }
+    }
+
+    &__controls {
+        display: grid;
+        grid-auto-flow: column;
+        grid-auto-columns: min-content;
+        justify-content: space-between;
+
+        &__submit {
+            font-weight: 700;
+            border-radius: $br;
+            background-color: $violet-200;
+            padding: 0.5rem 1rem;
+
+            &:hover {
+                background-color: $violet-100;
+            }
+        }
+
+        &__reset {
+            display: flex;
+            align-items: center;
+            transition: $trans;
+            cursor: pointer;
+
+            input {
+                @include visually-hidden;
+            }
+
+            svg {
+                height: 65%;
+            }
+
+            &:hover {
+                color: $violet-100;
+            }
+        }
+    }
+
+    &__optionalfield {
+        display: grid;
+        grid-template-columns: 1fr min-content;
+
+        svg {
+            height: 60%;
+        }
+    }
+}
+
+@keyframes error-in {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
