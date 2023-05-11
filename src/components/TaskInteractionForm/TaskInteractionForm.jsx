@@ -1,35 +1,37 @@
+import PropTypes from "prop-types";
+import cn from "classnames";
 import { Form, Field } from "formik";
 import { ReactComponent as Select } from "../../assets/svg/select.svg";
-import PropTypes from "prop-types";
+import s from "../../styles/form.module.scss";
 
 const TaskInteractionForm = ({ subtasks, submitOnChange }) => (
-  <Form className="form">
+  <Form className={s.form}>
     {subtasks.length > 0 ? (
       <div
-        className="form__label form__label_no-err"
+        className={cn(s.form__label, s.form__label_noerr)}
         role="group"
         aria-labelledby="checkbox-group"
       >
-        <span className="form__label__title">Subtasks</span>
+        <span className={s.form__label__title}>Subtasks</span>
         {subtasks.map((subtask, index) => (
-          <label className="form__check" key={index}>
+          <label className={s.form__check} key={index}>
             <Field
-              className="form__check__input"
+              className={s.form__check__input}
               onChange={submitOnChange}
               type="checkbox"
               name="checkedSubtasks"
               value={`${subtask.id}`}
             />
-            <span className="form__check__box"></span>
+            <span className={s.form__check__box}></span>
             {subtask.title}
           </label>
         ))}
       </div>
     ) : null}
-    <label className="form__label form__select">
-      <span className="form__label__title">Status</span>
+    <label className={cn(s.form__label, s.form__label_noerr)}>
+      <span className={s.form__label__title}>Status</span>
       <Field
-        className="form__input form__input_select"
+        className={cn(s.form__input, s.form__select)}
         onChange={submitOnChange}
         name="status"
         component="select"
@@ -40,7 +42,7 @@ const TaskInteractionForm = ({ subtasks, submitOnChange }) => (
         <option value="doing">Doing</option>
         <option value="done">Done</option>
       </Field>
-      <Select className="form__select-appearance" />
+      <Select className={s.form__select__appearance} />
     </label>
   </Form>
 );

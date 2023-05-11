@@ -4,18 +4,15 @@ import useAction from "../../hooks/useAction";
 import { editTask } from "../../models/tasks/tasksSlice";
 import PropTypes from "prop-types";
 
-const TaskInteractionFormContainer = ({
-  id,
-  status,
-  subtasks,
-  checkedSubtasks,
-}) => {
+const TaskInteractionFormContainer = ({task}) => {
+  const { id, status, checkedSubtasks, subtasks } = task;
   const dispatchEditTask = useAction(editTask);
   const handleSubmit = (values) => dispatchEditTask({ id, ...values });
 
   return (
     <Formik
       initialValues={{
+        subtasks,
         checkedSubtasks,
         status,
       }}
@@ -34,10 +31,12 @@ const TaskInteractionFormContainer = ({
 };
 
 TaskInteractionFormContainer.propTypes = {
-  id: PropTypes.number,
-  status: PropTypes.string,
-  subtasks: PropTypes.array,
-  checkedSubtasks: PropTypes.array,
+  task: PropTypes.shape({
+    id: PropTypes.number,
+    status: PropTypes.string,
+    subtasks: PropTypes.arrayOf(PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })),
+    checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
+  }),
 };
 
 export default TaskInteractionFormContainer;
