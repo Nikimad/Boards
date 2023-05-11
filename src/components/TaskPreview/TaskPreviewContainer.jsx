@@ -9,7 +9,7 @@ const TaskPreviewContainer = ({ task }) => {
 
   return (
     <TaskPreview
-      { ...task }
+      task={task}
       setActiveTask={setActiveTask}
     />
   );
