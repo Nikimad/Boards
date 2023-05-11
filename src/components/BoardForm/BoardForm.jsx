@@ -1,13 +1,14 @@
 import { Field, ErrorMessage } from "formik";
 import FormWrapper from "../FormWrapper";
+import s from "../../styles/form.module.scss";
 
 const BoardForm = (props) => (
-  <FormWrapper { ...props}>
-    <label className="form__label">
-      <span className="form__label__title">Title</span>
-      <Field className="form__input" name="title" type="text" />
+  <FormWrapper {...props}>
+    <label className={s.form__label}>
+      <span className={s.form__label__title}>Title</span>
+      <Field className={s.form__input} name="title" type="text" />
       <ErrorMessage name="title">
-        {(msg) => <span className="form__error">{msg}</span>}
+        {(msg) => <span className={s.form__label__error}>{msg}</span>}
       </ErrorMessage>
     </label>
   </FormWrapper>
