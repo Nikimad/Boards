@@ -19,9 +19,16 @@ const tasksSlice = createSlice({
       state.tasksIds = [id, ...state.tasksIds];
     },
     editTask(state, { payload }) {
-      const { id, ...values } = payload;
+      const { id, subtasks, checkedSubtasks, ...values } = payload;
       state.tasks[id] = {
         ...state.tasks[id],
+        subtasks,
+        checkedSubtasks: subtasks.reduce((arr, {id}) => {
+          if (checkedSubtasks.includes(String(id))) {
+            arr = [...arr, String(id)];
+          }
+          return arr;
+        }, []),
         ...values,
       };
     },
