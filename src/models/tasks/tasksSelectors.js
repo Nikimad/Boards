@@ -1,28 +1,15 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { selectActiveBoardId } from "../boards/boardsSelectors";
+import { activeBoardIdSelector } from "../boards/boardsSelectors";
 
 const rootSelector = createSelector(
   (state) => state,
   (state) => state.tasks
 );
 
-export const selectActiveTaskId = createSelector(
+export const tasksSelector = createSelector(
   rootSelector,
-  (tasks) => tasks.activeTaskId
-);
-
-export const selectTasks = createSelector(rootSelector, (tasks) => tasks.tasks);
-
-export const selectTasksId = createSelector(
-  rootSelector,
-  (tasks) => tasks.tasksIds
-);
-
-export const selectTasksArr = createSelector(
-  selectTasks,
-  selectTasksId,
-  selectActiveBoardId,
-  (tasks, ids, boardId) => ids.reduce((acc, id) => {
+  activeBoardIdSelector,
+  ({tasks, tasksIds}, boardId) => tasksIds.reduce((acc, id) => {
     if (tasks[id].boardId === boardId) {
       acc = [...acc, tasks[id]];
     }
@@ -30,8 +17,7 @@ export const selectTasksArr = createSelector(
   }, [])
 );
 
-export const selectActiveTask = createSelector(
-  selectTasks,
-  selectActiveTaskId,
-  (tasks, id) => tasks[id]
+export const activeTaskSelector = createSelector(
+  rootSelector,
+  ({tasks, activeTaskId}) => tasks[activeTaskId]
 );
