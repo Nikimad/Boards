@@ -1,22 +1,23 @@
-import "./FormWrapper.scss";
+import PropTypes from "prop-types";
+import cn from "classnames";
 import { Form } from "formik";
 import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
-import PropTypes from 'prop-types';
+import s from "../../styles/form.module.scss";
 
 const FormWrapper = ({ formTitle, submitTitle, isEdit, children }) => (
-  <Form className="form">
-    <h2 className="form__title">{formTitle}</h2>
+  <Form className={s.form}>
+    <h2>{formTitle}</h2>
     {children}
-    <fieldset className="form__controls">
+    <fieldset className={cn(s.form__fieldset, s.form__controls)}>
       <label>
         <input
           type="submit"
-          className="form__submit"
+          className={s.form__controls__submit}
           value={isEdit ? "Edit" : submitTitle}
         />
       </label>
       {isEdit ? (
-        <label className="form__reset">
+        <label className={s.form__controls__reset}>
           <input type="reset" value="Remove" />
           <Delete />
         </label>
@@ -29,7 +30,10 @@ FormWrapper.propTypes = {
   formTitle: PropTypes.string,
   submitTitle: PropTypes.string,
   isEdit: PropTypes.bool,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+  ]),
 };
 
 export default FormWrapper;
