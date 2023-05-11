@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-import LogoToggler from "../LogoToggler";
+import LayoutToggler from "../LayoutToggler";
 import Modal from "../Modal";
 import BoardForm from "../BoardForm";
 import TaskForm from "../TaskForm";
@@ -22,7 +22,7 @@ const Header = ({
         [s.header_empty]: !Boolean(activeBoard),
       })}
     >
-      <LogoToggler onClick={toggleNavbar} />
+      <LayoutToggler onClick={toggleNavbar} />
       <div className={s.header__active}>
         <Modal>
           <h2 className={s.header__active__title}>

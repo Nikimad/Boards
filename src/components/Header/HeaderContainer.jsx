@@ -1,15 +1,15 @@
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
-import Header from "./Header";
-import { selectActiveBoard } from "../../models/boards/boardsSelectors";
-import { selectActiveTask } from "../../models/tasks/tasksSelectors";
+import { activeBoardSelector } from "../../models/boards/boardsSelectors";
+import { activeTaskSelector} from "../../models/tasks/tasksSelectors";
 import { editBoard, removeBoard } from "../../models/boards/boardsSlice";
 import { addTask, editTask, removeTask } from "../../models/tasks/tasksSlice";
+import Header from "./Header";
 
 const HeaderContainer = ({ isNavbarHidden, toggleNavbar }) => {
-  const activeBoard = useSelector(selectActiveBoard);
-  const activeTask = useSelector(selectActiveTask);
+  const activeBoard = useSelector(activeBoardSelector);
+  const activeTask = useSelector(activeTaskSelector);
 
   const dispatchEditBoard = useAction(editBoard);
   const dispatchRemoveBoard = useAction(removeBoard);
