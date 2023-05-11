@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import LogoToggler from "../LogoToggler";
+import LayoutToggler from "../LayoutToggler";
 import Board from "../Board";
 import Modal from "../Modal";
 import BoardForm from "../BoardForm";
@@ -14,8 +14,8 @@ const Navbar = ({
 }) => (
   <div className={s.navbar} aria-hidden={isNavbarHidden}>
     <div className={s.navbar__header}>
-      <LogoToggler onClick={toggleNavbar} isDisabled={!Boolean(activeBoardId)} />
-      <h1 className={s.navbar__header__title}>Boards</h1>
+      <LayoutToggler onClick={toggleNavbar} disabled={!Boolean(activeBoardId)} />
+      <h1>Boards</h1>
       <p className={s.navbar__header__text}>All boards ({boards.length ?? 0})</p>
     </div>
     <nav className={s.navbar__nav}>
