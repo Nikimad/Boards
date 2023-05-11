@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import { useCallback, useEffect } from "react";
+import PropTypes from "prop-types";
 import Modal from "./Modal";
 
 const ModalContainer = ({ modalStatus, resetModal, closeModal, children }) => {

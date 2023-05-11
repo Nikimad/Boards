@@ -1,5 +1,5 @@
-import PropTypes from "prop-types";
 import { Children, cloneElement } from "react";
+import PropTypes from "prop-types";
 import ModalContainer from "./ModalContainer";
 import useModal from "../../hooks/useModal"
 
