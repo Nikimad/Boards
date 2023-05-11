@@ -6,7 +6,7 @@ import Task from "../Task";
 import s from "./Panel.module.scss";
 
 const Panel = ({ items, activeTask, activeBoardId }) => (
-  <div className={cn(s.panel, {[s.panel__list]: Boolean(activeTask)})}>
+  <div className={cn(s.panel, {[s.panel__list]: !Boolean(activeTask)})}>
     {Boolean(activeTask) ? (
       <Task task={activeTask} />
     ) : items.length > 0 ? (
