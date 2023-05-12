@@ -27,8 +27,8 @@ const FormWrapper = ({ formTitle, submitTitle, isEdit, children }) => (
 );
 
 FormWrapper.propTypes = {
-  formTitle: PropTypes.string,
-  submitTitle: PropTypes.string,
+  formTitle: PropTypes.string.isRequired,
+  submitTitle: PropTypes.string.isRequired,
   isEdit: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.element),
