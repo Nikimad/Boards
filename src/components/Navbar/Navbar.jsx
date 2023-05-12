@@ -14,9 +14,14 @@ const Navbar = ({
 }) => (
   <div className={s.navbar} aria-hidden={isNavbarHidden}>
     <div className={s.navbar__header}>
-      <LayoutToggler onClick={toggleNavbar} disabled={!Boolean(activeBoardId)} />
+      <LayoutToggler
+        onClick={toggleNavbar}
+        disabled={!Boolean(activeBoardId)}
+      />
       <h1>Boards</h1>
-      <p className={s.navbar__header__text}>All boards ({boards.length ?? 0})</p>
+      <p className={s.navbar__header__text}>
+        All boards ({boards.length ?? 0})
+      </p>
     </div>
     <nav className={s.navbar__nav}>
       {boards.map((board) => (
