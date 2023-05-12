@@ -6,7 +6,7 @@ import Task from "../Task";
 import s from "./Panel.module.scss";
 
 const Panel = ({ items, activeTask, activeBoardId }) => (
-  <div className={cn(s.panel, {[s.panel__list]: !Boolean(activeTask)})}>
+  <div className={cn(s.panel, { [s.panel__list]: !Boolean(activeTask) })}>
     {Boolean(activeTask) ? (
       <Task task={activeTask} />
     ) : items.length > 0 ? (
@@ -15,7 +15,9 @@ const Panel = ({ items, activeTask, activeBoardId }) => (
       <div className={s.panel__plug}>
         <Icon width="3em" />
         <p>
-          {Boolean(activeBoardId) ? "No tasks on this board yet" : "Choose board"}
+          {Boolean(activeBoardId)
+            ? "No tasks on this board yet"
+            : "Choose board"}
         </p>
       </div>
     )}
