@@ -7,9 +7,11 @@ const BoardForm = (props) => (
     <label className={s.form__label}>
       <span className={s.form__label__title}>Title</span>
       <Field className={s.form__input} name="title" type="text" />
-      <ErrorMessage name="title">
-        {(msg) => <span className={s.form__label__error}>{msg}</span>}
-      </ErrorMessage>
+      <ErrorMessage
+        name="title"
+        component="span"
+        className={s.form__label__error}
+      />
     </label>
   </FormWrapper>
 );
