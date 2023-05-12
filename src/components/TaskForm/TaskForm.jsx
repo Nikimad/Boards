@@ -12,9 +12,11 @@ const TaskForm = ({ values, ...props }) => (
     <label className={s.form__label}>
       <span className={s.form__label__title}>Title</span>
       <Field className={s.form__input} name="title" type="text" />
-      <ErrorMessage name="title">
-        {(msg) => <span className={s.form__label__error}>{msg}</span>}
-      </ErrorMessage>
+      <ErrorMessage
+        name="title"
+        component="span"
+        className={s.form__label__error}
+      />
     </label>
     <label className={s.form__label}>
       <span className={s.form__label__title}>Description</span>
@@ -23,9 +25,11 @@ const TaskForm = ({ values, ...props }) => (
         name="description"
         component="textarea"
       />
-      <ErrorMessage name="description">
-        {(msg) => <span className={s.form__label__error}>{msg}</span>}
-      </ErrorMessage>
+      <ErrorMessage
+        name="description"
+        component="span"
+        className={s.form__label__error}
+      />
     </label>
     <FieldArray name="subtasks">
       {({ remove, push }) => (
@@ -40,9 +44,11 @@ const TaskForm = ({ values, ...props }) => (
                     name={`subtasks.${index}.title`}
                     type="text"
                   />
-                  <ErrorMessage name={`subtasks.${index}.title`}>
-                    {(msg) => <span className={s.form__label__error}>{msg}</span>}
-                  </ErrorMessage>
+                  <ErrorMessage
+                    name={`subtasks.${index}.title`}
+                    component="span"
+                    className={s.form__label__error}
+                  />
                 </label>
                 <label className={cn(s.form__label, s.form__controls__reset)}>
                   <input type="button" onClick={() => remove(index)} />
