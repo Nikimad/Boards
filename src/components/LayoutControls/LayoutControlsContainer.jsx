@@ -31,7 +31,12 @@ const LayoutControlsContainer = () => {
     if (isNavbarHideable) setIsNavbarHidden(!isNavbarHidden);
   };
 
-  return <LayoutControls isNavbarHidden={isNavbarHidden} toggleNavbar={toggleIsNavbarHidden} />;
+  return (
+    <LayoutControls
+      isNavbarHidden={isNavbarHidden}
+      toggleNavbar={toggleIsNavbarHidden}
+    />
+  );
 };
 
 export default LayoutControlsContainer;
