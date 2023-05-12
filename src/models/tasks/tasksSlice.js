@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import getId from "../../helpers/getId";
 import { removeBoard, setActiveBoardId } from "../boards/boardsSlice";
 
 const tasksSlice = createSlice({
@@ -14,8 +13,8 @@ const tasksSlice = createSlice({
       state.activeTaskId = payload;
     },
     addTask(state, { payload }) {
-      const id = getId();
-      state.tasks[id] = { id, ...payload };
+      const { id, ...values } = payload;
+      state.tasks[id] = { id, ...values };
       state.tasksIds = [id, ...state.tasksIds];
     },
     editTask(state, { payload }) {
