@@ -1,5 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-import getId from "../../helpers/getId";
 
 const boardsSlice = createSlice({
   name: "boards",
@@ -13,8 +12,8 @@ const boardsSlice = createSlice({
       state.activeBoardId = payload;
     },
     addBoard(state, { payload }) {
-      const id = getId();
-      state.boards[id] = { id, ...payload };
+      const { id, ...values } = payload;
+      state.boards[id] = { id, ...values };
       state.boardsIds = [id, ...state.boardsIds];
     },
     editBoard(state, { payload }) {
