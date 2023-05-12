@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import getId from "../../helpers/getId";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import { addBoard } from "../../models/boards/boardsSlice";
@@ -12,7 +13,12 @@ const NavbarContainer = ({ isNavbarHidden, toggleNavbar }) => {
   const boards = useSelector(allBoardsSelector);
   const activeBoardId = useSelector(activeBoardIdSelector);
 
-  const createBoard = useAction(addBoard);
+  const dispatchAddBoard = useAction(addBoard);
+  const createBoard = (values) =>
+    dispatchAddBoard({
+      id: getId(),
+      ...values,
+    });
 
   return (
     <Navbar
