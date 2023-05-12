@@ -1,8 +1,9 @@
 import PropTypes from "prop-types";
+import getId from "../../helpers/getId";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import { activeBoardSelector } from "../../models/boards/boardsSelectors";
-import { activeTaskSelector} from "../../models/tasks/tasksSelectors";
+import { activeTaskSelector } from "../../models/tasks/tasksSelectors";
 import { editBoard, removeBoard } from "../../models/boards/boardsSlice";
 import { addTask, editTask, removeTask } from "../../models/tasks/tasksSlice";
 import Header from "./Header";
@@ -21,9 +22,9 @@ const HeaderContainer = ({ isNavbarHidden, toggleNavbar }) => {
   const onRemoveBoard = () => {
     if (isNavbarHidden) toggleNavbar();
     dispatchRemoveBoard(activeBoard.id);
-  }
+  };
   const createTask = (values) =>
-    dispatchAddTask({ boardId: activeBoard.id, ...values });
+    dispatchAddTask({ id: getId(), boardId: activeBoard.id, ...values });
   const onEditTask = (values) => dispatchEditTask(values);
   const onRemoveTask = () => dispatchRemoveTask(activeTask.id);
 
@@ -42,8 +43,8 @@ const HeaderContainer = ({ isNavbarHidden, toggleNavbar }) => {
 };
 
 HeaderContainer.propTypes = {
-    isNavbarHidden: PropTypes.bool,
-    toggleNav: PropTypes.func,
+  isNavbarHidden: PropTypes.bool,
+  toggleNav: PropTypes.func,
 };
 
 export default HeaderContainer;
