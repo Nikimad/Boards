@@ -18,6 +18,12 @@ select {
   padding: 0;
 }
 
+input {
+  &::placeholder {
+    color: $gray;
+  }
+}
+
 select {
   appearance: none;
 }
