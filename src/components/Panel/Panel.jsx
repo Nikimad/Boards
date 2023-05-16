@@ -3,11 +3,6 @@ import cn from "classnames";
 import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
 import TaskPreview from "../TaskPreview";
 import Task from "../Task";
-import {
-  form__label,
-  form__label_noerr,
-  form__input,
-} from "../../styles/form.module.scss";
 import s from "./Panel.module.scss";
 
 const Panel = ({
@@ -28,9 +23,9 @@ const Panel = ({
         {genLength > 0 ? (
           <>
             <form className={s.panel__form}>
-              <label className={cn(form__label, form__label_noerr)}>
+              <label className={cn(s.form__label, s.form__label_noerr)}>
                 <input
-                  className={form__input}
+                  className={s.form__input}
                   value={query}
                   onChange={onChange}
                   placeholder="Search"

@@ -1,6 +1,7 @@
 @use "/src/styles/variables.scss" as *;
 @use "/src/styles/colors.scss" as *;
 @use "/src/styles/mixins.scss" as *;
+@use "/src/styles/form.module.scss" as *;
 
 .panel {
     grid-area: panel;
