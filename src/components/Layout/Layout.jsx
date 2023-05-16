@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import LayoutControls from "../LayoutControls";
-import { layout } from "./Layout.module.scss";
+import s from "./Layout.module.scss";
 
 const Layout = ({ children }) => (
-  <div className={layout}>
+  <div className={s.layout}>
     <LayoutControls />
     {children}
   </div>
