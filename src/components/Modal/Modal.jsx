@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { createPortal } from "react-dom";
-import { modal, modal__content } from "./Modal.module.scss";
+import s from "./Modal.module.scss";
 
 const modalEl = document.getElementById("modal");
 
@@ -14,12 +14,12 @@ const Modal = ({
   createPortal(
     modalStatus === "close" ? null : (
       <div
-        className={modal}
+        className={s.modal}
         data-status={modalStatus}
         onClick={resetModal}
         onAnimationEnd={onContentAnimationEnd}
       >
-        <div className={modal__content} onClick={onContentClick}>
+        <div className={s.modal__content} onClick={onContentClick}>
           {children}
         </div>
       </div>
