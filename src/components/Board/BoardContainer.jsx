@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
-import { activeBoardIdSelector } from "../../models/boards/boardsSelectors";
-import { setActiveBoardId } from "../../models/boards/boardsSlice";
+import { activeBoardIdSelector } from "../../models/view/viewSelectors";
+import { setActiveBoardId } from "../../models/view/viewSlice";
 import Board from "./Board";
 
 const BoardContainer = ({ board, toggleNavbar }) => {
