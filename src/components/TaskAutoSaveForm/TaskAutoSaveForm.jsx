@@ -1,10 +1,10 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-import { Form, Field } from "formik";
 import { ReactComponent as Select } from "../../assets/svg/select.svg";
+import { Form, Field } from "formik";
 import s from "../../styles/form.module.scss";
 
-const TaskInteractionForm = ({ subtasks, submitOnChange }) => (
+const TaskAutoSaveForm = ({ subtasks }) => (
   <Form className={s.form}>
     {subtasks.length > 0 ? (
       <div
@@ -17,7 +17,6 @@ const TaskInteractionForm = ({ subtasks, submitOnChange }) => (
           <label className={s.form__check} key={index}>
             <Field
               className={s.form__check__input}
-              onChange={submitOnChange}
               type="checkbox"
               name="checkedSubtasks"
               value={`${subtask.id}`}
@@ -32,7 +31,6 @@ const TaskInteractionForm = ({ subtasks, submitOnChange }) => (
       <span className={s.form__label__title}>Status</span>
       <Field
         className={cn(s.form__input, s.form__select)}
-        onChange={submitOnChange}
         name="status"
         component="select"
       >
@@ -47,11 +45,10 @@ const TaskInteractionForm = ({ subtasks, submitOnChange }) => (
   </Form>
 );
 
-TaskInteractionForm.propTypes = {
+TaskAutoSaveForm.propTypes = {
   subtasks: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })
   ),
-  submitOnChange: PropTypes.func,
 };
 
-export default TaskInteractionForm;
+export default TaskAutoSaveForm;
