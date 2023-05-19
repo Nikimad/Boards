@@ -1,5 +1,5 @@
 import useAction from "../../hooks/useAction";
-import { setActiveTaskId } from "../../models/tasks/tasksSlice";
+import { setActiveTaskId } from "../../models/view/viewSlice";
 import Task from "./Task";
 
 const TaskContainer = ({ task }) => {

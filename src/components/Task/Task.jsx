@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import TaskInteractionForm from "../TaskInteractionForm";
+import TaskAutoSaveForm from "../TaskAutoSaveForm";
 import s from "./Task.module.scss";
 
 const Task = ({ task, onBack }) => (
@@ -7,7 +7,7 @@ const Task = ({ task, onBack }) => (
     {task.description.length > 0 ? (
       <p className={s.task__description}>{task.description}</p>
     ) : null}
-    <TaskInteractionForm task={task} />
+    <TaskAutoSaveForm task={task} />
     <button className={s.task__button} onClick={onBack}>
       Back
     </button>
