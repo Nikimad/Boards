@@ -1,44 +1,53 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { activeBoardIdSelector } from "../boards/boardsSelectors";
+import {
+  activeBoardIdSelector,
+  activeTaskIdSelector,
+  filterSelector,
+} from "../view/viewSelectors";
 
 const rootSelector = createSelector(
   (state) => state,
   (state) => state.tasks
 );
 
-export const tasksSelector = (query) =>
-  createSelector(
-    rootSelector,
-    activeBoardIdSelector,
-    ({ tasks, tasksIds }, boardId) => {
-      const queryRegEx = new RegExp(query.trim(), "i");
-
-      const actualTasks = tasksIds.reduce((acc, id) => {
+export const tasksSelector = createSelector(
+  rootSelector,
+  activeBoardIdSelector,
+  filterSelector,
+  ({ tasks, tasksIds }, boardId, filter) => {
+    const queryRegExp = new RegExp(filter, "i");
+    const { items, length } = tasksIds.reduce(
+      (acc, id) => {
         if (tasks[id].boardId === boardId) {
           acc.length += 1;
           const { title, subtasks } = tasks[id];
           const words = [
-            title,
-            ...subtasks.map((subtask) => subtask.title),
+            title.trim(),
+            ...subtasks.map((subtask) => subtask.title.trim()),
           ].join(" ");
 
-          acc.tasks = queryRegEx.test(words) ? [...acc.tasks, tasks[id]] : acc.tasks;
+          acc.items = queryRegExp.test(words)
+            ? [...acc.items, tasks[id]]
+            : acc.items;
         }
         return acc;
-      }, {
-        tasks: [],
-        length: 0
-      });
+      },
+      {
+        items: [],
+        length: 0,
+      }
+    );
 
-      return {
-        tasks: actualTasks.tasks,
-        length: actualTasks.tasks.length,
-        genLength: actualTasks.length,
-      };
-    }
-  );
+    return {
+      tasks: items,
+      length: items.length,
+      genLength: length,
+    };
+  }
+);
 
 export const activeTaskSelector = createSelector(
   rootSelector,
-  ({ tasks, activeTaskId }) => tasks[activeTaskId]
+  activeTaskIdSelector,
+  ({ tasks }, id) => tasks[id]
 );
