@@ -5,8 +5,8 @@ import useAction from "../../hooks/useAction";
 import { addBoard } from "../../models/boards/boardsSlice";
 import {
   allBoardsSelector,
-  activeBoardIdSelector,
 } from "../../models/boards/boardsSelectors";
+import { activeBoardIdSelector } from "../../models/view/viewSelectors";
 import Navbar from "./Navbar";
 
 const NavbarContainer = ({ isNavbarHidden, toggleNavbar }) => {
