@@ -3,6 +3,7 @@ import cn from "classnames";
 import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
 import TaskPreview from "../TaskPreview";
 import Task from "../Task";
+import Searchbar from "../Searchbar";
 import s from "./Panel.module.scss";
 
 const Panel = ({
@@ -22,16 +23,7 @@ const Panel = ({
       <>
         {genLength > 0 ? (
           <>
-            <form className={s.panel__form}>
-              <label className={cn(s.form__label, s.form__label_noerr)}>
-                <input
-                  className={s.form__input}
-                  value={query}
-                  onChange={onChange}
-                  placeholder="Search"
-                />
-              </label>
-            </form>
+            <Searchbar />
             {length === 0 ? (
               <div className={s.panel__plug}>
                 <p>No tasks on this board contain: {query}</p>

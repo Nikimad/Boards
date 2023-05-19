@@ -1,7 +1,6 @@
 @use "/src/styles/variables.scss" as *;
 @use "/src/styles/colors.scss" as *;
 @use "/src/styles/mixins.scss" as *;
-@use "/src/styles/form.module.scss" as *;
 
 .panel {
     grid-area: panel;
@@ -20,9 +19,8 @@
     &__list {
         display: grid;
         gap: 1rem;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
         grid-auto-rows: min-content;
-        padding-block: 1rem;
     }
 
     &__plug {

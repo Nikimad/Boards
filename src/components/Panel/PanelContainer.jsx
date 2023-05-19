@@ -3,26 +3,22 @@ import {
   tasksSelector,
   activeTaskSelector,
 } from "../../models/tasks/tasksSelectors";
-import { activeBoardIdSelector } from "../../models/boards/boardsSelectors";
+import { activeBoardIdSelector, filterSelector } from "../../models/view/viewSelectors";
 import Panel from "./Panel";
-import { useState } from "react";
 
 const PanelContainer = () => {
-  const [query, setQuery] = useState("");
-  const handleChange = (e) => setQuery(e.target.value);
-
   const activeBoardId = useSelector(activeBoardIdSelector);
   const activeTask = useSelector(activeTaskSelector);
-  const { tasks, length, genLength } = useSelector(tasksSelector(query));
+  const query = useSelector(filterSelector);
+  const { tasks, length, genLength } = useSelector(tasksSelector);
 
   return (
     <Panel
       task={activeTask}
       tasks={tasks}
+      query={query}
       length={length}
       genLength={genLength}
-      onChange={handleChange}
-      query={query}
       isBoardChosen={Boolean(activeBoardId)}
       isTaskChosen={Boolean(activeTask)}
     />
