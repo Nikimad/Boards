@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import useAction from "../../hooks/useAction";
-import { setActiveTaskId } from "../../models/tasks/tasksSlice";
+import { setActiveTaskId } from "../../models/view/viewSlice";
 import TaskPreview from "./TaskPreview";
 
 const TaskPreviewContainer = ({ task }) => {

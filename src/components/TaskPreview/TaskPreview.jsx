@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { ReactComponent as View } from "../../assets/svg/view.svg";
-import TaskInteractionForm from "../TaskInteractionForm";
+import TaskAutoSaveForm from "../TaskAutoSaveForm";
 import Modal from "../Modal";
 import s from "./TaskPreview.module.scss";
 
@@ -20,7 +20,7 @@ const TaskPreview = ({ task, setActiveTask }) => (
       </button>
       <div className={s.taskreview}>
         <h2 className={s.taskreview__title}>{task.title}</h2>
-        <TaskInteractionForm task={task} />
+        <TaskAutoSaveForm task={task} />
       </div>
     </Modal>
   </div>
