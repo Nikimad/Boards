@@ -19,15 +19,36 @@
     align-items: center;
 
     &__title {
-      font-size: 2em;
+      font-size: 1.5em;
       font-weight: 900;
+      margin: 0;
+    }
+
+    &__editable {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1.2em;
+      align-items: center;
+      gap: 0.5rem;
       cursor: pointer;
       transition: $trans;
-      margin: 0;
+
+      &::after {
+        position: absolute;
+        bottom: 0;
+        content: "";
+        height: 1px;
+        width: 100%;
+        transition: $trans;
+      }
 
       &:hover,
       &:focus {
         color: $violet-200;
+
+        &::after {
+          background-color: $violet-200;
+        }
       }
 
       &:active {

@@ -6,6 +6,8 @@ import BoardForm from "../BoardForm";
 import TaskForm from "../TaskForm";
 import s from "./Header.module.scss";
 
+import { ReactComponent as Edit } from "../../assets/svg/edit.svg";
+
 const Header = ({
   toggleNavbar,
   activeBoard,
@@ -25,9 +27,12 @@ const Header = ({
       <LayoutToggler onClick={toggleNavbar} />
       <div className={s.header__active}>
         <Modal>
-          <h2 className={s.header__active__title}>
-            {Boolean(activeTask) ? activeTask?.title : activeBoard?.title}
-          </h2>
+          <div className={s.header__active__editable}>
+            <h2 className={s.header__active__title}>
+              {Boolean(activeTask) ? activeTask?.title : activeBoard?.title}
+            </h2>
+            <Edit />
+          </div>
           {Boolean(activeTask) ? (
             <TaskForm
               initialValues={activeTask}
