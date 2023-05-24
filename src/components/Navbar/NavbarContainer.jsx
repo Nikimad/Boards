@@ -1,15 +1,39 @@
-import Navbar from "./Navbar";
+import PropTypes from "prop-types";
+import getId from "../../helpers/getId";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import { addBoard } from "../../models/boards/boardsSlice";
-import { selectBoardsArr, selectActiveBoardId } from "../../models/boards/boardsSelectors";
+import {
+  allBoardsSelector,
+} from "../../models/boards/boardsSelectors";
+import { activeBoardIdSelector } from "../../models/view/viewSelectors";
+import Navbar from "./Navbar";
 
-const NavbarContainer = (props) => {
-  const items = useSelector(selectBoardsArr);
-  const activeBoardId = useSelector(selectActiveBoardId);
-  const createBoard = useAction(addBoard);
+const NavbarContainer = ({ isNavbarHidden, toggleNavbar }) => {
+  const boards = useSelector(allBoardsSelector);
+  const activeBoardId = useSelector(activeBoardIdSelector);
 
-  return <Navbar { ...{...props, createBoard, activeBoardId, items}} />;
+  const dispatchAddBoard = useAction(addBoard);
+  const createBoard = (values) =>
+    dispatchAddBoard({
+      id: getId(),
+      ...values,
+    });
+
+  return (
+    <Navbar
+      isNavbarHidden={isNavbarHidden}
+      toggleNavbar={toggleNavbar}
+      createBoard={createBoard}
+      activeBoardId={activeBoardId}
+      boards={boards}
+    />
+  );
+};
+
+NavbarContainer.propTypes = {
+  isNavbarHidden: PropTypes.bool,
+  toggleNavbar: PropTypes.func,
 };
 
 export default NavbarContainer;

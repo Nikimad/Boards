@@ -1,14 +1,16 @@
+import PropTypes from "prop-types";
+import getId from "../../helpers/getId";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
-import Header from "./Header";
-import { selectActiveBoard } from "../../models/boards/boardsSelectors";
-import { selectActiveTask } from "../../models/tasks/tasksSelectors";
+import { activeBoardSelector } from "../../models/boards/boardsSelectors";
+import { activeTaskSelector } from "../../models/tasks/tasksSelectors";
 import { editBoard, removeBoard } from "../../models/boards/boardsSlice";
 import { addTask, editTask, removeTask } from "../../models/tasks/tasksSlice";
+import Header from "./Header";
 
-const HeaderContainer = (props) => {
-  const activeBoard = useSelector(selectActiveBoard);
-  const activeTask = useSelector(selectActiveTask);
+const HeaderContainer = ({ isNavbarHidden, toggleNavbar }) => {
+  const activeBoard = useSelector(activeBoardSelector);
+  const activeTask = useSelector(activeTaskSelector);
 
   const dispatchEditBoard = useAction(editBoard);
   const dispatchRemoveBoard = useAction(removeBoard);
@@ -17,26 +19,32 @@ const HeaderContainer = (props) => {
   const dispatchRemoveTask = useAction(removeTask);
 
   const onEditBoard = (values) => dispatchEditBoard(values);
-  const onRemoveBoard = () => dispatchRemoveBoard(activeBoard.id);
+  const onRemoveBoard = () => {
+    if (isNavbarHidden) toggleNavbar();
+    dispatchRemoveBoard(activeBoard.id);
+  };
   const createTask = (values) =>
-    dispatchAddTask({ boardId: activeBoard.id, ...values });
+    dispatchAddTask({ id: getId(), boardId: activeBoard.id, ...values });
   const onEditTask = (values) => dispatchEditTask(values);
   const onRemoveTask = () => dispatchRemoveTask(activeTask.id);
 
   return (
     <Header
-      {...{
-        ...props,
-        activeBoard,
-        onEditBoard,
-        onRemoveBoard,
-        activeTask,
-        createTask,
-        onEditTask,
-        onRemoveTask,
-      }}
+      toggleNavbar={toggleNavbar}
+      activeBoard={activeBoard}
+      onEditBoard={onEditBoard}
+      onRemoveBoard={onRemoveBoard}
+      activeTask={activeTask}
+      createTask={createTask}
+      onEditTask={onEditTask}
+      onRemoveTask={onRemoveTask}
     />
   );
+};
+
+HeaderContainer.propTypes = {
+  isNavbarHidden: PropTypes.bool,
+  toggleNav: PropTypes.func,
 };
 
 export default HeaderContainer;

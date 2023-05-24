@@ -1,14 +1,28 @@
-import Panel from "./Panel";
-import { selectTasksArr, selectActiveTask } from "../../models/tasks/tasksSelectors";
-import { selectActiveBoardId } from "../../models/boards/boardsSelectors";
 import { useSelector } from "react-redux";
+import {
+  tasksSelector,
+  activeTaskSelector,
+} from "../../models/tasks/tasksSelectors";
+import { activeBoardIdSelector, filterSelector } from "../../models/view/viewSelectors";
+import Panel from "./Panel";
 
 const PanelContainer = () => {
-  const items = useSelector(selectTasksArr);
-  const activeTask = useSelector(selectActiveTask);
-  const activeBoardId = useSelector(selectActiveBoardId);
+  const activeBoardId = useSelector(activeBoardIdSelector);
+  const activeTask = useSelector(activeTaskSelector);
+  const query = useSelector(filterSelector);
+  const { tasks, length, genLength } = useSelector(tasksSelector);
 
-  return <Panel { ...{items, activeTask, activeBoardId}} />;
+  return (
+    <Panel
+      task={activeTask}
+      tasks={tasks}
+      query={query}
+      length={length}
+      genLength={genLength}
+      isBoardChosen={Boolean(activeBoardId)}
+      isTaskChosen={Boolean(activeTask)}
+    />
+  );
 };
 
 export default PanelContainer;

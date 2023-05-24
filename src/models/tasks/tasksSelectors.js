@@ -1,37 +1,53 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { selectActiveBoardId } from "../boards/boardsSelectors";
+import {
+  activeBoardIdSelector,
+  activeTaskIdSelector,
+  filterSelector,
+} from "../view/viewSelectors";
 
 const rootSelector = createSelector(
   (state) => state,
   (state) => state.tasks
 );
 
-export const selectActiveTaskId = createSelector(
+export const tasksSelector = createSelector(
   rootSelector,
-  (tasks) => tasks.activeTaskId
+  activeBoardIdSelector,
+  filterSelector,
+  ({ tasks, tasksIds }, boardId, filter) => {
+    const queryRegExp = new RegExp(filter, "i");
+    const { items, length } = tasksIds.reduce(
+      (acc, id) => {
+        if (tasks[id].boardId === boardId) {
+          acc.length += 1;
+          const { title, subtasks } = tasks[id];
+          const words = [
+            title.trim(),
+            ...subtasks.map((subtask) => subtask.title.trim()),
+          ].join(" ");
+
+          acc.items = queryRegExp.test(words)
+            ? [...acc.items, tasks[id]]
+            : acc.items;
+        }
+        return acc;
+      },
+      {
+        items: [],
+        length: 0,
+      }
+    );
+
+    return {
+      tasks: items,
+      length: items.length,
+      genLength: length,
+    };
+  }
 );
 
-export const selectTasks = createSelector(rootSelector, (tasks) => tasks.tasks);
-
-export const selectTasksId = createSelector(
+export const activeTaskSelector = createSelector(
   rootSelector,
-  (tasks) => tasks.tasksIds
-);
-
-export const selectTasksArr = createSelector(
-  selectTasks,
-  selectTasksId,
-  selectActiveBoardId,
-  (tasks, ids, boardId) => ids.reduce((acc, id) => {
-    if (tasks[id].boardId === boardId) {
-      acc = [...acc, tasks[id]];
-    }
-    return acc;
-  }, [])
-);
-
-export const selectActiveTask = createSelector(
-  selectTasks,
-  selectActiveTaskId,
-  (tasks, id) => tasks[id]
+  activeTaskIdSelector,
+  ({ tasks }, id) => tasks[id]
 );

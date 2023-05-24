@@ -1,32 +1,27 @@
-import "./Task.scss";
-import TaskInteractionForm from "../TaskInteractionForm";
 import PropTypes from "prop-types";
+import TaskAutoSaveForm from "../TaskAutoSaveForm";
+import s from "./Task.module.scss";
 
 const Task = ({ task, onBack }) => (
-  <div className="task">
+  <div className={s.task}>
     {task.description.length > 0 ? (
-      <p className="task__description">{task.description}</p>
+      <p className={s.task__description}>{task.description}</p>
     ) : null}
-    <TaskInteractionForm {...task} />
-    <div className="task__controls">
-      <button className="task__button" onClick={onBack}>
-        Back
-      </button>
-    </div>
+    <TaskAutoSaveForm task={task} />
+    <button className={s.task__button} onClick={onBack}>
+      Back
+    </button>
   </div>
 );
 
 Task.propTypes = {
   task: PropTypes.shape({
-    title: PropTypes.string,
     id: PropTypes.number,
-    boardId: PropTypes.number,
+    status: PropTypes.string,
     subtasks: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        title: PropTypes.string,
-      })
+      PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })
     ),
+    checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
   }),
   onBack: PropTypes.func,
 };

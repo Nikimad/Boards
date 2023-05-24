@@ -1,26 +1,37 @@
+import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
+import { activeBoardIdSelector } from "../../models/view/viewSelectors";
+import { setActiveBoardId } from "../../models/view/viewSlice";
 import Board from "./Board";
-import { selectActiveBoardId } from "../../models/boards/boardsSelectors";
-import { setActiveBoardId } from "../../models/boards/boardsSlice";
-import PropTypes from "prop-types";
 
-const BoardContainer = ({ id, title, toggleNav }) => {
-  const isActive = useSelector(selectActiveBoardId) === id;
+const BoardContainer = ({ board, toggleNavbar }) => {
+  const { id, title } = board;
+
+  const activeBoardId = useSelector(activeBoardIdSelector);
   const dispatchSetActiveBoardId = useAction(setActiveBoardId);
-  const setActiveBoard = (e) => {
+
+  const selectBoard = (e) => {
     e.preventDefault();
     dispatchSetActiveBoardId(id);
-    toggleNav();
+    toggleNavbar();
   };
 
-  return <Board {...{ title, isActive, setActiveBoard }} />;
+  return (
+    <Board
+      title={title}
+      isActive={activeBoardId === id}
+      selectBoard={selectBoard}
+    />
+  );
 };
 
 BoardContainer.propTypes = {
-  id: PropTypes.number,
-  title: PropTypes.string,
-  toggleNav: PropTypes.func,
+  board: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+  }),
+  toggleNavbar: PropTypes.func,
 };
 
 export default BoardContainer;

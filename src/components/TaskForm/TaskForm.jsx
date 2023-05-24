@@ -1,49 +1,56 @@
-import "./TaskForm.scss";
-import { Field, FieldArray, ErrorMessage } from "formik";
-import FormWrapper from "../FormWrapper";
+import PropTypes from "prop-types";
+import cn from "classnames";
+import getId from "../../helpers/getId";
 import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
 import { ReactComponent as Select } from "../../assets/svg/select.svg";
-import getId from "../../helpers/getId";
-import PropTypes from "prop-types";
+import { Field, FieldArray, ErrorMessage } from "formik";
+import FormWrapper from "../FormWrapper";
+import s from "../../styles/form.module.scss";
 
 const TaskForm = ({ values, ...props }) => (
   <FormWrapper {...props}>
-    <label className="form__label">
-      <span className="form__label__title">Title</span>
-      <Field className="form__input" name="title" type="text" />
-      <ErrorMessage name="title">
-        {(msg) => <span className="form__error">{msg}</span>}
-      </ErrorMessage>
+    <label className={s.form__label}>
+      <span className={s.form__label__title}>Title</span>
+      <Field className={s.form__input} name="title" type="text" />
+      <ErrorMessage
+        name="title"
+        component="span"
+        className={s.form__label__error}
+      />
     </label>
-    <label className="form__label">
-      <span className="form__label__title">Description</span>
+    <label className={s.form__label}>
+      <span className={s.form__label__title}>Description</span>
       <Field
-        className="form__input form__textarea"
+        className={cn(s.form__input, s.form__textarea)}
         name="description"
         component="textarea"
       />
-      <ErrorMessage name="description">
-        {(msg) => <span className="form__error">{msg}</span>}
-      </ErrorMessage>
+      <ErrorMessage
+        name="description"
+        component="span"
+        className={s.form__label__error}
+      />
     </label>
     <FieldArray name="subtasks">
       {({ remove, push }) => (
-        <div className="subtasks form__label">
-          <span className="form__label__title">Subtasks</span>
+        <fieldset className={cn(s.form__fieldset, s.form__label)}>
+          <span className={s.form__label__title}>Subtasks</span>
           {values.subtasks.length > 0 &&
-            values.subtasks.map((subtask, index) => (
-              <div className="subtask" key={index}>
-                <label className="form__label">
+            values.subtasks.map((_, index) => (
+              <div className={s.form__optionalfield} key={index}>
+                <label className={s.form__label}>
                   <Field
-                    className="form__input"
+                    className={s.form__input}
                     name={`subtasks.${index}.title`}
                     type="text"
                   />
-                  <ErrorMessage name={`subtasks.${index}.title`}>
-                    {(msg) => <span className="form__error">{msg}</span>}
-                  </ErrorMessage>
+                  <ErrorMessage
+                    name={`subtasks.${index}.title`}
+                    component="span"
+                    className={s.form__label__error}
+                  />
                 </label>
-                <label className="form__reset subtask__remove">
+                <label className={cn(s.form__label, s.form__controls__reset)}>
                   <input type="button" onClick={() => remove(index)} />
                   <Delete />
                 </label>
@@ -51,7 +58,7 @@ const TaskForm = ({ values, ...props }) => (
             ))}
           <button
             type="button"
-            className="subtasks__button"
+            className={s.form__controls__submit}
             onClick={() =>
               push({
                 title: "",
@@ -61,13 +68,13 @@ const TaskForm = ({ values, ...props }) => (
           >
             Add Subtask
           </button>
-        </div>
+        </fieldset>
       )}
     </FieldArray>
-    <label className="form__label form__select">
-      <span className="form__label__title">Status</span>
+    <label className={cn(s.form__label, s.form__label_noerr)}>
+      <span className={s.form__label__title}>Status</span>
       <Field
-        className="form__input form__input_select"
+        className={cn(s.form__input, s.form__select)}
         name="status"
         component="select"
       >
@@ -77,7 +84,7 @@ const TaskForm = ({ values, ...props }) => (
         <option value="doing">Doing</option>
         <option value="done">Done</option>
       </Field>
-      <Select className="form__select-appearance" />
+      <Select className={s.form__select__appearance} />
     </label>
   </FormWrapper>
 );

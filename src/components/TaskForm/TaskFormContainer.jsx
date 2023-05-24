@@ -1,7 +1,6 @@
 import { Formik } from "formik";
 import * as Yup from "yup";
 import TaskForm from "./TaskForm";
-import getId from "../../helpers/getId";
 import PropTypes from "prop-types";
 
 const TaskFormContainer = ({ initialValues, onSubmit, onReset, ...props }) => (
@@ -10,23 +9,18 @@ const TaskFormContainer = ({ initialValues, onSubmit, onReset, ...props }) => (
       title: "",
       description: "",
       checkedSubtasks: [],
-      subtasks: [
-        {
-          title: "",
-          id: getId(),
-        },
-      ],
+      subtasks: [],
       status: "todo",
       ...initialValues,
     }}
     validationSchema={Yup.object({
       title: Yup.string()
-        .max(30, "Title must be 30 characters or less")
+        .max(16, "Title must be 16 characters or less")
         .required("Title is required"),
       subtasks: Yup.array().of(
         Yup.object({
           title: Yup.string()
-            .max(20, "Subtask title must be 20 characters or less")
+            .max(16, "Subtask title must be 16 characters or less")
             .required("Subtask title is required"),
         })
       ),

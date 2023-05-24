@@ -1,20 +1,15 @@
 import { createSlice } from "@reduxjs/toolkit";
-import getId from "../../helpers/getId";
 
 const boardsSlice = createSlice({
   name: "boards",
   initialState: {
-    activeBoardId: null,
     boards: {},
     boardsIds: [],
   },
   reducers: {
-    setActiveBoardId(state, { payload }) {
-      state.activeBoardId = payload;
-    },
     addBoard(state, { payload }) {
-      const id = getId();
-      state.boards[id] = { id, ...payload };
+      const { id, ...values } = payload;
+      state.boards[id] = { id, ...values };
       state.boardsIds = [id, ...state.boardsIds];
     },
     editBoard(state, { payload }) {
@@ -32,7 +27,6 @@ const boardsSlice = createSlice({
   },
 });
 
-export const { setActiveBoardId, addBoard, editBoard, removeBoard } =
-  boardsSlice.actions;
+export const { addBoard, editBoard, removeBoard } = boardsSlice.actions;
 
 export default boardsSlice.reducer;

@@ -1,22 +1,23 @@
-import "./Board.scss";
+import PropTypes from "prop-types";
+import cn from "classnames";
 import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
-import PropTypes from 'prop-types';
+import s from "./Board.module.scss";
 
-const Board = ({ title, isActive, setActiveBoard }) => (
+const Board = ({ title, isActive, selectBoard }) => (
   <a
-    onClick={setActiveBoard}
+    onClick={selectBoard}
     href={`/${title}`}
-    className={`board${isActive ? " board_active" : ""}`}
+    className={cn(s.board, { [s.board_active]: isActive })}
   >
     <Icon />
-    <span className="board__title">{title}</span>
+    {title}
   </a>
 );
 
 Board.propTypes = {
   title: PropTypes.string,
   isActive: PropTypes.bool,
-  setActiveBoard: PropTypes.func,
+  selectBoard: PropTypes.func,
 };
 
 export default Board;

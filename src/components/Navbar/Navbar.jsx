@@ -1,30 +1,35 @@
-import "./Navbar.scss";
-import LogoToggler from "../LogoToggler";
+import PropTypes from "prop-types";
+import LayoutToggler from "../LayoutToggler";
 import Board from "../Board";
 import Modal from "../Modal";
 import BoardForm from "../BoardForm";
-import PropTypes from "prop-types";
+import s from "./Navbar.module.scss";
 
 const Navbar = ({
-  isNavHidden,
-  toggleNav,
+  isNavbarHidden,
+  toggleNavbar,
   activeBoardId,
   createBoard,
-  items,
+  boards,
 }) => (
-  <div className="navbar" aria-hidden={isNavHidden}>
-    <div className="navbar__header">
-      <LogoToggler onClick={toggleNav} isDisabled={!Boolean(activeBoardId)} />
-      <h1 className="navbar__title">Boards</h1>
-      <p className="navbar__counter">All boards ({items.length ?? 0})</p>
+  <div className={s.navbar} aria-hidden={isNavbarHidden}>
+    <div className={s.navbar__header}>
+      <LayoutToggler
+        onClick={toggleNavbar}
+        disabled={!Boolean(activeBoardId)}
+      />
+      <h1>Boards</h1>
+      <p className={s.navbar__header__text}>
+        All boards ({boards.length ?? 0})
+      </p>
     </div>
-    <nav className="navbar__nav">
-      {items.map((board) => (
-        <Board key={board.id} {...{ ...board, toggleNav }} />
+    <nav className={s.navbar__nav}>
+      {boards.map((board) => (
+        <Board key={board.id} board={board} toggleNavbar={toggleNavbar} />
       ))}
     </nav>
     <Modal>
-      <button className="navbar__button">+ Create New Board</button>
+      <button className={s.navbar__button}>+ Create New Board</button>
       <BoardForm
         onSubmit={createBoard}
         formTitle="Create new board"
@@ -35,11 +40,11 @@ const Navbar = ({
 );
 
 Navbar.propTypes = {
-  isNavHidden: PropTypes.bool,
-  toggleNav: PropTypes.func,
+  isNavbarHidden: PropTypes.bool,
+  toggleNavbar: PropTypes.func,
   activeBoardId: PropTypes.number,
   createBoard: PropTypes.func,
-  items: PropTypes.array,
+  boards: PropTypes.array,
 };
 
 export default Navbar;

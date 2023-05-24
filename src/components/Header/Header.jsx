@@ -1,12 +1,15 @@
-import "./Header.scss";
-import LogoToggler from "../LogoToggler";
+import PropTypes from "prop-types";
+import cn from "classnames";
+import LayoutToggler from "../LayoutToggler";
 import Modal from "../Modal";
 import BoardForm from "../BoardForm";
 import TaskForm from "../TaskForm";
-import PropTypes from "prop-types";
+import s from "./Header.module.scss";
+
+import { ReactComponent as Edit } from "../../assets/svg/edit.svg";
 
 const Header = ({
-  toggleNav,
+  toggleNavbar,
   activeBoard,
   onEditBoard,
   onRemoveBoard,
@@ -15,14 +18,21 @@ const Header = ({
   onEditTask,
   onRemoveTask,
 }) => (
-  <div className="header__wrapper">
-    <header className={`header${!Boolean(activeBoard) ? " header_empty" : ""}`}>
-      <LogoToggler onClick={toggleNav} />
-      <div className="header__active">
+  <div className={s.header__wrapper}>
+    <header
+      className={cn(s.header, {
+        [s.header_empty]: !Boolean(activeBoard),
+      })}
+    >
+      <LayoutToggler onClick={toggleNavbar} />
+      <div className={s.header__active}>
         <Modal>
-          <h2 className="header__active__title">
-            {Boolean(activeTask) ? activeTask?.title : activeBoard?.title}
-          </h2>
+          <div className={s.header__active__editable}>
+            <h2 className={s.header__active__title}>
+              {Boolean(activeTask) ? activeTask?.title : activeBoard?.title}
+            </h2>
+            <Edit />
+          </div>
           {Boolean(activeTask) ? (
             <TaskForm
               initialValues={activeTask}
@@ -46,8 +56,8 @@ const Header = ({
       </div>
       {Boolean(activeTask) ? null : (
         <Modal>
-          <button className="header__button">
-            +<span className="header__button__text"> Add New Task</span>
+          <button className={s.header__button}>
+            +<span className={s.header__button__text}> Add New Task</span>
           </button>
           <TaskForm
             formTitle="Add new task"
