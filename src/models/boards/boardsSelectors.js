@@ -1,5 +1,4 @@
 import { createSelector } from "@reduxjs/toolkit";
-import { activeBoardIdSelector } from "../view/viewSelectors";
 
 const rootSelector = createSelector(
   (state) => state,
@@ -11,8 +10,5 @@ export const allBoardsSelector = createSelector(
   ({ boards, boardsIds }) => boardsIds.map((id) => boards[id])
 );
 
-export const activeBoardSelector = createSelector(
-  rootSelector,
-  activeBoardIdSelector,
-  ({ boards }, id) => boards[id]
-);
+export const boardByIdSelector = (id) =>
+  createSelector(rootSelector, ({ boards }) => boards[id]);
