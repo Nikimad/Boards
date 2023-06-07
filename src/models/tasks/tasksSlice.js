@@ -29,15 +29,15 @@ const tasksSlice = createSlice({
     },
     removeTask(state, { payload }) {
       state.activeTaskId = null;
-      delete state.tasks[payload];
-      state.tasksIds = state.tasksIds.filter((id) => id !== payload);
+      delete state.tasks[payload.id];
+      state.tasksIds = state.tasksIds.filter((id) => id !== payload.id);
     },
   },
   extraReducers(builder) {
     builder.addCase(removeBoard, (state, { payload }) => {
       const deletedTasksId = Object.entries(state.tasks).filter(
         ([id, task]) => {
-          if (task.boardId === payload) return id;
+          if (task.boardId === payload.id) return id;
         }
       );
       state.tasksIds = state.tasksIds.filter(
