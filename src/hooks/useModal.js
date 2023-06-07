@@ -1,13 +1,13 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const useModal = () => {
-  const [modalStatus, setModalStatus] = useState("close");
+  const navigate = useNavigate();
+  const [modalStatus, setModalStatus] = useState("show");
   const resetModal = () => setModalStatus("reset");
-  const showModal = () => setModalStatus("show");
-  const closeModal = () => setModalStatus("close");
-  const toggleModal = () => modalStatus === "close" ? showModal() : resetModal();
+  const closeModal = () => navigate(-1);
 
-  return { toggleModal, modalStatus, showModal, resetModal, closeModal };
+  return { modalStatus, resetModal, closeModal };
 };
 
 export default useModal;
