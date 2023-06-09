@@ -41,19 +41,3 @@
         }
     }
 }
-
-.taskreview {
-    display: grid;
-    gap: 1rem;
-
-    &__title {
-        font-size: 1.25em;
-        margin: 0;
-    }
-
-    .form {
-        background-color: $violet-500;
-        border-radius: $br;
-        padding: 1rem;
-    }
-}

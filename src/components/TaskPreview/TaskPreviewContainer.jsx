@@ -1,16 +1,18 @@
 import PropTypes from "prop-types";
-import useAction from "../../hooks/useAction";
-import { setActiveTaskId } from "../../models/view/viewSlice";
 import TaskPreview from "./TaskPreview";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const TaskPreviewContainer = ({ task }) => {
-  const dispatchSetActiveTaskId = useAction(setActiveTaskId);
-  const setActiveTask = () => dispatchSetActiveTaskId(task.id);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const handleClick = () => navigate(`task/${task.id}`);
 
   return (
     <TaskPreview
       task={task}
-      setActiveTask={setActiveTask}
+      onClick={handleClick}
+      reviewPath={`review task/${task.id}`}
+      previousLocation={{ previousLocation: location }}
     />
   );
 };
