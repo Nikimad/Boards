@@ -6,9 +6,6 @@
   grid-template-columns: minmax(1em, 30px) 1fr;
   justify-content: start;
   align-items: center;
-  color: $gray;
-  font-size: 1.2em;
-  font-weight: 700;
   border: 1px solid transparent;
   border-radius: 0 $br $br 0;
   padding: 1rem;
@@ -27,4 +24,3 @@
     }
   }
 }
-
