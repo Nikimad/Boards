@@ -1,50 +1,33 @@
-import PropTypes from "prop-types";
-import getId from "../../helpers/getId";
+import { useContext } from "react";
+import HiddableContentContext from "../../context/HiddableContentContext";
+import { useLocation, useParams}  from "react-router-dom";
 import { useSelector } from "react-redux";
-import useAction from "../../hooks/useAction";
-import { activeBoardSelector } from "../../models/boards/boardsSelectors";
-import { activeTaskSelector } from "../../models/tasks/tasksSelectors";
-import { editBoard, removeBoard } from "../../models/boards/boardsSlice";
-import { addTask, editTask, removeTask } from "../../models/tasks/tasksSlice";
+import { boardByIdSelector } from "../../models/boards/boardsSelectors";
+import { taskByIdSelector } from "../../models/tasks/tasksSelectors";
+import getId from "../../helpers/getId";
 import Header from "./Header";
 
-const HeaderContainer = ({ isNavbarHidden, toggleNavbar }) => {
-  const activeBoard = useSelector(activeBoardSelector);
-  const activeTask = useSelector(activeTaskSelector);
+const HeaderContainer = () => {
+  const { toggleIsHidden } = useContext(HiddableContentContext);
+  const location = useLocation();
+  const { boardId, taskId } = useParams();
 
-  const dispatchEditBoard = useAction(editBoard);
-  const dispatchRemoveBoard = useAction(removeBoard);
-  const dispatchAddTask = useAction(addTask);
-  const dispatchEditTask = useAction(editTask);
-  const dispatchRemoveTask = useAction(removeTask);
-
-  const onEditBoard = (values) => dispatchEditBoard(values);
-  const onRemoveBoard = () => {
-    if (isNavbarHidden) toggleNavbar();
-    dispatchRemoveBoard(activeBoard.id);
-  };
-  const createTask = (values) =>
-    dispatchAddTask({ id: getId(), boardId: activeBoard.id, ...values });
-  const onEditTask = (values) => dispatchEditTask(values);
-  const onRemoveTask = () => dispatchRemoveTask(activeTask.id);
+  const currentBoard = useSelector(boardByIdSelector(boardId));
+  const currentTask = useSelector(taskByIdSelector(taskId));
 
   return (
     <Header
-      toggleNavbar={toggleNavbar}
-      activeBoard={activeBoard}
-      onEditBoard={onEditBoard}
-      onRemoveBoard={onRemoveBoard}
-      activeTask={activeTask}
-      createTask={createTask}
-      onEditTask={onEditTask}
-      onRemoveTask={onRemoveTask}
+      toggleNavbar={toggleIsHidden}
+      currentBoard={currentBoard}
+      isBoardChosen={Boolean(currentBoard)}
+      currentTask={currentTask}
+      isTaskChosen={Boolean(currentTask)}
+      boardPath={`edit board/${boardId}`}
+      taskEditPath={`board/${boardId}/edit task/${taskId}`}
+      taskCreatePath={`board/${boardId}/create task/${getId()}`}
+      state={{ previousLocation: location, boardId, taskId }}
     />
   );
-};
-
-HeaderContainer.propTypes = {
-  isNavbarHidden: PropTypes.bool,
-  toggleNav: PropTypes.func,
 };
 
 export default HeaderContainer;
