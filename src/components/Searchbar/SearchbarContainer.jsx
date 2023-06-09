@@ -1,26 +1,13 @@
-import { useState } from "react";
-import useAction from "../../hooks/useAction";
-import useDebounceCallback from "../../hooks/useDebounceCallback";
-import { setFilter } from "../../models/view/viewSlice";
+import { useSearchParams } from "react-router-dom";
 import Searchbar from "./Searchbar";
-import { useSelector } from "react-redux";
-import { filterSelector } from "../../models/view/viewSelectors";
 
 const SearchbarContainer = () => {
-  const filter = useSelector(filterSelector);
-  const [query, setQuery] = useState(filter);
+  const [searchParams, setSearchParams] = useSearchParams({ search: "" });
+  const handleChange = ({ target }) => setSearchParams({ search: target.value});
 
-  const dispatchSetFilter = useAction(setFilter);
-  const debounceDispatchSetFilter = useDebounceCallback(dispatchSetFilter, 300);
-
-  const handleChangeQuery = ({ target }) => {
-    const { value } = target;
-
-    setQuery(value);
-    debounceDispatchSetFilter(value);
-  };
-
-  return <Searchbar value={query} onChange={handleChangeQuery} />;
+  return (
+    <Searchbar value={searchParams.get("search") ?? ""} onChange={handleChange} />
+  );
 };
 
 export default SearchbarContainer;

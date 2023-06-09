@@ -1,11 +1,12 @@
 import PropTypes from "prop-types";
-import s from "../../styles/form.module.scss";
+import sf from "../../styles/form.module.scss";
+import s from "./Searchbar.module.scss";
 
 const Searchbar = ({ value, onChange }) => (
-  <form>
-    <label className={s.form__label}>
+  <form className={s.searchbar}>
+    <label className={sf.form__label}>
       <input
-        className={s.form__input}
+        className={sf.form__input}
         type="text"
         placeholder="Search"
         value={value}
