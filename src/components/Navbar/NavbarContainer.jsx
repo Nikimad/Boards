@@ -18,7 +18,7 @@ const NavbarContainer = () => {
       toggleIsHidden={toggleIsHidden}
       isToggleDisabled={!Boolean(boardId)}
       boards={boards}
-      path={`create board/${getId()}`}
+      path={`board/${getId()}/create`}
       previousLocation={{ previousLocation: location }}
     />
   );
