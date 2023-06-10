@@ -2,7 +2,7 @@
 @use "./colors.scss" as *;
 @use "./fonts.scss" as *;
 
-* {
+*, *::after, *::before {
   box-sizing: border-box;
 }
 
@@ -26,6 +26,10 @@ input {
 
 select {
   appearance: none;
+}
+
+h2 {
+  margin: 0;
 }
 
 button:not(:disabled),
