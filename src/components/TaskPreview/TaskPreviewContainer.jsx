@@ -11,7 +11,7 @@ const TaskPreviewContainer = ({ task }) => {
     <TaskPreview
       task={task}
       onClick={handleClick}
-      reviewPath={`review task/${task.id}`}
+      reviewPath={`task/${task.id}/review`}
       previousLocation={{ previousLocation: location }}
     />
   );

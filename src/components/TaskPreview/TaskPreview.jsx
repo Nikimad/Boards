@@ -13,7 +13,11 @@ const TaskPreview = ({ task, onClick, reviewPath, previousLocation }) => (
           : `Status: ${task.status}`}
       </p>
     </button>
-    <Link state={previousLocation} to={reviewPath} className={s.taskpreview__openreview}>
+    <Link
+      state={previousLocation}
+      to={reviewPath}
+      className={s.taskpreview__openreview}
+    >
       <View />
     </Link>
   </div>
