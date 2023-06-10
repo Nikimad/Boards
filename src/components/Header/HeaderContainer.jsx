@@ -1,6 +1,6 @@
 import { useContext } from "react";
 import HiddableContentContext from "../../context/HiddableContentContext";
-import { useLocation, useParams}  from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { boardByIdSelector } from "../../models/boards/boardsSelectors";
 import { taskByIdSelector } from "../../models/tasks/tasksSelectors";
@@ -22,10 +22,10 @@ const HeaderContainer = () => {
       isBoardChosen={Boolean(currentBoard)}
       currentTask={currentTask}
       isTaskChosen={Boolean(currentTask)}
-      boardPath={`edit board/${boardId}`}
-      taskEditPath={`board/${boardId}/edit task/${taskId}`}
-      taskCreatePath={`board/${boardId}/create task/${getId()}`}
-      state={{ previousLocation: location, boardId, taskId }}
+      boardEditPath={`board/${boardId}/edit`}
+      taskEditPath={`board/${boardId}/task/${taskId}/edit`}
+      taskCreatePath={`board/${boardId}/task/${getId()}/create`}
+      previousLocation={{ previousLocation: location}}
     />
   );
 };

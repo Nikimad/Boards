@@ -11,10 +11,10 @@ const Header = ({
   isBoardChosen,
   currentTask,
   isTaskChosen,
-  boardPath,
+  boardEditPath,
   taskEditPath,
   taskCreatePath,
-  state,
+  previousLocation,
 }) => (
   <div className={s.header__wrapper}>
     <header
@@ -26,19 +26,23 @@ const Header = ({
         <Logo />
       </button>
 
-        <Link
-          to={isTaskChosen ? taskEditPath : boardPath}
-          className={s.header__editable}
-          state={state}
-        >
-          <span className={s.header__title}>
-            {isTaskChosen ? currentTask.title : currentBoard?.title}
-          </span>
-          <Edit />
-        </Link>
+      <Link
+        to={isTaskChosen ? taskEditPath : boardEditPath}
+        className={s.header__editable}
+        state={previousLocation}
+      >
+        <span className={s.header__title}>
+          {isTaskChosen ? currentTask.title : currentBoard?.title}
+        </span>
+        <Edit />
+      </Link>
 
       {Boolean(currentTask) ? null : (
-        <Link to={taskCreatePath} state={state} className={s.header__button}>
+        <Link
+          to={taskCreatePath}
+          state={previousLocation}
+          className={s.header__button}
+        >
           +<span className={s.header__button__text}> Add New Task</span>
         </Link>
       )}
@@ -47,13 +51,12 @@ const Header = ({
 );
 
 Header.propTypes = {
-  toggleNav: PropTypes.func,
+  toggleNavbar: PropTypes.func,
   currentBoard: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
   }),
-  onEditBoard: PropTypes.func,
-  onRemoveBoard: PropTypes.func,
+  isBoardChosen: PropTypes.bool,
   currentTask: PropTypes.shape({
     title: PropTypes.string,
     id: PropTypes.number,
@@ -66,9 +69,19 @@ Header.propTypes = {
     ),
     checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
   }),
-  createTask: PropTypes.func,
-  onEditTask: PropTypes.func,
-  onRemoveTask: PropTypes.func,
+  isTaskChosen: PropTypes.bool,
+  boardEditPath: PropTypes.string,
+  taskEditPath: PropTypes.string,
+  taskCreatePath: PropTypes.string,
+  previousLocation: PropTypes.shape({
+    previousLocation: PropTypes.shape({
+      pathname: PropTypes.string,
+      search: PropTypes.string,
+      hash: PropTypes.string,
+      state: PropTypes.object,
+      key: PropTypes.string,
+    }),
+  }),
 };
 
 export default Header;
