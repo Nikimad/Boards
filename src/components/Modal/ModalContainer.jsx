@@ -1,16 +1,19 @@
-import { useCallback, useEffect } from "react";
+import { Children, cloneElement, useCallback, useEffect } from "react";
 import PropTypes from "prop-types";
+import useModal from "../../hooks/useModal";
 import Modal from "./Modal";
 
-const ModalContainer = ({ modalStatus, resetModal, closeModal, children }) => {
+const ModalContainer = ({ children }) => {
+  const { modalStatus, resetModal, closeModal } = useModal();
+
   const handleEscape = useCallback(
     (e) => {
-      if (e.key === "Escape" && modalStatus === "show") resetModal();
+      if (e.key === "Escape") resetModal();
     },
-    [resetModal, modalStatus]
+    [resetModal]
   );
 
-  const handleContentClick = (e) => e.stopPropagation();
+  const handleStopPropagation = (e) => e.stopPropagation();
 
   const handleResetModal = () => {
     if (modalStatus === "reset") closeModal();
@@ -24,22 +27,38 @@ const ModalContainer = ({ modalStatus, resetModal, closeModal, children }) => {
     };
   }, [handleEscape]);
 
+  const [FormOrigin, ...otherContentOrigin] = Children.toArray(children);
+
+  const Form = cloneElement(FormOrigin, {
+    ...FormOrigin.props,
+    onSubmit: (e) => {
+      if (FormOrigin.props.onSubmit) FormOrigin.props.onSubmit(e);
+      resetModal();
+    },
+    onReset: (e) => {
+      if (FormOrigin.props.onReset) FormOrigin.props.onReset(e);
+      resetModal();
+    },
+  });
+
   return (
     <Modal
       modalStatus={modalStatus}
       resetModal={resetModal}
-      onContentClick={handleContentClick}
+      stopPropagation={handleStopPropagation}
       onContentAnimationEnd={handleResetModal}
-      children={children}
-    />
+    >
+      {...otherContentOrigin}
+      {Form}
+    </Modal>
   );
 };
 
 ModalContainer.propTypes = {
-  modalStatus: PropTypes.string,
-  resetModal: PropTypes.func,
-  closeModal: PropTypes.func,
-  children: PropTypes.oneOfType([PropTypes.arrayOf(PropTypes.element), PropTypes.element]),
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.element),
+    PropTypes.element,
+  ]),
 };
 
 export default ModalContainer;
