@@ -3,15 +3,15 @@ import TaskAutoSaveForm from "../TaskAutoSaveForm";
 import s from "./Task.module.scss";
 
 const Task = ({ task, onBack }) => (
-  <div className={s.task}>
-    {task.description.length > 0 ? (
-      <p className={s.task__description}>{task.description}</p>
-    ) : null}
-    <TaskAutoSaveForm task={task} />
-    <button className={s.task__button} onClick={onBack}>
-      Back
-    </button>
-  </div>
+    <div className={s.task}>
+      {task.description.length > 0 ? (
+        <p className={s.task__description}>{task.description}</p>
+      ) : null}
+      <TaskAutoSaveForm />
+      <button className={s.task__button} onClick={onBack}>
+        Back
+      </button>
+    </div>
 );
 
 Task.propTypes = {
