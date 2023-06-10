@@ -4,11 +4,15 @@ import getId from "../../helpers/getId";
 import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
 import { ReactComponent as Select } from "../../assets/svg/select.svg";
 import { Field, FieldArray, ErrorMessage } from "formik";
-import FormWrapper from "../FormWrapper";
+import Form from "../Form";
 import s from "../../styles/form.module.scss";
 
-const TaskForm = ({ values, ...props }) => (
-  <FormWrapper {...props}>
+const TaskForm = ({ values, isEdit }) => (
+  <Form
+    formTitle={isEdit ? "Edit task" : "Add new task"}
+    submitTitle={isEdit ? "Edit" : "Create task"}
+    isEdit={isEdit}
+  >
     <label className={s.form__label}>
       <span className={s.form__label__title}>Title</span>
       <Field className={s.form__input} name="title" type="text" />
@@ -86,7 +90,7 @@ const TaskForm = ({ values, ...props }) => (
       </Field>
       <Select className={s.form__select__appearance} />
     </label>
-  </FormWrapper>
+  </Form>
 );
 
 TaskForm.propTypes = {
@@ -101,6 +105,7 @@ TaskForm.propTypes = {
       })
     ),
   }),
+  isEdit: PropTypes.bool,
 };
 
 export default TaskForm;
