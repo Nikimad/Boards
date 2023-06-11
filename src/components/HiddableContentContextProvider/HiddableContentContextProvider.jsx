@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { useState, useCallback, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import HiddableContentContext from "../../context/HiddableContentContext";
 import debounce from "lodash/debounce";
-import { useLocation } from "react-router-dom";
 
 const HiddableContentContextProvider = ({ children }) => {
   const location = useLocation();
@@ -13,8 +13,6 @@ const HiddableContentContextProvider = ({ children }) => {
     if (isHidden && location.pathname === "/") setIsHidden(false);
     if (isHidable && !isHidden && location.pathname !== "/") setIsHidden(true);
   }, [isHidable, location]);
-
-  useEffect(() => handleRootLocation(), [handleRootLocation]);
 
   const handleWindowResize = useCallback(() => {
     if (!isHidable && window.innerWidth <= 800) {
@@ -29,6 +27,8 @@ const HiddableContentContextProvider = ({ children }) => {
   const debouncedHandleWindowResize = debounce(handleWindowResize);
 
   useEffect(() => debouncedHandleWindowResize(), [debouncedHandleWindowResize]);
+  
+  useEffect(() => handleRootLocation(), [handleRootLocation]);
 
   useEffect(() => {
     window.addEventListener("resize", debouncedHandleWindowResize);
