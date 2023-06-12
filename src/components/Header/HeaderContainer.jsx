@@ -1,6 +1,4 @@
-import { useContext } from "react";
-import HiddableContentContext from "../../context/HiddableContentContext";
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { boardByIdSelector } from "../../models/boards/boardsSelectors";
 import { taskByIdSelector } from "../../models/tasks/tasksSelectors";
@@ -8,7 +6,8 @@ import getId from "../../helpers/getId";
 import Header from "./Header";
 
 const HeaderContainer = () => {
-  const { toggleIsHidden } = useContext(HiddableContentContext);
+  const navigate = useNavigate();
+  const handleTogglerClick = () => navigate('/');
   const location = useLocation();
   const { boardId, taskId } = useParams();
 
@@ -17,7 +16,7 @@ const HeaderContainer = () => {
 
   return (
     <Header
-      toggleNavbar={toggleIsHidden}
+      onTogglerClick={handleTogglerClick}
       currentBoard={currentBoard}
       isBoardChosen={Boolean(currentBoard)}
       currentTask={currentTask}

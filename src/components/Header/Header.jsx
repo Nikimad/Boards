@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import s from "./Header.module.scss";
 
 const Header = ({
-  toggleNavbar,
+  onTogglerClick,
   currentBoard,
   isBoardChosen,
   currentTask,
@@ -22,10 +22,9 @@ const Header = ({
         [s.header_empty]: !isBoardChosen,
       })}
     >
-      <button onClick={toggleNavbar}>
+      <button onClick={onTogglerClick}>
         <Logo />
       </button>
-
       <Link
         to={isTaskChosen ? taskEditPath : boardEditPath}
         className={s.header__editable}
@@ -36,7 +35,6 @@ const Header = ({
         </span>
         <Edit />
       </Link>
-
       {Boolean(currentTask) ? null : (
         <Link
           to={taskCreatePath}
@@ -51,7 +49,7 @@ const Header = ({
 );
 
 Header.propTypes = {
-  toggleNavbar: PropTypes.func,
+  onTogglerClick: PropTypes.func,
   currentBoard: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
