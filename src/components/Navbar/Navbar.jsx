@@ -7,16 +7,13 @@ import s from "./Navbar.module.scss";
 const Navbar = ({
   isHidden,
   toggleIsHidden,
-  isToggleDisabled,
   boards,
   path,
   previousLocation,
 }) => (
   <div className={s.navbar} aria-hidden={isHidden}>
     <div className={s.navbar__header}>
-      <button onClick={toggleIsHidden} disabled={isToggleDisabled}>
-        <Logo />
-      </button>
+      <Logo />
       <h1 className={s.navbar__header__title}>Boards</h1>
       <p className={s.navbar__header__text}>All boards ({boards.length})</p>
     </div>
@@ -34,7 +31,6 @@ const Navbar = ({
 Navbar.propTypes = {
   isHidden: PropTypes.bool,
   toggleIsHidden: PropTypes.func,
-  isToggleDisabled: PropTypes.bool,
   boards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,

@@ -1,4 +1,4 @@
-import { useLocation, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useContext } from "react";
 import HiddableContentContext from "../../context/HiddableContentContext";
 import { useSelector } from "react-redux";
@@ -8,7 +8,6 @@ import Navbar from "./Navbar";
 
 const NavbarContainer = () => {
   const { isHidden, toggleIsHidden } = useContext(HiddableContentContext);
-  const { boardId } = useParams();
   const location = useLocation();
   const boards = useSelector(allBoardsSelector);
 
@@ -16,7 +15,6 @@ const NavbarContainer = () => {
     <Navbar
       isHidden={isHidden}
       toggleIsHidden={toggleIsHidden}
-      isToggleDisabled={!Boolean(boardId)}
       boards={boards}
       path={`board/${getId()}/create`}
       previousLocation={{ previousLocation: location }}
