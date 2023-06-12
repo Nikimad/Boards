@@ -11,8 +11,14 @@ const HiddableContentContextProvider = ({ children }) => {
 
   const handleRootLocation = useCallback(() => {
     if (isHidden && location.pathname === "/") setIsHidden(false);
-    if (isHidable && !isHidden && location.pathname !== "/") setIsHidden(true);
-  }, [isHidable, location]);
+    if (
+      isHidable &&
+      !isHidden &&
+      location.pathname !== "/" &&
+      !location.pathname.includes("create")
+    )
+      setIsHidden(true);
+  }, [isHidden, isHidable, location]);
 
   const handleWindowResize = useCallback(() => {
     if (!isHidable && window.innerWidth <= 800) {
@@ -27,7 +33,7 @@ const HiddableContentContextProvider = ({ children }) => {
   const debouncedHandleWindowResize = debounce(handleWindowResize);
 
   useEffect(() => debouncedHandleWindowResize(), [debouncedHandleWindowResize]);
-  
+
   useEffect(() => handleRootLocation(), [handleRootLocation]);
 
   useEffect(() => {
