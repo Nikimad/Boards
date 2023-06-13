@@ -1,6 +1,7 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import MainPage from "../pages/MainPage";
 import PanelPage from "../pages/PanelPage";
+import ErrPage from "../pages/ErrPage";
 
 const PageRoutes = ({ location }) => (
   <Routes location={location}>
@@ -13,7 +14,7 @@ const PageRoutes = ({ location }) => (
         </Route>
       </Route>
     </Route>
-    <Route path="*" element={<Navigate to="/" />} />
+    <Route path="*" element={<ErrPage />} />
   </Routes>
 );
 
