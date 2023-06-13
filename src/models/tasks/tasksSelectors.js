@@ -1,5 +1,4 @@
 import { createSelector } from "@reduxjs/toolkit";
-
 import { boardByIdSelector } from "../boards/boardsSelectors";
 
 const rootSelector = createSelector(
@@ -11,9 +10,18 @@ export const tasksSelector = (boardId, filter) =>
   createSelector(
     rootSelector,
     boardByIdSelector(boardId),
-    ({ tasks }, { tasksIds }) => {
+    ({ tasks }, currentBoard) => {
+      if (!Boolean(currentBoard)) {
+        return {
+          isBoardExist: false,
+          tasks: [],
+          filtredLength: 0,
+          length: 0,
+        };
+      }
+
       const queryRegExp = new RegExp(filter, "i");
-      const currentTasks = tasksIds.reduce((acc, id) => {
+      const currentTasks = currentBoard.tasksIds.reduce((acc, id) => {
         const { title, subtasks } = tasks[id];
         const words = [
           title.trim(),
@@ -28,7 +36,8 @@ export const tasksSelector = (boardId, filter) =>
       return {
         tasks: currentTasks,
         filtredLength: currentTasks.length,
-        length: tasksIds.length,
+        length: currentBoard.tasksIds.length,
+        isBoardExist: true,
       };
     }
   );
