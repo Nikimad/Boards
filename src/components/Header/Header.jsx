@@ -19,7 +19,7 @@ const Header = ({
   <div className={s.header__wrapper}>
     <header
       className={cn(s.header, {
-        [s.header_empty]: !isBoardChosen,
+        [s.header_empty]: !isBoardChosen && !isTaskChosen,
       })}
     >
       <button onClick={onTogglerClick}>
