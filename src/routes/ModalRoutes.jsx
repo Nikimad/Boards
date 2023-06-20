@@ -6,7 +6,7 @@ const ModalRoutes = () => (
   <Routes>
     <Route path="board/:boardId">
       <Route path=":action" element={<BoardForm />} />
-      <Route path="task/:taskId:action" element={<TaskForm />} />
+      <Route path="task/:taskId/:action" element={<TaskForm />} />
     </Route>
   </Routes>
 );
