@@ -8,13 +8,13 @@ const BoardContainer = () => {
   const [searchParams] = useSearchParams();
 
   const { isBoardExist, tasks, filtredLength, length } = useSelector(
-    tasksSelector(boardId, searchParams.get("search") ?? "")
+    tasksSelector(boardId, searchParams.get("tasks") ?? "")
   );
 
   return isBoardExist ? (
     <Board
       tasks={tasks}
-      query={searchParams.get("search")}
+      query={searchParams.get("tasks")}
       filtredLength={filtredLength}
       length={length}
     />

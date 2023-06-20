@@ -7,7 +7,7 @@ import s from "./Board.module.scss";
 const Board = ({ tasks, query, filtredLength, length }) =>
   length > 0 ? (
     <>
-      <Searchbar />
+      <Searchbar param="tasks" placeholder="Search task" />
       {filtredLength > 0 ? (
         <div className={s.board}>
           {tasks.map((task) => (
