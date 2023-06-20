@@ -1,84 +1,61 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-import LayoutToggler from "../LayoutToggler";
-import Modal from "../Modal";
-import BoardForm from "../BoardForm";
-import TaskForm from "../TaskForm";
+import { ReactComponent as Logo } from "../../assets/svg/logo.svg";
+import { ReactComponent as Edit } from "../../assets/svg/edit.svg";
+import { Link } from "react-router-dom";
 import s from "./Header.module.scss";
 
-import { ReactComponent as Edit } from "../../assets/svg/edit.svg";
-
 const Header = ({
-  toggleNavbar,
-  activeBoard,
-  onEditBoard,
-  onRemoveBoard,
-  activeTask,
-  createTask,
-  onEditTask,
-  onRemoveTask,
+  onTogglerClick,
+  currentBoard,
+  isBoardChosen,
+  currentTask,
+  isTaskChosen,
+  boardEditPath,
+  taskEditPath,
+  taskCreatePath,
+  previousLocation,
 }) => (
   <div className={s.header__wrapper}>
     <header
       className={cn(s.header, {
-        [s.header_empty]: !Boolean(activeBoard),
+        [s.header_empty]: !isBoardChosen && !isTaskChosen,
       })}
     >
-      <LayoutToggler onClick={toggleNavbar} />
-      <div className={s.header__active}>
-        <Modal>
-          <div className={s.header__active__editable}>
-            <h2 className={s.header__active__title}>
-              {Boolean(activeTask) ? activeTask?.title : activeBoard?.title}
-            </h2>
-            <Edit />
-          </div>
-          {Boolean(activeTask) ? (
-            <TaskForm
-              initialValues={activeTask}
-              isEdit={true}
-              onSubmit={onEditTask}
-              onReset={onRemoveTask}
-              formTitle="Edit task"
-              submitTitle="Edit"
-            />
-          ) : (
-            <BoardForm
-              initialValues={activeBoard}
-              isEdit={true}
-              onSubmit={onEditBoard}
-              onReset={onRemoveBoard}
-              formTitle="Edit board"
-              submitTitle="Edit"
-            />
-          )}
-        </Modal>
-      </div>
-      {Boolean(activeTask) ? null : (
-        <Modal>
-          <button className={s.header__button}>
-            +<span className={s.header__button__text}> Add New Task</span>
-          </button>
-          <TaskForm
-            formTitle="Add new task"
-            submitTitle="Add task"
-            onSubmit={createTask}
-          />
-        </Modal>
+      <button onClick={onTogglerClick}>
+        <Logo />
+      </button>
+      <Link
+        to={isTaskChosen ? taskEditPath : boardEditPath}
+        className={s.header__editable}
+        state={previousLocation}
+      >
+        <span className={s.header__title}>
+          {isTaskChosen ? currentTask.title : currentBoard?.title}
+        </span>
+        <Edit />
+      </Link>
+      {Boolean(currentTask) ? null : (
+        <Link
+          to={taskCreatePath}
+          state={previousLocation}
+          className={s.header__button}
+        >
+          +<span className={s.header__button__text}> Add New Task</span>
+        </Link>
       )}
     </header>
   </div>
 );
 
 Header.propTypes = {
-  toggleNav: PropTypes.func,
-  activeBoard: PropTypes.shape({
+  onTogglerClick: PropTypes.func,
+  currentBoard: PropTypes.shape({
     id: PropTypes.number,
     title: PropTypes.string,
   }),
-  onEditBoard: PropTypes.func,
-  onRemoveBoard: PropTypes.func,
-  activeTask: PropTypes.shape({
+  isBoardChosen: PropTypes.bool,
+  currentTask: PropTypes.shape({
     title: PropTypes.string,
     id: PropTypes.number,
     boardId: PropTypes.number,
@@ -90,9 +67,19 @@ Header.propTypes = {
     ),
     checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
   }),
-  createTask: PropTypes.func,
-  onEditTask: PropTypes.func,
-  onRemoveTask: PropTypes.func,
+  isTaskChosen: PropTypes.bool,
+  boardEditPath: PropTypes.string,
+  taskEditPath: PropTypes.string,
+  taskCreatePath: PropTypes.string,
+  previousLocation: PropTypes.shape({
+    previousLocation: PropTypes.shape({
+      pathname: PropTypes.string,
+      search: PropTypes.string,
+      hash: PropTypes.string,
+      state: PropTypes.object,
+      key: PropTypes.string,
+    }),
+  }),
 };
 
 export default Header;

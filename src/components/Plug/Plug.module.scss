@@ -1,0 +1,22 @@
+@use "/src/styles/colors.scss" as *;
+
+.plug {
+    display: grid;
+    grid-template-rows: auto min-content;
+    justify-items: center;
+    align-content: center;
+    height: 100%;
+    font-size: 1.5em;
+    font-weight: 900;
+    color: $gray;
+
+    svg {
+        max-height: 3em;
+    }
+
+    p {
+        line-break: anywhere;
+        text-align: center;
+        margin-top: 0;
+    }
+}

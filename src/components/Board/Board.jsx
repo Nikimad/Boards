@@ -1,23 +1,41 @@
 import PropTypes from "prop-types";
-import cn from "classnames";
-import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
+import Plug from "../Plug";
+import Searchbar from "../Searchbar";
+import TaskPreview from "../TaskPreview";
 import s from "./Board.module.scss";
 
-const Board = ({ title, isActive, selectBoard }) => (
-  <a
-    onClick={selectBoard}
-    href={`/${title}`}
-    className={cn(s.board, { [s.board_active]: isActive })}
-  >
-    <Icon />
-    {title}
-  </a>
-);
+const Board = ({ tasks, query, filtredLength, length }) =>
+  length > 0 ? (
+    <>
+      <Searchbar param="tasks" placeholder="Search task" />
+      {filtredLength > 0 ? (
+        <div className={s.board}>
+          {tasks.map((task) => (
+            <TaskPreview key={task.id} task={task} />
+          ))}
+        </div>
+      ) : (
+        <Plug message={`No tasks contain: ${query}`} />
+      )}
+    </>
+  ) : (
+    <Plug message="No tasks on this board yet" />
+  );
 
 Board.propTypes = {
-  title: PropTypes.string,
-  isActive: PropTypes.bool,
-  selectBoard: PropTypes.func,
+  tasks: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      status: PropTypes.string,
+      subtasks: PropTypes.arrayOf(
+        PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })
+      ),
+      checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
+    })
+  ),
+  query: PropTypes.string,
+  filtredLength: PropTypes.number,
+  length: PropTypes.number,
 };
 
 export default Board;

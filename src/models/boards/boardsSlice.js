@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { addTask, removeTask } from "../tasks/tasksSlice";
 
 const boardsSlice = createSlice({
   name: "boards",
@@ -21,9 +22,23 @@ const boardsSlice = createSlice({
     },
     removeBoard(state, { payload }) {
       state.activeBoardId = null;
-      delete state.boards[payload];
-      state.boardsIds = state.boardsIds.filter((id) => id !== payload);
+      delete state.boards[payload.id];
+      state.boardsIds = state.boardsIds.filter((id) => id !== payload.id);
     },
+  },
+  extraReducers(builder) {
+    builder
+      .addCase(addTask, (state, { payload }) => {
+        state.boards[payload.boardId].tasksIds = [
+          payload.id,
+          ...state.boards[payload.boardId].tasksIds,
+        ];
+      })
+      .addCase(removeTask, (state, { payload }) => {
+        state.boards[payload.boardId].tasksIds = state.boards[
+          payload.boardId
+        ].tasksIds.filter((id) => id !== payload.id);
+      });
   },
 });
 

@@ -4,8 +4,9 @@ import { ReactComponent as Select } from "../../assets/svg/select.svg";
 import { Form, Field } from "formik";
 import s from "../../styles/form.module.scss";
 
-const TaskAutoSaveForm = ({ subtasks }) => (
+const TaskAutoSaveForm = ({ subtasks, children }) => (
   <Form className={s.form}>
+    {children}
     {subtasks.length > 0 ? (
       <div
         className={cn(s.form__label, s.form__label_noerr)}
@@ -49,6 +50,7 @@ TaskAutoSaveForm.propTypes = {
   subtasks: PropTypes.arrayOf(
     PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })
   ),
+  children: PropTypes.element,
 };
 
 export default TaskAutoSaveForm;

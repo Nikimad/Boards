@@ -16,22 +16,20 @@
     border-radius: $br;
     max-height: 90vh;
     width: 85%;
-    overflow: auto;
     padding: 1rem;
     @include scroll-bar;
   }
 
-  &[data-status="show"] {
-    animation: appear $trans forwards;
+  
+  animation: appear $trans forwards;
 
-    .modal__content {
-      animation: in $trans forwards;
-    }
+  .modal__content {
+    animation: in $trans forwards;
   }
 
   &[data-status="reset"] {
     animation: disappear $trans forwards;
-
+    
     .modal__content {
       animation: out $trans forwards;
     }

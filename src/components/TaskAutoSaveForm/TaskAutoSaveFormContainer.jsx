@@ -1,43 +1,35 @@
-import { useEffect } from "react";
 import PropTypes from "prop-types";
-import useAction from "../../hooks/useAction";
-import { editTask } from "../../models/tasks/tasksSlice";
-import { Formik } from "formik";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import TaskAutoSaveForm from "./TaskAutoSaveForm";
 
-const TaskAutoSaveFormContainer = ({ task }) => {
-  const dispatchEditTask = useAction(editTask);
+const TaskAutoSaveFormContainer = ({ values, submitForm }) => {
+  const { action } = useParams();
+
+  useEffect(() => {
+    submitForm();
+  }, [values, submitForm]);
 
   return (
-    <Formik
-      enableReinitialize
-      initialValues={{
-        subtasks: task.subtasks,
-        checkedSubtasks: task.checkedSubtasks,
-        status: task.status,
-      }}
-      onSubmit={(values) => dispatchEditTask({ id: task.id, ...values })}
-    >
-      {({ values, submitForm }) => {
-        useEffect(() => {
-          submitForm();
-        }, [values, submitForm]);
-
-        return <TaskAutoSaveForm subtasks={task.subtasks} />;
-      }}
-    </Formik>
+    <TaskAutoSaveForm subtasks={values.subtasks}>
+      {action === "review" ? <h2>{values.title}</h2> : null}
+    </TaskAutoSaveForm>
   );
 };
 
 TaskAutoSaveFormContainer.propTypes = {
-  task: PropTypes.shape({
+  values: PropTypes.shape({
+    title: PropTypes.string,
     id: PropTypes.number,
-    status: PropTypes.string,
+    boardId: PropTypes.number,
     subtasks: PropTypes.arrayOf(
-      PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })
+      PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+      })
     ),
-    checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
   }),
+  submitForm: PropTypes.func,
 };
 
 export default TaskAutoSaveFormContainer;

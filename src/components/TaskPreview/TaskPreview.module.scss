@@ -27,8 +27,13 @@
             margin: 0;
         }
 
-        &:hover &__title {
+        &:hover &__title,
+        &:focus &__title {
             color: $violet-200;
+        }
+
+        &:active &__title {
+            color: $violet-100;
         }
     }
 
@@ -36,24 +41,13 @@
         height: 2em;
         width: 2em;
 
-        &:hover {
+        &:hover,
+        &:focus {
             color: $violet-200;
         }
-    }
-}
 
-.taskreview {
-    display: grid;
-    gap: 1rem;
-
-    &__title {
-        font-size: 1.25em;
-        margin: 0;
-    }
-
-    .form {
-        background-color: $violet-500;
-        border-radius: $br;
-        padding: 1rem;
+        &:active {
+            color: $violet-100;
+        }
     }
 }

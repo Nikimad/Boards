@@ -1,53 +1,46 @@
 import { createSelector } from "@reduxjs/toolkit";
-import {
-  activeBoardIdSelector,
-  activeTaskIdSelector,
-  filterSelector,
-} from "../view/viewSelectors";
+import { boardByIdSelector } from "../boards/boardsSelectors";
 
 const rootSelector = createSelector(
   (state) => state,
   (state) => state.tasks
 );
 
-export const tasksSelector = createSelector(
-  rootSelector,
-  activeBoardIdSelector,
-  filterSelector,
-  ({ tasks, tasksIds }, boardId, filter) => {
-    const queryRegExp = new RegExp(filter, "i");
-    const { items, length } = tasksIds.reduce(
-      (acc, id) => {
-        if (tasks[id].boardId === boardId) {
-          acc.length += 1;
-          const { title, subtasks } = tasks[id];
-          const words = [
-            title.trim(),
-            ...subtasks.map((subtask) => subtask.title.trim()),
-          ].join(" ");
-
-          acc.items = queryRegExp.test(words)
-            ? [...acc.items, tasks[id]]
-            : acc.items;
-        }
-        return acc;
-      },
-      {
-        items: [],
-        length: 0,
+export const tasksSelector = (boardId, filter) =>
+  createSelector(
+    rootSelector,
+    boardByIdSelector(boardId),
+    ({ tasks }, currentBoard) => {
+      if (!Boolean(currentBoard)) {
+        return {
+          isBoardExist: false,
+          tasks: [],
+          filtredLength: 0,
+          length: 0,
+        };
       }
-    );
 
-    return {
-      tasks: items,
-      length: items.length,
-      genLength: length,
-    };
-  }
-);
+      const queryRegExp = new RegExp(filter, "i");
+      const currentTasks = currentBoard.tasksIds.reduce((acc, id) => {
+        const { title, subtasks } = tasks[id];
+        const words = [
+          title.trim(),
+          ...subtasks.map((subtask) => subtask.title.trim()),
+        ].join(" ");
 
-export const activeTaskSelector = createSelector(
-  rootSelector,
-  activeTaskIdSelector,
-  ({ tasks }, id) => tasks[id]
-);
+        acc = queryRegExp.test(words) ? [...acc, tasks[id]] : acc;
+
+        return acc;
+      }, []);
+
+      return {
+        tasks: currentTasks,
+        filtredLength: currentTasks.length,
+        length: currentBoard.tasksIds.length,
+        isBoardExist: true,
+      };
+    }
+  );
+
+export const taskByIdSelector = (id) =>
+  createSelector(rootSelector, ({ tasks }) => tasks[id]);

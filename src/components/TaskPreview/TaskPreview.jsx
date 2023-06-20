@@ -1,12 +1,11 @@
 import PropTypes from "prop-types";
 import { ReactComponent as View } from "../../assets/svg/view.svg";
-import TaskAutoSaveForm from "../TaskAutoSaveForm";
-import Modal from "../Modal";
+import { Link } from "react-router-dom";
 import s from "./TaskPreview.module.scss";
 
-const TaskPreview = ({ task, setActiveTask }) => (
+const TaskPreview = ({ task, onClick, reviewPath, previousLocation }) => (
   <div className={s.taskpreview}>
-    <button onClick={setActiveTask} className={s.taskpreview__content}>
+    <button onClick={onClick} className={s.taskpreview__content}>
       <h3 className={s.taskpreview__content__title}>{task.title}</h3>
       <p className={s.taskpreview__content__text}>
         {task.subtasks.length > 0
@@ -14,15 +13,13 @@ const TaskPreview = ({ task, setActiveTask }) => (
           : `Status: ${task.status}`}
       </p>
     </button>
-    <Modal>
-      <button className={s.taskpreview__openreview}>
-        <View />
-      </button>
-      <div className={s.taskreview}>
-        <h2 className={s.taskreview__title}>{task.title}</h2>
-        <TaskAutoSaveForm task={task} />
-      </div>
-    </Modal>
+    <Link
+      state={previousLocation}
+      to={reviewPath}
+      className={s.taskpreview__openreview}
+    >
+      <View />
+    </Link>
   </div>
 );
 
@@ -35,7 +32,17 @@ TaskPreview.propTypes = {
     ),
     checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
   }),
-  setActiveTask: PropTypes.func,
+  onClick: PropTypes.func,
+  reviewPath: PropTypes.string,
+  previousLocation: PropTypes.shape({
+    previousLocation: PropTypes.shape({
+      pathname: PropTypes.string,
+      search: PropTypes.string,
+      hash: PropTypes.string,
+      state: PropTypes.object,
+      key: PropTypes.string,
+    }),
+  }),
 };
 
 export default TaskPreview;

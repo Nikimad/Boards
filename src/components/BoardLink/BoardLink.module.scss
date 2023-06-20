@@ -1,0 +1,26 @@
+@use "/src/styles/variables.scss" as *;
+@use "/src/styles/colors.scss" as *;
+
+.boardlink {
+  display: grid;
+  grid-template-columns: minmax(1em, 30px) 1fr;
+  justify-content: start;
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: 0 $br $br 0;
+  padding: 1rem;
+
+  &_active {
+    color: $white;
+    background-color: $violet-100;
+  }
+
+  &:not([class$="_active"]) {
+    &:hover,
+    &:focus {
+      border-color: $violet-200;
+      border-inline-start-color: transparent;
+      color: $white;
+    }
+  }
+}
