@@ -1,9 +1,8 @@
-import { useContext } from "react";
-import HiddableContentContext from "../../context/HiddableContentContext";
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { boardByIdSelector } from "../../models/boards/boardsSelectors";
 import useAction from "../../hooks/useAction";
+import useModal from "../../hooks/useModal";
 import {
   addBoard,
   editBoard,
@@ -15,8 +14,7 @@ import Modal from "../Modal";
 import BoardForm from "./BoardForm";
 
 const BoardFormContainer = () => {
-  const { toggleIsHidden } = useContext(HiddableContentContext);
-
+  const modalProps = useModal();
   const navigate = useNavigate();
   const { boardId, action } = useParams();
 
@@ -27,35 +25,39 @@ const BoardFormContainer = () => {
   );
   const dispatchRemoveBoard = useAction(removeBoard);
 
-  const onSubmit = (values) => dispatchSubmitAction(values);
+  const onSubmit = (values) => {
+    dispatchSubmitAction(values);
+    modalProps.resetModal();
+  };
+
   const onReset = () => {
-    navigate("/");
-    toggleIsHidden();
     dispatchRemoveBoard(board);
+    navigate("/");
+    modalProps.resetModal();
   };
 
   return (
-    <Modal>
-      <Formik
-        initialValues={
-          board ?? {
-            id: +boardId,
-            title: "",
-            tasksIds: [],
-          }
+    <Formik
+      initialValues={
+        board ?? {
+          id: +boardId,
+          title: "",
+          tasksIds: [],
         }
-        validationSchema={Yup.object({
-          title: Yup.string()
-            .min(5, "Title must be 5 characters or more")
-            .max(16, "Title must be 16 characters or less")
-            .required("Title is required"),
-        })}
-        onSubmit={onSubmit}
-        onReset={onReset}
-      >
+      }
+      validationSchema={Yup.object({
+        title: Yup.string()
+          .min(5, "Title must be 5 characters or more")
+          .max(16, "Title must be 16 characters or less")
+          .required("Title is required"),
+      })}
+      onSubmit={onSubmit}
+      onReset={onReset}
+    >
+      <Modal modalProps={modalProps}>
         <BoardForm isEdit={action === "edit"} />
-      </Formik>
-    </Modal>
+      </Modal>
+    </Formik>
   );
 };
 
