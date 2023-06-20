@@ -8,5 +8,5 @@ Features:
   - [x] Data add
   - [x] Data edit
   - [x] Data filter
-  - [ ] Routing
+  - [x] Routing
   - [ ] REST
