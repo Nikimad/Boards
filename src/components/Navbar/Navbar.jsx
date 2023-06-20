@@ -2,12 +2,16 @@ import PropTypes from "prop-types";
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg";
 import { Link } from "react-router-dom";
 import BoardLink from "../BoardLink";
+import Searchbar from "../Searchbar";
 import s from "./Navbar.module.scss";
 
 const Navbar = ({
   isHidden,
   toggleIsHidden,
+  query,
   boards,
+  length,
+  filtredLength,
   path,
   previousLocation,
 }) => (
@@ -15,16 +19,25 @@ const Navbar = ({
     <div className={s.navbar__header}>
       <Logo />
       <h1 className={s.navbar__header__title}>Boards</h1>
-      <p className={s.navbar__header__text}>All boards ({boards.length})</p>
+      <p className={s.navbar__header__text}>All boards ({length})</p>
     </div>
-    <nav className={s.navbar__nav}>
-      {boards.map((board) => (
-        <BoardLink onClick={toggleIsHidden} key={board.id} board={board} />
-      ))}
-    </nav>
+    {filtredLength > 0 ? (
+      <nav className={s.navbar__nav}>
+        {boards.map((board) => (
+          <BoardLink onClick={toggleIsHidden} key={board.id} board={board} />
+        ))}
+      </nav>
+    ) : (
+      <p className={s.navbar__err}>No boards contain:<br />{query}</p>
+    )}
     <Link to={path} state={previousLocation} className={s.navbar__link}>
       + Create New Board
     </Link>
+    <Searchbar
+      param="boards"
+      placeholder="Search board"
+      className={s.navbar__search}
+    />
   </div>
 );
 
