@@ -21,23 +21,28 @@ const Navbar = ({
       <h1 className={s.navbar__header__title}>Boards</h1>
       <p className={s.navbar__header__text}>All boards ({length})</p>
     </div>
-    {filtredLength > 0 ? (
-      <nav className={s.navbar__nav}>
-        {boards.map((board) => (
-          <BoardLink onClick={toggleIsHidden} key={board.id} board={board} />
-        ))}
-      </nav>
-    ) : (
-      <p className={s.navbar__err}>No boards contain:<br />{query}</p>
-    )}
+    <nav className={s.navbar__nav}>
+      {boards.map((board) => (
+        <BoardLink onClick={toggleIsHidden} key={board.id} board={board} />
+      ))}
+    </nav>
     <Link to={path} state={previousLocation} className={s.navbar__link}>
       + Create New Board
     </Link>
-    <Searchbar
-      param="boards"
-      placeholder="Search board"
-      className={s.navbar__search}
-    />
+    {filtredLength === 0 && query.length > 0 ? (
+      <p className={s.navbar__err}>
+        No boards contain:
+        <br />
+        {query}
+      </p>
+    ) : null}
+    {length > 0 ? (
+      <Searchbar
+        param="boards"
+        placeholder="Search board"
+        className={s.navbar__search}
+      />
+    ) : null}
   </div>
 );
 
