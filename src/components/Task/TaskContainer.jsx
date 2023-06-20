@@ -1,7 +1,7 @@
 import { Navigate, useNavigate, useParams } from "react-router-dom";
-import Task from "./Task";
 import { useSelector } from "react-redux";
 import { taskByIdSelector } from "../../models/tasks/tasksSelectors";
+import Task from "./Task";
 
 const TaskContainer = () => {
   const { boardId, taskId } = useParams();
