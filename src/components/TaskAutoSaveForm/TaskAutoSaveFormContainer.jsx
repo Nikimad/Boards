@@ -1,50 +1,35 @@
-import { Fragment, useEffect } from "react";
-import useAction from "../../hooks/useAction";
-import { editTask } from "../../models/tasks/tasksSlice";
-import { Formik } from "formik";
+import PropTypes from "prop-types";
+import { useEffect } from "react";
+import { useParams } from "react-router-dom";
 import TaskAutoSaveForm from "./TaskAutoSaveForm";
-import { useLocation, useParams } from "react-router-dom";
-import { taskByIdSelector } from "../../models/tasks/tasksSelectors";
-import { useSelector } from "react-redux";
-import Modal from "../Modal";
 
-const TaskAutoSaveFormContainer = () => {
-  const { pathname } = useLocation();
-  const { taskId } = useParams();
+const TaskAutoSaveFormContainer = ({ values, submitForm }) => {
+  const { action } = useParams();
 
-  const isTaskPage = !pathname.endsWith("review");
-
-  const task = useSelector(taskByIdSelector(taskId));
-
-  const dispatchEditTask = useAction(editTask);
-
-  const Wrapper = isTaskPage ? Fragment : Modal;
+  useEffect(() => {
+    submitForm();
+  }, [values, submitForm]);
 
   return (
-    <Formik
-      enableReinitialize
-      initialValues={{
-        subtasks: task.subtasks,
-        checkedSubtasks: task.checkedSubtasks,
-        status: task.status,
-      }}
-      onSubmit={(values) => dispatchEditTask({ id: task.id, ...values })}
-    >
-      {({ values, submitForm }) => {
-        useEffect(() => {
-          submitForm();
-        }, [values, submitForm]);
-
-        return (
-          <Wrapper>
-            <TaskAutoSaveForm subtasks={task.subtasks}>
-              {!isTaskPage ? <h2>{task.title}</h2> : null}
-            </TaskAutoSaveForm>
-          </Wrapper>
-        );
-      }}
-    </Formik>
+    <TaskAutoSaveForm subtasks={values.subtasks}>
+      {action === "review" ? <h2>{values.title}</h2> : null}
+    </TaskAutoSaveForm>
   );
+};
+
+TaskAutoSaveFormContainer.propTypes = {
+  values: PropTypes.shape({
+    title: PropTypes.string,
+    id: PropTypes.number,
+    boardId: PropTypes.number,
+    subtasks: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.number,
+        title: PropTypes.string,
+      })
+    ),
+  }),
+  submitForm: PropTypes.func,
 };
 
 export default TaskAutoSaveFormContainer;
