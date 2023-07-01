@@ -1,30 +1,28 @@
 import { useLocation, useSearchParams } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import HiddableContentContext from "../../context/HiddableContentContext";
 import { useSelector } from "react-redux";
-import { boardsSelector } from "../../models/boards/boardsSelectors";
-import getId from "../../helpers/getId";
+import { boardsSelectors } from "../../models/boards/boardsSlice";
 import Navbar from "./Navbar";
+import useAction from "../../hooks/useAction";
 
 const NavbarContainer = () => {
-  const [searchParams] = useSearchParams();
-
-  const { boards, length, filtredLength } = useSelector(
-    boardsSelector(searchParams.get("boards") ?? "")
-  );
-
   const { isHidden, toggleIsHidden } = useContext(HiddableContentContext);
   const location = useLocation();
+  const [searchParams] = useSearchParams();
+
+  const query = searchParams.get("boards");
+
+  const boards = useSelector(boardsSelectors.selectAll);
+  const totalBoards = useSelector(boardsSelectors.selectTotal);
 
   return (
     <Navbar
       isHidden={isHidden}
       toggleIsHidden={toggleIsHidden}
-      query={searchParams.get("boards")}
+      query={query}
       boards={boards}
-      length={length}
-      filtredLength={filtredLength}
-      path={`board/${getId()}/create`}
+      totalBoards={totalBoards}
       previousLocation={{ previousLocation: location }}
     />
   );

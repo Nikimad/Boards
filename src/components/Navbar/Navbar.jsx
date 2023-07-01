@@ -10,33 +10,31 @@ const Navbar = ({
   toggleIsHidden,
   query,
   boards,
-  length,
-  filtredLength,
-  path,
+  totalBoards,
   previousLocation,
 }) => (
   <div className={s.navbar} aria-hidden={isHidden}>
     <div className={s.navbar__header}>
       <Logo />
       <h1 className={s.navbar__header__title}>Boards</h1>
-      <p className={s.navbar__header__text}>All boards ({length})</p>
+      <p className={s.navbar__header__text}>All boards ({totalBoards})</p>
     </div>
     <nav className={s.navbar__nav}>
       {boards.map((board) => (
         <BoardLink onClick={toggleIsHidden} key={board.id} board={board} />
       ))}
     </nav>
-    <Link to={path} state={previousLocation} className={s.navbar__link}>
+    <Link to="create/board" state={previousLocation} className={s.navbar__link}>
       + Create New Board
     </Link>
-    {filtredLength === 0 && query.length > 0 ? (
+    {length === 0 && Boolean(query) ? (
       <p className={s.navbar__err}>
         No boards contain:
         <br />
         {query}
       </p>
     ) : null}
-    {length > 0 ? (
+    {length > 0 || Boolean(query)  ? (
       <Searchbar
         param="boards"
         placeholder="Search board"
