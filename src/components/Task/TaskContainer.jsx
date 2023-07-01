@@ -1,11 +1,11 @@
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { taskByIdSelector } from "../../models/tasks/tasksSelectors";
+import { tasksSelectors } from "../../models/tasks/tasksSlice";
 import Task from "./Task";
 
 const TaskContainer = () => {
   const { boardId, taskId } = useParams();
-  const task = useSelector(taskByIdSelector(taskId));
+  const task = useSelector((state) => tasksSelectors.selectById(state, taskId));
 
   const navigate = useNavigate();
   const onBack = () => navigate(-1);
