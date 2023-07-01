@@ -4,9 +4,11 @@ import TaskForm from "../components/TaskForm";
 
 const ModalRoutes = () => (
   <Routes>
-    <Route path="board/:boardId">
-      <Route path=":action" element={<BoardForm />} />
-      <Route path="task/:taskId/:action" element={<TaskForm />} />
+    <Route path=":action">
+      <Route path="board/:boardId?">
+        <Route index element={<BoardForm />} />
+        <Route path="task/:taskId?" element={<TaskForm />} />
+      </Route>
     </Route>
   </Routes>
 );
