@@ -1,26 +1,29 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { taskByIdSelector } from "../../models/tasks/tasksSelectors";
+
 import useModal from "../../hooks/useModal";
 import useAction from "../../hooks/useAction";
-import { addTask, editTask, removeTask } from "../../models/tasks/tasksSlice";
+
 import * as Yup from "yup";
 import { Formik } from "formik";
 import Modal from "../Modal";
 import TaskForm from "./TaskForm";
 import TaskAutoSaveForm from "../TaskAutoSaveForm";
 
+import { tasksSelectors } from "../../models/tasks/tasksSlice";
+import { addTask, editTask, deleteTask } from "../../models/tasks/tasksSlice";
+
 const TaskFormContainer = () => {
   const modalProps = useModal();
   const navigate = useNavigate();
   const { boardId, taskId, action } = useParams();
 
-  const task = useSelector(taskByIdSelector(taskId));
+  const task = useSelector((state) => tasksSelectors.selectById(state, taskId));
 
   const dispatchSubmitAction = useAction(
     action === "create" ? addTask : editTask
   );
-  const dispatchRemoveTask = useAction(removeTask);
+  const dispatchRemoveTask = useAction(deleteTask);
 
   const onSubmit = (values) => {
     dispatchSubmitAction(values);
@@ -28,7 +31,7 @@ const TaskFormContainer = () => {
   };
 
   const onReset = () => {
-    dispatchRemoveTask(task);
+    dispatchRemoveTask(task.id);
     navigate(`/board/${boardId}`);
     modalProps.resetModal();
   };
@@ -37,7 +40,6 @@ const TaskFormContainer = () => {
     <Formik
       initialValues={
         task ?? {
-          id: +taskId,
           boardId: +boardId,
           title: "",
           description: "",
