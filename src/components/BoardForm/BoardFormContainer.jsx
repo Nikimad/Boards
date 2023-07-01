@@ -1,13 +1,17 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { boardByIdSelector } from "../../models/boards/boardsSelectors";
+
 import useAction from "../../hooks/useAction";
 import useModal from "../../hooks/useModal";
+
+import { boardsSelectors } from "../../models/boards/boardsSlice";
+
 import {
   addBoard,
   editBoard,
-  removeBoard,
+  deleteBoard,
 } from "../../models/boards/boardsSlice";
+
 import * as Yup from "yup";
 import { Formik } from "formik";
 import Modal from "../Modal";
@@ -16,14 +20,17 @@ import BoardForm from "./BoardForm";
 const BoardFormContainer = () => {
   const modalProps = useModal();
   const navigate = useNavigate();
-  const { boardId, action } = useParams();
+  const { boardId } = useParams();
 
-  const board = useSelector(boardByIdSelector(boardId));
+  const board = useSelector((state) =>
+    boardsSelectors.selectById(state, boardId)
+  );
 
   const dispatchSubmitAction = useAction(
-    action === "edit" ? editBoard : addBoard
+    Boolean(boardId) ? editBoard : addBoard
   );
-  const dispatchRemoveBoard = useAction(removeBoard);
+
+  const dispatchRemoveBoard = useAction(deleteBoard);
 
   const onSubmit = (values) => {
     dispatchSubmitAction(values);
@@ -31,7 +38,7 @@ const BoardFormContainer = () => {
   };
 
   const onReset = () => {
-    dispatchRemoveBoard(board);
+    dispatchRemoveBoard(boardId);
     navigate("/");
     modalProps.resetModal();
   };
@@ -40,9 +47,7 @@ const BoardFormContainer = () => {
     <Formik
       initialValues={
         board ?? {
-          id: +boardId,
           title: "",
-          tasksIds: [],
         }
       }
       validationSchema={Yup.object({
@@ -55,7 +60,7 @@ const BoardFormContainer = () => {
       onReset={onReset}
     >
       <Modal modalProps={modalProps}>
-        <BoardForm isEdit={action === "edit"} />
+        <BoardForm isEdit={Boolean(boardId)} />
       </Modal>
     </Formik>
   );
