@@ -1,56 +1,68 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { removeBoard } from "../boards/boardsSlice";
+import {
+  createEntityAdapter,
+  createSlice,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
+import { deleteBoard } from "../boards/boardsSlice";
+
+const tasksAdapter = createEntityAdapter({
+  sortComparer: (a, b) => b.createdAt - a.createdAt,
+});
+
+export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
+  const res = await fetch(`/api/tasks`);
+  return await res.json();
+});
+
+export const addTask = createAsyncThunk("tasks/addTask", async (task) => {
+  const res = await fetch("/api/tasks", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ...task, createdAt: Date.now() }),
+  });
+  return await res.json();
+});
+
+export const deleteTask = createAsyncThunk("tasks/deleteTask", (id) => {
+  fetch(`/api/tasks/${id}`, {
+    method: "DELETE",
+  });
+  return id;
+});
+
+export const editTask = createAsyncThunk(
+  "tasks/editTask",
+  async ({ id, ...values }) => {
+    fetch(`/api/tasks/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    return { id, changes: values };
+  }
+);
 
 const tasksSlice = createSlice({
   name: "tasks",
-  initialState: {
-    tasks: {},
-    tasksIds: [],
-  },
-  reducers: {
-    addTask(state, { payload }) {
-      const { id, ...values } = payload;
-      state.tasks[id] = { id, ...values };
-      state.tasksIds = [id, ...state.tasksIds];
-    },
-    editTask(state, { payload }) {
-      const { id, subtasks, checkedSubtasks, ...values } = payload;
-      state.tasks[id] = {
-        ...state.tasks[id],
-        subtasks,
-        checkedSubtasks: subtasks.reduce((arr, { id }) => {
-          if (checkedSubtasks.includes(String(id))) {
-            arr = [...arr, String(id)];
-          }
-          return arr;
-        }, []),
-        ...values,
-      };
-    },
-    removeTask(state, { payload }) {
-      state.activeTaskId = null;
-      delete state.tasks[payload.id];
-      state.tasksIds = state.tasksIds.filter((id) => id !== payload.id);
-    },
-  },
-  extraReducers(builder) {
-    builder.addCase(removeBoard, (state, { payload }) => {
-      const deletedTasksId = Object.entries(state.tasks).filter(
-        ([id, task]) => {
-          if (task.boardId === payload.id) return id;
-        }
-      );
-      state.tasksIds = state.tasksIds.filter(
-        (id) => !deletedTasksId.includes(id)
-      );
-      state.tasks = state.tasksIds.reduce((tasks, id) => {
-        tasks[id] = state.tasks[id];
-        return tasks;
-      }, {});
-    });
-  },
+  initialState: tasksAdapter.getInitialState(),
+  extraReducers: (builder) =>
+    builder
+      .addCase(fetchTasks.fulfilled, tasksAdapter.setAll)
+      .addCase(addTask.fulfilled, tasksAdapter.addOne)
+      .addCase(deleteTask.fulfilled, tasksAdapter.removeOne)
+      .addCase(editTask.fulfilled, tasksAdapter.updateOne)
+      .addCase(deleteBoard, (state, { payload: id }) => {
+        const { entities, ids } = state;
+        const tasksIds = ids.filter(
+          (taskId) => entities[taskId].boardId === id
+        );
+        tasksAdapter.removeMany(state, tasksIds);
+      }),
 });
 
-export const { addTask, editTask, removeTask } = tasksSlice.actions;
-
+export const tasksSelectors = tasksAdapter.getSelectors(({ tasks }) => tasks);
 export default tasksSlice.reducer;
