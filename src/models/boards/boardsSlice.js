@@ -1,47 +1,62 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { addTask, removeTask } from "../tasks/tasksSlice";
+import {
+  createEntityAdapter,
+  createSlice,
+  createAsyncThunk,
+} from "@reduxjs/toolkit";
+
+const boardsAdapter = createEntityAdapter({
+  sortComparer: (a, b) => b.createdAt - a.createdAt,
+});
+
+export const fetchBoards = createAsyncThunk("boards/fetchBoards", async () => {
+  const res = await fetch("/api/boards");
+  return await res.json();
+});
+
+export const addBoard = createAsyncThunk("boards/addBoard", async (board) => {
+  const res = await fetch("/api/boards", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ ...board, createdAt: Date.now() }),
+  });
+  return await res.json();
+});
+
+export const deleteBoard = createAsyncThunk("boards/deleteBoard", (id) => {
+  fetch(`/api/boards/${id}`, {
+    method: "DELETE",
+  });
+  return id;
+});
+
+export const editBoard = createAsyncThunk(
+  "boards/editBoard",
+  async ({ id, ...values }) => {
+    fetch(`/api/boards/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(values),
+    });
+    return { id, changes: values };
+  }
+);
 
 const boardsSlice = createSlice({
   name: "boards",
-  initialState: {
-    boards: {},
-    boardsIds: [],
-  },
-  reducers: {
-    addBoard(state, { payload }) {
-      const { id, ...values } = payload;
-      state.boards[id] = { id, ...values };
-      state.boardsIds = [id, ...state.boardsIds];
-    },
-    editBoard(state, { payload }) {
-      const { id, ...values } = payload;
-      state.boards[id] = {
-        ...state.boards[id],
-        ...values,
-      };
-    },
-    removeBoard(state, { payload }) {
-      state.activeBoardId = null;
-      delete state.boards[payload.id];
-      state.boardsIds = state.boardsIds.filter((id) => id !== payload.id);
-    },
-  },
-  extraReducers(builder) {
+  initialState: boardsAdapter.getInitialState(),
+  extraReducers: (builder) =>
     builder
-      .addCase(addTask, (state, { payload }) => {
-        state.boards[payload.boardId].tasksIds = [
-          payload.id,
-          ...state.boards[payload.boardId].tasksIds,
-        ];
-      })
-      .addCase(removeTask, (state, { payload }) => {
-        state.boards[payload.boardId].tasksIds = state.boards[
-          payload.boardId
-        ].tasksIds.filter((id) => id !== payload.id);
-      });
-  },
+      .addCase(fetchBoards.fulfilled, boardsAdapter.setAll)
+      .addCase(addBoard.fulfilled, boardsAdapter.addOne)
+      .addCase(deleteBoard.fulfilled, boardsAdapter.removeOne)
+      .addCase(editBoard.fulfilled, boardsAdapter.updateOne),
 });
 
-export const { addBoard, editBoard, removeBoard } = boardsSlice.actions;
-
+export const boardsSelectors = boardsAdapter.getSelectors(
+  ({ boards }) => boards
+);
 export default boardsSlice.reducer;
