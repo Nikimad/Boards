@@ -8,36 +8,29 @@ import s from "./Header.module.scss";
 const Header = ({
   onTogglerClick,
   currentBoard,
-  isBoardChosen,
   currentTask,
-  isTaskChosen,
-  boardEditPath,
-  taskEditPath,
-  taskCreatePath,
   previousLocation,
 }) => (
   <div className={s.header__wrapper}>
     <header
-      className={cn(s.header, {
-        [s.header_empty]: !isBoardChosen && !isTaskChosen,
-      })}
+      className={cn(s.header)}
     >
       <button onClick={onTogglerClick}>
         <Logo />
       </button>
       <Link
-        to={isTaskChosen ? taskEditPath : boardEditPath}
+        to={`edit/board/${currentBoard.id}/${Boolean(currentTask) ? `task/${currentTask.id}` : ""}`}
         className={s.header__editable}
         state={previousLocation}
       >
         <span className={s.header__title}>
-          {isTaskChosen ? currentTask.title : currentBoard?.title}
+          {Boolean(currentTask)? currentTask.title : currentBoard.title}
         </span>
         <Edit />
       </Link>
       {Boolean(currentTask) ? null : (
         <Link
-          to={taskCreatePath}
+          to={`create/board/${currentBoard.id}/task`}
           state={previousLocation}
           className={s.header__button}
         >

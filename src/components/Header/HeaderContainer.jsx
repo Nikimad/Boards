@@ -1,32 +1,32 @@
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { boardByIdSelector } from "../../models/boards/boardsSelectors";
-import { taskByIdSelector } from "../../models/tasks/tasksSelectors";
-import getId from "../../helpers/getId";
 import Header from "./Header";
+
+import { boardsSelectors } from "../../models/boards/boardsSlice";
+import { tasksSelectors } from "../../models/tasks/tasksSlice";
 
 const HeaderContainer = () => {
   const navigate = useNavigate();
-  const handleTogglerClick = () => navigate('/');
+  const handleTogglerClick = () => navigate("/");
   const location = useLocation();
   const { boardId, taskId } = useParams();
 
-  const currentBoard = useSelector(boardByIdSelector(boardId));
-  const currentTask = useSelector(taskByIdSelector(taskId));
+  const currentBoard = useSelector((state) =>
+    boardsSelectors.selectById(state, boardId)
+  );
+  
+  const currentTask = useSelector((state) =>
+    tasksSelectors.selectById(state, taskId)
+  );
 
-  return (
+  return Boolean(currentBoard) ? (
     <Header
       onTogglerClick={handleTogglerClick}
       currentBoard={currentBoard}
-      isBoardChosen={Boolean(currentBoard)}
       currentTask={currentTask}
-      isTaskChosen={Boolean(currentTask)}
-      boardEditPath={`board/${boardId}/edit`}
-      taskEditPath={`board/${boardId}/task/${taskId}/edit`}
-      taskCreatePath={`board/${boardId}/task/${getId()}/create`}
-      previousLocation={{ previousLocation: location}}
+      previousLocation={{ previousLocation: location }}
     />
-  );
+  ) : null;
 };
 
 export default HeaderContainer;
