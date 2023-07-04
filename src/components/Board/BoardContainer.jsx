@@ -1,6 +1,7 @@
 import { Navigate, useParams, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { fetchTasks, tasksSelectors } from "../../models/tasks/tasksSlice";
+import { getTasks } from "../../models/tasks/tasksSlice";
+import { tasksSelectors } from "../../models/tasks/tasksSelectors";
 import Board from "./Board";
 import { useEffect } from "react";
 import useAction from "../../hooks/useAction";
@@ -9,9 +10,15 @@ const BoardContainer = () => {
   const { boardId } = useParams();
   const [searchParams] = useSearchParams();
 
-  const query = searchParams.get("tasks");
+  const query = searchParams.get("task");
 
-  const tasks = useSelector(tasksSelectors);
+  const tasks = useSelector(tasksSelectors.selectAll);
+
+  const dispatchGetTasks = useAction(getTasks);
+
+  useEffect(() => {
+    dispatchGetTasks({ boardId, query });
+  }, [dispatchGetTasks, query, boardId]);
 
   return Boolean(boardId) ? (
     <Board

@@ -6,7 +6,7 @@ import s from "./Board.module.scss";
 
 const Board = ({ tasks, query, length }) => (
   <>
-    <Searchbar param="tasks" placeholder="Search task" />
+    <Searchbar param="task" placeholder="Search task" />
     <div className={s.board}>
       {tasks.map((task) => (
         <TaskPreview key={task.id} task={task} />
