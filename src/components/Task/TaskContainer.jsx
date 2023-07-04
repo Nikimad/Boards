@@ -1,6 +1,6 @@
 import { Navigate, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { tasksSelectors } from "../../models/tasks/tasksSlice";
+import { tasksSelectors } from "../../models/tasks/tasksSelectors";
 import Task from "./Task";
 
 const TaskContainer = () => {
