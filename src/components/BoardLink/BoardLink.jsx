@@ -20,6 +20,7 @@ const BoardLink = ({ board, onClick }) => (
 BoardLink.propTypes = {
   board: PropTypes.shape({
     id: PropTypes.number,
+    createdAt: PropTypes.number,
     title: PropTypes.string,
   }),
   onClick: PropTypes.func,
