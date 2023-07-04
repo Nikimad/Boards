@@ -1,28 +1,22 @@
-import {
-  createEntityAdapter,
-  createSlice,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
+import { tasksAdapter } from "./tasksAdapter";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { deleteBoard } from "../boards/boardsSlice";
+import debounce from "lodash/debounce";
 
-const tasksAdapter = createEntityAdapter({
-  sortComparer: (a, b) => b.createdAt - a.createdAt,
-});
-
-export const fetchTasks = createAsyncThunk("tasks/fetchTasks", async () => {
-  const res = await fetch(`/api/tasks`);
+export const getTasks = createAsyncThunk("tasks/getTasks", async ({ boardId, query }) => {
+  const res = await fetch(`/api/boards/${boardId}/tasks${!query ? "" : `?q=${query}`}`);
   return await res.json();
 });
 
-export const addTask = createAsyncThunk("tasks/addTask", async (task) => {
-  const res = await fetch("/api/tasks", {
+export const addTask = createAsyncThunk("tasks/addTask", (task) => {
+  fetch("/api/tasks", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json; charset=UTF-8",
     },
-    body: JSON.stringify({ ...task, createdAt: Date.now() }),
+    body: JSON.stringify(task),
   });
-  return await res.json();
+  return task;
 });
 
 export const deleteTask = createAsyncThunk("tasks/deleteTask", (id) => {
@@ -34,11 +28,11 @@ export const deleteTask = createAsyncThunk("tasks/deleteTask", (id) => {
 
 export const editTask = createAsyncThunk(
   "tasks/editTask",
-  async ({ id, ...values }) => {
+  ({ id, ...values }) => {
     fetch(`/api/tasks/${id}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(values),
     });
@@ -51,7 +45,7 @@ const tasksSlice = createSlice({
   initialState: tasksAdapter.getInitialState(),
   extraReducers: (builder) =>
     builder
-      .addCase(fetchTasks.fulfilled, tasksAdapter.setAll)
+      .addCase(getTasks.fulfilled, tasksAdapter.setAll)
       .addCase(addTask.fulfilled, tasksAdapter.addOne)
       .addCase(deleteTask.fulfilled, tasksAdapter.removeOne)
       .addCase(editTask.fulfilled, tasksAdapter.updateOne)
@@ -64,5 +58,4 @@ const tasksSlice = createSlice({
       }),
 });
 
-export const tasksSelectors = tasksAdapter.getSelectors(({ tasks }) => tasks);
 export default tasksSlice.reducer;
