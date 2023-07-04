@@ -3,7 +3,7 @@ import { ReactComponent as View } from "../../assets/svg/view.svg";
 import { Link } from "react-router-dom";
 import s from "./TaskPreview.module.scss";
 
-const TaskPreview = ({ task, onClick, reviewPath, previousLocation }) => (
+const TaskPreview = ({ task, onClick, previousLocation }) => (
   <div className={s.taskpreview}>
     <button onClick={onClick} className={s.taskpreview__content}>
       <h3 className={s.taskpreview__content__title}>{task.title}</h3>
@@ -15,7 +15,7 @@ const TaskPreview = ({ task, onClick, reviewPath, previousLocation }) => (
     </button>
     <Link
       state={previousLocation}
-      to={reviewPath}
+      to={`/review/board/${task.boardId}/task/${task.id}`}
       className={s.taskpreview__openreview}
     >
       <View />
