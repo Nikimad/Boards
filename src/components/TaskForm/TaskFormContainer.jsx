@@ -38,6 +38,7 @@ const TaskFormContainer = () => {
 
   return (
     <Formik
+      enableReinitialize={Boolean(taskId)}
       initialValues={
         task ?? {
           boardId: +boardId,
