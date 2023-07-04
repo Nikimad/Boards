@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchBoards } from "./models/boards/boardsSlice";
-import { fetchTasks } from "./models/tasks/tasksSlice";
 import HiddableContentContextProvider from "./components/HiddableContentContextProvider";
 import PageRoutes from "./routes/PageRoutes";
 import ModalRoutes from "./routes/ModalRoutes";
@@ -15,8 +14,7 @@ const App = () => {
 
   useEffect(() => {
     dispatch(fetchBoards());
-    dispatch(fetchTasks());
-  }, [dispatch, fetchBoards, fetchTasks]);
+  }, [dispatch, fetchBoards]);
 
   return (
     <HiddableContentContextProvider>
