@@ -1,27 +1,20 @@
-import {
-  createEntityAdapter,
-  createSlice,
-  createAsyncThunk,
-} from "@reduxjs/toolkit";
-
-const boardsAdapter = createEntityAdapter({
-  sortComparer: (a, b) => b.createdAt - a.createdAt,
-});
+import { boardsAdapter } from "./boardsAdapter";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchBoards = createAsyncThunk("boards/fetchBoards", async () => {
   const res = await fetch("/api/boards");
   return await res.json();
 });
 
-export const addBoard = createAsyncThunk("boards/addBoard", async (board) => {
-  const res = await fetch("/api/boards", {
+export const addBoard = createAsyncThunk("boards/addBoard", (board) => {
+  fetch("/api/boards", {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json; charset=UTF-8",
     },
-    body: JSON.stringify({ ...board, createdAt: Date.now() }),
+    body: JSON.stringify(board),
   });
-  return await res.json();
+  return board;
 });
 
 export const deleteBoard = createAsyncThunk("boards/deleteBoard", (id) => {
@@ -33,11 +26,11 @@ export const deleteBoard = createAsyncThunk("boards/deleteBoard", (id) => {
 
 export const editBoard = createAsyncThunk(
   "boards/editBoard",
-  async ({ id, ...values }) => {
+  ({ id, ...values }) => {
     fetch(`/api/boards/${id}`, {
       method: "PATCH",
       headers: {
-        "Content-Type": "application/json",
+        "Content-Type": "application/json; charset=UTF-8",
       },
       body: JSON.stringify(values),
     });
@@ -56,7 +49,4 @@ const boardsSlice = createSlice({
       .addCase(editBoard.fulfilled, boardsAdapter.updateOne),
 });
 
-export const boardsSelectors = boardsAdapter.getSelectors(
-  ({ boards }) => boards
-);
 export default boardsSlice.reducer;
