@@ -10,7 +10,7 @@ import Modal from "../Modal";
 import TaskForm from "./TaskForm";
 import TaskAutoSaveForm from "../TaskAutoSaveForm";
 
-import { tasksSelectors } from "../../models/tasks/tasksSlice";
+import { tasksSelectors } from "../../models/tasks/tasksSelectors";
 import { addTask, editTask, deleteTask } from "../../models/tasks/tasksSlice";
 
 const TaskFormContainer = () => {
@@ -25,12 +25,12 @@ const TaskFormContainer = () => {
   );
   const dispatchRemoveTask = useAction(deleteTask);
 
-  const onSubmit = (values) => {
+  const handleSubmit = (values) => {
     dispatchSubmitAction(values);
     if (action !== "review") modalProps.resetModal();
   };
 
-  const onReset = () => {
+  const hanldeReset = () => {
     dispatchRemoveTask(task.id);
     navigate(`/board/${boardId}`);
     modalProps.resetModal();
@@ -41,6 +41,7 @@ const TaskFormContainer = () => {
       initialValues={
         task ?? {
           boardId: +boardId,
+          id: Date.now(),
           title: "",
           description: "",
           checkedSubtasks: [],
@@ -60,8 +61,8 @@ const TaskFormContainer = () => {
           })
         ),
       })}
-      onSubmit={onSubmit}
-      onReset={onReset}
+      onSubmit={handleSubmit}
+      onReset={hanldeReset}
     >
       {({ values, submitForm }) =>
         action ? (
