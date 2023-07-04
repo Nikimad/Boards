@@ -7,7 +7,6 @@ import s from "./Navbar.module.scss";
 
 const Navbar = ({
   isHidden,
-  toggleIsHidden,
   query,
   boards,
   totalBoards,
@@ -21,22 +20,15 @@ const Navbar = ({
     </div>
     <nav className={s.navbar__nav}>
       {boards.map((board) => (
-        <BoardLink onClick={toggleIsHidden} key={board.id} board={board} />
+        <BoardLink key={board.id} board={board} />
       ))}
     </nav>
     <Link to="create/board" state={previousLocation} className={s.navbar__link}>
       + Create New Board
     </Link>
-    {length === 0 && Boolean(query) ? (
-      <p className={s.navbar__err}>
-        No boards contain:
-        <br />
-        {query}
-      </p>
-    ) : null}
-    {length > 0 || Boolean(query)  ? (
+    { totalBoards > 0 ? (
       <Searchbar
-        param="boards"
+        param="board"
         placeholder="Search board"
         className={s.navbar__search}
       />
@@ -46,12 +38,11 @@ const Navbar = ({
 
 Navbar.propTypes = {
   isHidden: PropTypes.bool,
-  toggleIsHidden: PropTypes.func,
   boards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       title: PropTypes.string,
-      tasksIds: PropTypes.arrayOf(PropTypes.number),
+      createdAt: PropTypes.number,
     })
   ),
   path: PropTypes.string,
