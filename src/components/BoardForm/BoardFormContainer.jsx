@@ -1,17 +1,13 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-
 import useAction from "../../hooks/useAction";
 import useModal from "../../hooks/useModal";
-
-import { boardsSelectors } from "../../models/boards/boardsSlice";
-
+import { boardsSelectors } from "../../models/boards/boardsSelectors";
 import {
   addBoard,
   editBoard,
   deleteBoard,
 } from "../../models/boards/boardsSlice";
-
 import * as Yup from "yup";
 import { Formik } from "formik";
 import Modal from "../Modal";
@@ -32,12 +28,12 @@ const BoardFormContainer = () => {
 
   const dispatchRemoveBoard = useAction(deleteBoard);
 
-  const onSubmit = (values) => {
+  const hanldeSubmit = (values) => {
     dispatchSubmitAction(values);
     modalProps.resetModal();
   };
 
-  const onReset = () => {
+  const handleReset = () => {
     dispatchRemoveBoard(boardId);
     navigate("/");
     modalProps.resetModal();
@@ -48,6 +44,7 @@ const BoardFormContainer = () => {
       initialValues={
         board ?? {
           title: "",
+          id: Date.now(),
         }
       }
       validationSchema={Yup.object({
@@ -56,8 +53,8 @@ const BoardFormContainer = () => {
           .max(16, "Title must be 16 characters or less")
           .required("Title is required"),
       })}
-      onSubmit={onSubmit}
-      onReset={onReset}
+      onSubmit={hanldeSubmit}
+      onReset={handleReset}
     >
       <Modal modalProps={modalProps}>
         <BoardForm isEdit={Boolean(boardId)} />
