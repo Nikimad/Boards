@@ -33,7 +33,7 @@ const BoardFormContainer = () => {
     modalProps.resetModal();
   };
 
-  const handleReset = () => {
+  const handleRemove = () => {
     dispatchRemoveBoard(boardId);
     navigate("/");
     modalProps.resetModal();
@@ -54,10 +54,9 @@ const BoardFormContainer = () => {
           .required("Title is required"),
       })}
       onSubmit={hanldeSubmit}
-      onReset={handleReset}
     >
       <Modal modalProps={modalProps}>
-        <BoardForm isEdit={Boolean(boardId)} />
+        <BoardForm isEdit={Boolean(boardId)} onRemove={handleRemove} />
       </Modal>
     </Formik>
   );
