@@ -30,7 +30,7 @@ const TaskFormContainer = () => {
     if (action !== "review") modalProps.resetModal();
   };
 
-  const hanldeReset = () => {
+  const hanldeRemove = () => {
     dispatchRemoveTask(task.id);
     navigate(`/board/${boardId}`);
     modalProps.resetModal();
@@ -38,7 +38,7 @@ const TaskFormContainer = () => {
 
   return (
     <Formik
-      enableReinitialize={Boolean(taskId)}
+      enableReinitialize
       initialValues={
         task ?? {
           boardId: +boardId,
@@ -63,7 +63,6 @@ const TaskFormContainer = () => {
         ),
       })}
       onSubmit={handleSubmit}
-      onReset={hanldeReset}
     >
       {({ values, submitForm }) =>
         action ? (
@@ -71,7 +70,7 @@ const TaskFormContainer = () => {
             {action === "review" ? (
               <TaskAutoSaveForm values={values} submitForm={submitForm} />
             ) : (
-              <TaskForm values={values} isEdit={action === "edit"} />
+              <TaskForm values={values} isEdit={action === "edit"} onRemove={hanldeRemove} />
             )}
           </Modal>
         ) : (

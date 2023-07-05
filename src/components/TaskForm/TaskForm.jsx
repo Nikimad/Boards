@@ -7,11 +7,12 @@ import { Field, FieldArray, ErrorMessage } from "formik";
 import Form from "../Form";
 import s from "../../styles/form.module.scss";
 
-const TaskForm = ({ values, isEdit }) => (
+const TaskForm = ({ values, isEdit, onRemove }) => (
   <Form
     formTitle={isEdit ? "Edit task" : "Add new task"}
     submitTitle={isEdit ? "Edit" : "Create task"}
     isEdit={isEdit}
+    onRemove={onRemove}
   >
     <label className={s.form__label}>
       <span className={s.form__label__title}>Title</span>
