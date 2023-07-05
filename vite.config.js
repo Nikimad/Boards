@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: "https://boards-db.vercel.app",
+        target: "https://my-json-server.typicode.com/nikimad/boards-db",
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
