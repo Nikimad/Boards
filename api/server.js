@@ -1,9 +1,7 @@
 import jsonServer from "json-server";
 
 export const server = jsonServer.create();
-
-const db = JSON.parse("db.json");
-const router = jsonServer.router('db.json');
+const router = jsonServer.router("db.json");
 
 server.use(jsonServer.defaults());
 server.use(
