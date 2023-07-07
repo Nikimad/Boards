@@ -3,12 +3,12 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { deleteBoard } from "../boards/boardsSlice";
 
 export const getTasks = createAsyncThunk("tasks/getTasks", async ({ boardId, query }) => {
-  const res = await fetch(`api/boards/${boardId}/tasks${!query ? "" : `?q=${query}`}`);
+  const res = await fetch(`/api/boards/${boardId}/tasks${!query ? "" : `?q=${query}`}`);
   return await res.json();
 });
 
 export const addTask = createAsyncThunk("tasks/addTask", (task) => {
-  fetch("api/tasks", {
+  fetch("/api/tasks", {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
@@ -19,7 +19,7 @@ export const addTask = createAsyncThunk("tasks/addTask", (task) => {
 });
 
 export const deleteTask = createAsyncThunk("tasks/deleteTask", (id) => {
-  fetch(`api/tasks/${id}`, {
+  fetch(`/api/tasks/${id}`, {
     method: "DELETE",
   });
   return id;
@@ -28,7 +28,7 @@ export const deleteTask = createAsyncThunk("tasks/deleteTask", (id) => {
 export const editTask = createAsyncThunk(
   "tasks/editTask",
   ({ id, ...values }) => {
-    fetch(`api/tasks/${id}`, {
+    fetch(`/api/tasks/${id}`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json; charset=UTF-8",
