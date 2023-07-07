@@ -7,7 +7,7 @@ import debounce from "lodash/debounce";
 const HiddableContentContextProvider = ({ children }) => {
   const location = useLocation();
   const [isHidden, setIsHidden] = useState(false);
-  const [isHidable, setIsHidable] = useState(true);
+  const [isHidable, setIsHidable] = useState(false);
 
   const handleRootLocation = useCallback(() => {
     if (isHidden && location.pathname === "/") setIsHidden(false);
@@ -28,7 +28,7 @@ const HiddableContentContextProvider = ({ children }) => {
       setIsHidable(false);
       if (isHidden) setIsHidden(false);
     }
-  }, [isHidable, isHidden]);
+  }, [location, isHidable, isHidden]);
 
   const debouncedHandleWindowResize = debounce(handleWindowResize);
 
