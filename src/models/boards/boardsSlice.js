@@ -43,7 +43,7 @@ const boardsSlice = createSlice({
   initialState: boardsAdapter.getInitialState(),
   extraReducers: (builder) =>
     builder
-      .addCase(fetchBoards.fulfilled, boardsAdapter.setAll)
+      .addCase(fetchBoards.fulfilled, boardsAdapter.addMany)
       .addCase(addBoard.fulfilled, boardsAdapter.addOne)
       .addCase(deleteBoard.fulfilled, boardsAdapter.removeOne)
       .addCase(editBoard.fulfilled, boardsAdapter.updateOne),
