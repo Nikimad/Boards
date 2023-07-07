@@ -44,7 +44,7 @@ const tasksSlice = createSlice({
   initialState: tasksAdapter.getInitialState(),
   extraReducers: (builder) =>
     builder
-      .addCase(getTasks.fulfilled, tasksAdapter.setAll)
+      .addCase(getTasks.fulfilled, tasksAdapter.addMany)
       .addCase(addTask.fulfilled, tasksAdapter.addOne)
       .addCase(deleteTask.fulfilled, tasksAdapter.removeOne)
       .addCase(editTask.fulfilled, tasksAdapter.updateOne)
