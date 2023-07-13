@@ -2,12 +2,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import useModal from "../../hooks/useModal";
-import { boardsSelectors } from "../../models/boards/boardsSelectors";
+import { boardsDomainSelectors } from "../../models/boardsDomain/boardsDomainSelectors";
 import {
   addBoard,
   editBoard,
   deleteBoard,
-} from "../../models/boards/boardsSlice";
+} from "../../models/boardsDomain/boardsDomainThunks";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import Modal from "../Modal";
@@ -19,7 +19,7 @@ const BoardFormContainer = () => {
   const { boardId } = useParams();
 
   const board = useSelector((state) =>
-    boardsSelectors.selectById(state, boardId)
+    boardsDomainSelectors.selectById(state, boardId)
   );
 
   const dispatchSubmitAction = useAction(
