@@ -1,10 +1,14 @@
-import { boardsAdapter } from "./boardsAdapter";
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchBoards = createAsyncThunk("boards/fetchBoards", async () => {
-  const res = await fetch("/api/boards");
-  return await res.json();
-});
+export const fetchBoards = createAsyncThunk(
+  "boards/fetchBoards",
+  async (searchParams) => {
+    const res = await fetch(
+      `/api/boards${searchParams ? `?title_like=${searchParams}` : ""}`
+    );
+    return await res.json();
+  }
+);
 
 export const addBoard = createAsyncThunk("boards/addBoard", (board) => {
   fetch("/api/boards", {
@@ -37,16 +41,3 @@ export const editBoard = createAsyncThunk(
     return { id, changes: values };
   }
 );
-
-const boardsSlice = createSlice({
-  name: "boards",
-  initialState: boardsAdapter.getInitialState(),
-  extraReducers: (builder) =>
-    builder
-      .addCase(fetchBoards.fulfilled, boardsAdapter.addMany)
-      .addCase(addBoard.fulfilled, boardsAdapter.addOne)
-      .addCase(deleteBoard.fulfilled, boardsAdapter.removeOne)
-      .addCase(editBoard.fulfilled, boardsAdapter.updateOne),
-});
-
-export default boardsSlice.reducer;
