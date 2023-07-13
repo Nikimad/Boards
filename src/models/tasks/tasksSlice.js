@@ -1,6 +1,6 @@
 import { tasksAdapter } from "./tasksAdapter";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { deleteBoard } from "../boards/boardsSlice";
+import { deleteBoard } from "../boardsDomain/boardsDomainThunks";
 
 export const getTasks = createAsyncThunk("tasks/getTasks", async ({ boardId, query }) => {
   const res = await fetch(`/api/boards/${boardId}/tasks${!query ? "" : `?q=${query}`}`);
@@ -44,7 +44,7 @@ const tasksSlice = createSlice({
   initialState: tasksAdapter.getInitialState(),
   extraReducers: (builder) =>
     builder
-      .addCase(getTasks.fulfilled, tasksAdapter.addMany)
+      .addCase(getTasks.fulfilled, tasksAdapter.setAll)
       .addCase(addTask.fulfilled, tasksAdapter.addOne)
       .addCase(deleteTask.fulfilled, tasksAdapter.removeOne)
       .addCase(editTask.fulfilled, tasksAdapter.updateOne)
