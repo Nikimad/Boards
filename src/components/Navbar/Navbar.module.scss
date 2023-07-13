@@ -7,11 +7,10 @@
     position: fixed;
     z-index: 1;
     display: grid;
-    grid-template-rows: min-content auto 1fr auto;
+    grid-template-rows: min-content auto auto 1fr;
     width: 100%;
     height: 100%;
     color: $gray;
-    font-size: 1.2em;
     font-weight: 700;
     background-color: $violet-400;
     border-right: $border;
@@ -28,7 +27,7 @@
         align-items: center;
         text-transform: uppercase;
         letter-spacing: 0.1em;
-        padding: 1rem;
+        padding: 1rem 1rem 0 1rem;
 
         &__title {
             color: $white;
@@ -42,11 +41,6 @@
         }
     }
 
-    &__err {
-        line-break: anywhere;
-        padding-block: 1rem;
-        padding-inline: 1rem 3rem;
-    }
 
     &__nav {
         display: grid;
@@ -82,7 +76,7 @@
     &__search {
         color: $white;
         font-weight: 400;
-        padding-inline: 0 3rem;
+        padding: 0 3rem 0 0;
         
         input {
             border-left: none;
@@ -95,9 +89,5 @@
 @media screen and (min-width: $bp) {
     .navbar {
         position: static;
-
-        &__err {
-            max-width: 22ch;
-        }
     }
 }
