@@ -5,7 +5,7 @@ import BoardLink from "../BoardLink";
 import Searchbar from "../Searchbar";
 import s from "./Navbar.module.scss";
 
-const Navbar = ({ isHidden, query, boards, totalBoards, previousLocation }) => (
+const Navbar = ({ isHidden, boards, totalBoards, previousLocation }) => (
   <div className={s.navbar} aria-hidden={isHidden}>
     <div className={s.navbar__header}>
       <Logo />

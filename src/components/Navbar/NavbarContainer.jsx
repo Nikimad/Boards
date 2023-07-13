@@ -1,15 +1,13 @@
+import { useEffect } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useContext } from "react";
 import HiddableContentContext from "../../context/HiddableContentContext";
+import useAction from "../../hooks/useAction";
 import { useSelector } from "react-redux";
 import { boardsDomainSelectors} from "../../models/boardsDomain/boardsDomainSelectors";
 import { boardsUISelectors } from "../../models/boardsUI/boardsUISelectors";
-import Navbar from "./Navbar";
-
-
-import { useEffect } from "react";
-import useAction from "../../hooks/useAction";
 import { fetchBoards } from "../../models/boardsDomain/boardsDomainThunks";
+import Navbar from "./Navbar";
 
 const NavbarContainer = () => {
   const { isHidden } = useContext(HiddableContentContext);
@@ -27,12 +25,11 @@ const NavbarContainer = () => {
 
   useEffect(() => {
     dispatchFetchBoards(query);
-  }, [totalBoards, query, dispatchFetchBoards]);
+  }, [query, dispatchFetchBoards]);
 
   return (
     <Navbar
       isHidden={isHidden}
-      query={query}
       boards={boards}
       totalBoards={totalBoards}
       previousLocation={{ previousLocation: location }}
