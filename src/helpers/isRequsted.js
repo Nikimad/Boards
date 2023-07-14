@@ -7,6 +7,7 @@ const getObjText = (obj) =>
   }, "");
 
 const isRequsted = (obj, searchParams) => {
+  if (!searchParams) return true;
   const txt = getObjText(obj);
   const regExp = new RegExp(searchParams, "i");
   return regExp.test(txt);
