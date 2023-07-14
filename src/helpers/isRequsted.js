@@ -1,8 +1,6 @@
 const getObjText = (obj) =>
   Object.values(obj).reduce((text, val) => {
-    text.concat(
-      typeof val === "string" ? val.toLowerCase().trim() : getObjText(val)
-    );
+    text += typeof val === "string" ? val.toLowerCase().trim() : getObjText(val)
     return text;
   }, "");
 
