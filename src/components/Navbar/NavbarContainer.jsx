@@ -16,11 +16,11 @@ const NavbarContainer = () => {
   const [searchParams] = useSearchParams();
 
   const query = searchParams.get("board");
-
+  
   const boardsIds = useSelector(boardsUISelectors.selectAll);
   const boards = useSelector(boardsDomainSelectors.selectByIds(boardsIds));
   const totalBoards = useSelector(boardsDomainSelectors.selectTotal);
-  
+
   const dispatchFetchBoards = useAction(fetchBoards);
 
   useEffect(() => {

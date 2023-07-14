@@ -22,7 +22,7 @@ const Navbar = ({ isHidden, boards, totalBoards, previousLocation }) => (
         <BoardLink key={board.id} board={board} />
       ))}
     </nav>
-    <Link to="create/board" state={previousLocation} className={s.navbar__link}>
+    <Link to={`create/board/${location.search}`} state={previousLocation} className={s.navbar__link}>
       + Create New Board
     </Link>
   </div>
