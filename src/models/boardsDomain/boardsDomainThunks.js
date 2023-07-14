@@ -10,15 +10,15 @@ export const fetchBoards = createAsyncThunk(
   }
 );
 
-export const addBoard = createAsyncThunk("boards/addBoard", (board) => {
+export const addBoard = createAsyncThunk("boards/addBoard", (payload) => {
   fetch("/api/boards", {
     method: "POST",
     headers: {
       "Content-Type": "application/json; charset=UTF-8",
     },
-    body: JSON.stringify(board),
+    body: JSON.stringify(payload.board),
   });
-  return board;
+  return payload;
 });
 
 export const deleteBoard = createAsyncThunk("boards/deleteBoard", (id) => {
