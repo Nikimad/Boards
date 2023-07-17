@@ -5,24 +5,27 @@ import BoardLink from "../BoardLink";
 import Searchbar from "../Searchbar";
 import s from "./Navbar.module.scss";
 
-const Navbar = ({ isHidden, boards, totalBoards, previousLocation }) => (
+const Navbar = ({ isHidden, boards, query, totalBoards, previousLocation }) => (
   <div className={s.navbar} aria-hidden={isHidden}>
     <div className={s.navbar__header}>
       <Logo />
       <h1 className={s.navbar__header__title}>Boards</h1>
-      <p className={s.navbar__header__text}>All boards ({totalBoards})</p>
+      <p className={s.navbar__header__text}>{`${
+        Boolean(query) ? "Found boards" : "All boards"
+      } (${boards.length})`}</p>
     </div>
     <Searchbar
       param="board"
       placeholder="Search board"
       className={s.navbar__search}
+      isDisabled={!Boolean(query) && totalBoards === 0}
     />
     <nav className={s.navbar__nav}>
       {boards.map((board) => (
         <BoardLink key={board.id} board={board} />
       ))}
     </nav>
-    <Link to={`create/board/${location.search}`} state={previousLocation} className={s.navbar__link}>
+    <Link to="create/board" state={previousLocation} className={s.navbar__link}>
       + Create New Board
     </Link>
   </div>
