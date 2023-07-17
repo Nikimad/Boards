@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import Searchbar from "./Searchbar";
 
-const SearchbarContainer = ({ param, placeholder, className }) => {
+const SearchbarContainer = ({ param, placeholder, className, isDisabled }) => {
   const [searchParams, setSearchParams] = useSearchParams({ [param]: "" });
   const handleChange = ({ target }) =>
     setSearchParams({ [param]: target.value });
@@ -12,6 +12,7 @@ const SearchbarContainer = ({ param, placeholder, className }) => {
       onChange={handleChange}
       placeholder={placeholder}
       className={className}
+      isDisabled={isDisabled}
     />
   );
 };
