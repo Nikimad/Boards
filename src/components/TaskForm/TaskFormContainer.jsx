@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import { useSelector } from "react-redux";
 
 import useModal from "../../hooks/useModal";
@@ -10,15 +10,17 @@ import Modal from "../Modal";
 import TaskForm from "./TaskForm";
 import TaskAutoSaveForm from "../TaskAutoSaveForm";
 
-import { tasksSelectors } from "../../models/tasks/tasksSelectors";
-import { addTask, editTask, deleteTask } from "../../models/tasks/tasksSlice";
+import { tasksDomainSelectors } from "../../models/tasksDomain/tasksDomainSelectors";
+import { addTask, editTask, deleteTask } from "../../models/tasksDomain/tasksDomainThunks";
 
 const TaskFormContainer = () => {
   const modalProps = useModal();
   const navigate = useNavigate();
   const { boardId, taskId, action } = useParams();
+  const { state }  = useLocation();
+  const previousSearchParams = new URLSearchParams(state?.previousLocation.search);
 
-  const task = useSelector((state) => tasksSelectors.selectById(state, taskId));
+  const task = useSelector((state) => tasksDomainSelectors.selectById(state, taskId));
 
   const dispatchSubmitAction = useAction(
     action === "create" ? addTask : editTask
@@ -26,7 +28,10 @@ const TaskFormContainer = () => {
   const dispatchRemoveTask = useAction(deleteTask);
 
   const handleSubmit = (values) => {
-    dispatchSubmitAction(values);
+    dispatchSubmitAction({
+      task: values,
+      searchParams: previousSearchParams.get("task"),
+    });
     if (action !== "review") modalProps.resetModal();
   };
 
