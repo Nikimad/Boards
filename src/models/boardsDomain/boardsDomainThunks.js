@@ -25,12 +25,12 @@ export const deleteBoard = createAsyncThunk("boards/deleteBoard", (id) => {
   fetch(`/api/boards/${id}`, {
     method: "DELETE",
   });
-  return id;
+  return Number(id);
 });
 
 export const editBoard = createAsyncThunk(
   "boards/editBoard",
-  ({ id, ...values }) => {
+  ({ board: { id, ...values } }) => {
     fetch(`/api/boards/${id}`, {
       method: "PATCH",
       headers: {

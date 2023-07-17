@@ -13,7 +13,9 @@ const boardsDomainSlice = createSlice({
   extraReducers: (builder) =>
     builder
       .addCase(fetchBoards.fulfilled, boardsDomainAdapter.addMany)
-      .addCase(addBoard.fulfilled, (state, { payload }) => boardsDomainAdapter.addOne(state, payload.board))
+      .addCase(addBoard.fulfilled, (state, { payload: { board } }) =>
+        boardsDomainAdapter.addOne(state, board)
+      )
       .addCase(deleteBoard.fulfilled, boardsDomainAdapter.removeOne)
       .addCase(editBoard.fulfilled, boardsDomainAdapter.updateOne),
 });
