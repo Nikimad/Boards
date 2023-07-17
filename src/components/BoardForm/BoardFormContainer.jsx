@@ -1,4 +1,4 @@
-import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import useModal from "../../hooks/useModal";
@@ -17,7 +17,8 @@ const BoardFormContainer = () => {
   const modalProps = useModal();
   const navigate = useNavigate();
   const { boardId } = useParams();
-  const [searchParams] = useSearchParams();
+  const { state } = useLocation();
+  const previousSearchParams = new URLSearchParams(state?.previousLocation.search);
 
   const board = useSelector((state) =>
     boardsDomainSelectors.selectById(state, boardId)
@@ -29,12 +30,10 @@ const BoardFormContainer = () => {
 
   const dispatchRemoveBoard = useAction(deleteBoard);
 
-  const query = searchParams.get("board")
-
   const hanldeSubmit = (values) => {
     dispatchSubmitAction({
       board: values,
-      searchParams: query,
+      searchParams: previousSearchParams.get("board"),
     });
     modalProps.resetModal();
   };
