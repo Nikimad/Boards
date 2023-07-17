@@ -1,31 +1,25 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchBoards, addBoard } from "../boardsDomain/boardsDomainThunks";
-import isRequested from "../../helpers/isRequsted";
+import { fetchBoards, addBoard, deleteBoard } from "../boardsDomain/boardsDomainThunks";
+import isRequested from "../../helpers/isRequested";
 
 const boardsUISlice = createSlice({
   name: "boardsUI",
   initialState: {
-    searchParams: "",
     ids: [],
-  },
-  reducers: {
-    setSearchParams(state, { payload }) {
-      console.log(payload)
-      state.searchParams = payload;
-    }
   },
   extraReducers: (builder) =>
     builder
       .addCase(fetchBoards.fulfilled, (state, { payload }) => {
         state.ids = payload.map(({ id }) => id);
       })
-      .addCase(addBoard.fulfilled, (state, { payload }) => {
-        const { board, searchParams } = payload;
+      .addCase(addBoard.fulfilled, (state, { payload : { board, searchParams } }) => {
         if (isRequested(board, searchParams)) {
-          state.ids = [payload.board.id, ...state.ids];
+          state.ids = [board.id, ...state.ids];
         }
+      })
+      .addCase(deleteBoard.fulfilled, (state, { payload }) => {
+        state.ids = state.ids.filter((id) => id !== payload);
       })
 });
 
-export const { setSearchParams } = boardsUISlice.actions;
 export default boardsUISlice.reducer;
