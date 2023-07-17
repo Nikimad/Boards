@@ -3,7 +3,7 @@ import { useSelector } from "react-redux";
 import Header from "./Header";
 
 import { boardsDomainSelectors } from "../../models/boardsDomain/boardsDomainSelectors";
-import { tasksSelectors } from "../../models/tasks/tasksSelectors";
+import { tasksDomainSelectors } from "../../models/tasksDomain/tasksDomainSelectors";
 
 const HeaderContainer = () => {
   const navigate = useNavigate();
@@ -14,9 +14,9 @@ const HeaderContainer = () => {
   const currentBoard = useSelector((state) =>
     boardsDomainSelectors.selectById(state, boardId)
   );
-  
+
   const currentTask = useSelector((state) =>
-    tasksSelectors.selectById(state, taskId)
+    tasksDomainSelectors.selectById(state, taskId)
   );
 
   return Boolean(currentBoard) ? (
