@@ -1,14 +1,14 @@
-import { useLocation, useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import useModal from "../../hooks/useModal";
-import { boardsDomainSelectors } from "../../models/boardsDomain/boardsDomainSelectors";
-import {
-  addBoard,
-  editBoard,
-  deleteBoard,
-} from "../../models/boardsDomain/boardsDomainThunks";
 import * as Yup from "yup";
+import { boardsSelectors } from "../../models/boards/boardsSelectors";
+import {
+  postBoard,
+  deleteBoard,
+  patchBoard,
+} from "../../models/boards/boardsThunks";
 import { Formik } from "formik";
 import Modal from "../Modal";
 import BoardForm from "./BoardForm";
@@ -18,14 +18,16 @@ const BoardFormContainer = () => {
   const navigate = useNavigate();
   const { boardId } = useParams();
   const { state } = useLocation();
-  const previousSearchParams = new URLSearchParams(state?.previousLocation.search);
+  const previousSearchParams = new URLSearchParams(
+    state?.previousLocation.search
+  );
 
   const board = useSelector((state) =>
-    boardsDomainSelectors.selectById(state, boardId)
+    boardsSelectors.selectById(state, boardId)
   );
 
   const dispatchSubmitAction = useAction(
-    Boolean(boardId) ? editBoard : addBoard
+    Boolean(boardId) ? patchBoard : postBoard
   );
 
   const dispatchRemoveBoard = useAction(deleteBoard);
@@ -39,7 +41,7 @@ const BoardFormContainer = () => {
   };
 
   const handleRemove = () => {
-    dispatchRemoveBoard(boardId);
+    dispatchRemoveBoard(board.id);
     navigate("/");
     modalProps.resetModal();
   };

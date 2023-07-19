@@ -24,6 +24,7 @@ const BoardForm = ({ isEdit, onRemove }) => (
 
 BoardForm.propTypes = {
   isEdit: PropTypes.bool,
+  onRemove: PropTypes.func,
 };
 
 export default BoardForm;
