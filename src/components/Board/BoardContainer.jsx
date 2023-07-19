@@ -1,39 +1,40 @@
-import { Navigate, useParams, useSearchParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { fetchTasks } from "../../models/tasksDomain/tasksDomainThunks";
-import { tasksDomainSelectors } from "../../models/tasksDomain/tasksDomainSelectors";
-import { tasksUISelectors } from "../../models/tasksUI/tasksUISelectors";
-import Board from "./Board";
 import { useEffect } from "react";
+import { useParams, useSearchParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import useDebouncedCallback from "../../hooks/useDebounceCallback";
+import { tasksSelectors } from "../../models/tasks/tasksSelectors";
+import { getTasks } from "../../models/tasks/tasksThunks";
+import Board from "./Board";
 
 const BoardContainer = () => {
   const { boardId } = useParams();
   const [searchParams] = useSearchParams();
 
-  const query = searchParams.get("task");
+  const taskSearchParams = searchParams.get("task");
 
-  const tasksIds = useSelector(tasksUISelectors.selectAll);
-  const tasks = useSelector(tasksDomainSelectors.selectByIds(tasksIds));
+  const visibleTasksIds = useSelector(tasksSelectors.selectVisibleIds);
+  const tasks = useSelector(tasksSelectors.selectByIds(visibleTasksIds));
+  const tasksLoadingStatus = useSelector(tasksSelectors.selectLoadingStatus);
+  const tasksError = useSelector(tasksSelectors.selectError);
 
-  const dispatchFetchTasks = useAction(fetchTasks);
-  const debouncedDispatchFetchTasks = useDebouncedCallback(dispatchFetchTasks, 250);
+  const dispatchGetTasks = useAction(getTasks);
+  const debouncedDispatchGetTasks = useDebouncedCallback(dispatchGetTasks, 150);
 
   useEffect(() => {
-    debouncedDispatchFetchTasks({ boardId, query });
+    debouncedDispatchGetTasks({ boardId, searchParams: taskSearchParams });
     return () => {
-      debouncedDispatchFetchTasks.cancel();
-    }
-  }, [debouncedDispatchFetchTasks, query, boardId]);
+      debouncedDispatchGetTasks.cancel();
+    };
+  }, [debouncedDispatchGetTasks, taskSearchParams, boardId]);
 
-  return Boolean(boardId) ? (
+  return (
     <Board
       tasks={tasks}
-      query={query}
+      searchParams={taskSearchParams}
+      isLoading={tasksLoadingStatus === "loading"}
+      isErr={Boolean(tasksError)}
     />
-  ) : (
-    <Navigate to="/" />
   );
 };
 

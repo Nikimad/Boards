@@ -4,9 +4,11 @@ import Searchbar from "../Searchbar";
 import TaskPreview from "../TaskPreview";
 import s from "./Board.module.scss";
 
-const Board = ({ tasks, query }) =>
-  !Boolean(query) && tasks.length === 0 ? (
-    <Plug message="No tasks on this board yet" />
+const Board = ({ tasks, searchParams, isLoading, isErr }) =>
+  isErr ? (
+    <Plug message="Oops something went wrong" />
+  ) : !Boolean(searchParams) && tasks.length === 0 ? (
+    <Plug isLoading={isLoading} message="No tasks on this board yet" />
   ) : (
     <>
       <Searchbar param="task" placeholder="Search task" />
@@ -33,9 +35,9 @@ Board.propTypes = {
       checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
     })
   ),
-  query: PropTypes.string,
-  filtredLength: PropTypes.number,
-  length: PropTypes.number,
+  searchParams: PropTypes.oneOfType([PropTypes.shape(null), PropTypes.string]),
+  isLoading: PropTypes.bool,
+  isErr: PropTypes.bool,
 };
 
 export default Board;
