@@ -1,9 +1,4 @@
-import {
-  Navigate,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { boardsSelectors } from "../../models/boards/boardsSelectors";
 import { tasksSelectors } from "../../models/tasks/tasksSelectors";
@@ -23,15 +18,15 @@ const HeaderContainer = () => {
     tasksSelectors.selectById(state, taskId)
   );
 
-  return Boolean(currentBoard) ? (
-    <Header
-      onTogglerClick={handleTogglerClick}
-      currentBoard={currentBoard}
-      currentTask={currentTask}
-      previousLocation={{ previousLocation: location }}
-    />
-  ) : (
-    <Navigate to="/" />
+  return (
+    currentBoard && (
+      <Header
+        onTogglerClick={handleTogglerClick}
+        currentBoard={currentBoard}
+        currentTask={currentTask}
+        previousLocation={{ previousLocation: location }}
+      />
+    )
   );
 };
 
