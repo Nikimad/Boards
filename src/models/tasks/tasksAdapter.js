@@ -1,5 +1,5 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-export const tasksDomainAdapter = createEntityAdapter({
+export const tasksAdapter = createEntityAdapter({
   sortComparer: (a, b) => b.id - a.id,
 });
