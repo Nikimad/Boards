@@ -106,7 +106,7 @@ TaskForm.propTypes = {
     ),
   }),
   isEdit: PropTypes.bool,
-  onRemove: PropTypes.bool,
+  onRemove: PropTypes.func,
 };
 
 export default TaskForm;
