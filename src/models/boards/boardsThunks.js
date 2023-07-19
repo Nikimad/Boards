@@ -1,7 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-export const fetchBoards = createAsyncThunk(
-  "boards/fetchBoards",
+export const getBoards = createAsyncThunk(
+  "boards/getBoards",
   async (searchParams) => {
     const res = await fetch(
       `/api/boards${searchParams ? `?title_like=${searchParams}` : ""}`
@@ -10,26 +10,29 @@ export const fetchBoards = createAsyncThunk(
   }
 );
 
-export const addBoard = createAsyncThunk("boards/addBoard", (payload) => {
-  fetch("/api/boards", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json; charset=UTF-8",
-    },
-    body: JSON.stringify(payload.board),
-  });
-  return payload;
-});
+export const postBoard = createAsyncThunk(
+  "boards/postBoard",
+  ({ board, searchParams }) => {
+    fetch("/api/boards", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json; charset=UTF-8",
+      },
+      body: JSON.stringify(board),
+    });
+    return { board, searchParams };
+  }
+);
 
 export const deleteBoard = createAsyncThunk("boards/deleteBoard", (id) => {
   fetch(`/api/boards/${id}`, {
     method: "DELETE",
   });
-  return Number(id);
+  return id;
 });
 
-export const editBoard = createAsyncThunk(
-  "boards/editBoard",
+export const patchBoard = createAsyncThunk(
+  "boards/patchBoard",
   ({ board: { id, ...values } }) => {
     fetch(`/api/boards/${id}`, {
       method: "PATCH",

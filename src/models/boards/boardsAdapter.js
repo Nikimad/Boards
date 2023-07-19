@@ -1,5 +1,5 @@
 import { createEntityAdapter } from "@reduxjs/toolkit";
 
-export const boardsDomainAdapter = createEntityAdapter({
+export const boardsAdapter = createEntityAdapter({
   sortComparer: (a, b) => b.id - a.id,
 });
