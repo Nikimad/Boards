@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-import getId from "../../helpers/getId";
 import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
 import { ReactComponent as Select } from "../../assets/svg/select.svg";
 import { Field, FieldArray, ErrorMessage } from "formik";
@@ -55,7 +54,7 @@ const TaskForm = ({ values, isEdit, onRemove }) => (
                     className={s.form__label__error}
                   />
                 </label>
-                <label className={cn(s.form__label, s.form__controls__reset)}>
+                <label className={cn(s.form__label, s.form__controls__remove)}>
                   <input type="button" onClick={() => remove(index)} />
                   <Delete />
                 </label>
@@ -67,7 +66,7 @@ const TaskForm = ({ values, isEdit, onRemove }) => (
             onClick={() =>
               push({
                 title: "",
-                id: getId(),
+                id: Date.now(),
               })
             }
           >
@@ -107,6 +106,7 @@ TaskForm.propTypes = {
     ),
   }),
   isEdit: PropTypes.bool,
+  onRemove: PropTypes.bool,
 };
 
 export default TaskForm;
