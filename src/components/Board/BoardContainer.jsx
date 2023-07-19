@@ -1,15 +1,20 @@
 import { useEffect } from "react";
-import { useParams, useSearchParams } from "react-router-dom";
+import { Navigate, useParams, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import useDebouncedCallback from "../../hooks/useDebounceCallback";
 import { tasksSelectors } from "../../models/tasks/tasksSelectors";
+import { boardsSelectors } from "../../models/boards/boardsSelectors";
 import { getTasks } from "../../models/tasks/tasksThunks";
 import Board from "./Board";
 
 const BoardContainer = () => {
   const { boardId } = useParams();
   const [searchParams] = useSearchParams();
+
+  const currentBoard = useSelector((state) =>
+    boardsSelectors.selectById(state, boardId)
+  );
 
   const taskSearchParams = searchParams.get("task");
 
@@ -28,14 +33,14 @@ const BoardContainer = () => {
     };
   }, [debouncedDispatchGetTasks, taskSearchParams, boardId]);
 
-  return (
+  return Boolean(currentBoard) ? (
     <Board
       tasks={tasks}
       searchParams={taskSearchParams}
       isLoading={tasksLoadingStatus === "loading"}
       isErr={Boolean(tasksError)}
     />
-  );
+  ) : <Navigate to="/" />;
 };
 
 export default BoardContainer;
