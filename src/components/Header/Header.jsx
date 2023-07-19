@@ -12,19 +12,19 @@ const Header = ({
   previousLocation,
 }) => (
   <div className={s.header__wrapper}>
-    <header
-      className={cn(s.header)}
-    >
+    <header className={cn(s.header)}>
       <button onClick={onTogglerClick}>
         <Logo />
       </button>
       <Link
-        to={`edit/board/${currentBoard.id}/${Boolean(currentTask) ? `task/${currentTask.id}` : ""}`}
+        to={`edit/board/${currentBoard.id}/${
+          Boolean(currentTask) ? `task/${currentTask.id}` : ""
+        }`}
         className={s.header__editable}
         state={previousLocation}
       >
         <span className={s.header__title}>
-          {Boolean(currentTask)? currentTask.title : currentBoard.title}
+          {Boolean(currentTask) ? currentTask.title : currentBoard.title}
         </span>
         <Edit />
       </Link>
@@ -47,7 +47,6 @@ Header.propTypes = {
     id: PropTypes.number,
     title: PropTypes.string,
   }),
-  isBoardChosen: PropTypes.bool,
   currentTask: PropTypes.shape({
     title: PropTypes.string,
     id: PropTypes.number,
@@ -60,10 +59,6 @@ Header.propTypes = {
     ),
     checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
   }),
-  isTaskChosen: PropTypes.bool,
-  boardEditPath: PropTypes.string,
-  taskEditPath: PropTypes.string,
-  taskCreatePath: PropTypes.string,
   previousLocation: PropTypes.shape({
     previousLocation: PropTypes.shape({
       pathname: PropTypes.string,

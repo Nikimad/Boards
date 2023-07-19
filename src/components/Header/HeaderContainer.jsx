@@ -1,9 +1,13 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Navigate,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import { useSelector } from "react-redux";
+import { boardsSelectors } from "../../models/boards/boardsSelectors";
+import { tasksSelectors } from "../../models/tasks/tasksSelectors";
 import Header from "./Header";
-
-import { boardsDomainSelectors } from "../../models/boardsDomain/boardsDomainSelectors";
-import { tasksDomainSelectors } from "../../models/tasksDomain/tasksDomainSelectors";
 
 const HeaderContainer = () => {
   const navigate = useNavigate();
@@ -12,11 +16,11 @@ const HeaderContainer = () => {
   const { boardId, taskId } = useParams();
 
   const currentBoard = useSelector((state) =>
-    boardsDomainSelectors.selectById(state, boardId)
+    boardsSelectors.selectById(state, boardId)
   );
 
   const currentTask = useSelector((state) =>
-    tasksDomainSelectors.selectById(state, taskId)
+    tasksSelectors.selectById(state, taskId)
   );
 
   return Boolean(currentBoard) ? (
@@ -26,7 +30,9 @@ const HeaderContainer = () => {
       currentTask={currentTask}
       previousLocation={{ previousLocation: location }}
     />
-  ) : null;
+  ) : (
+    <Navigate to="/" />
+  );
 };
 
 export default HeaderContainer;
