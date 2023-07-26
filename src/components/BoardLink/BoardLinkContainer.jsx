@@ -12,7 +12,6 @@ const BoardLinkContainer = ({ board }) => {
 BoardLinkContainer.propTypes = {
   board: PropTypes.shape({
     id: PropTypes.number,
-    createdAt: PropTypes.number,
     title: PropTypes.string,
   }),
 };
