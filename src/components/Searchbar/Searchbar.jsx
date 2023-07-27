@@ -3,7 +3,7 @@ import cn from "classnames";
 import sf from "../../styles/form.module.scss";
 import s from "./Searchbar.module.scss";
 
-const Searchbar = ({ value, onChange, placeholder, className, isDisabled }) => (
+const Searchbar = ({ value, onChange, placeholder, className }) => (
   <form className={s.searchbar}>
     <label className={cn(sf.form__label, className)}>
       <input
@@ -12,7 +12,6 @@ const Searchbar = ({ value, onChange, placeholder, className, isDisabled }) => (
         placeholder={placeholder}
         value={value}
         onChange={onChange}
-        disabled={isDisabled}
       />
     </label>
   </form>
@@ -21,6 +20,8 @@ const Searchbar = ({ value, onChange, placeholder, className, isDisabled }) => (
 Searchbar.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default Searchbar;
