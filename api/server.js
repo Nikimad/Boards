@@ -1,8 +1,10 @@
 import jsonServer from "json-server";
+import fs from "fs";
 
 export const server = jsonServer.create();
-const router = jsonServer.router('db.json');
-const middlewares = jsonServer.defaults();
+
+const db = JSON.parse(fs.readFileSync("db.json"));
+const router = jsonServer.router(db);
 
 server.use(
   jsonServer.rewriter({
