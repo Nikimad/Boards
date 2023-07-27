@@ -1,5 +1,6 @@
 @use "/src/styles/variables.scss" as *;
 @use "/src/styles/colors.scss" as *;
+@use "/src/styles/mixins.scss" as *;
 
 .board {
     display: grid;
@@ -7,12 +8,9 @@
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     grid-auto-rows: min-content;
 
-    &__loader {
-        display: block;
-        fill: $gray;
-        width: 20%;
-        height: 70%;
-        margin: 0 auto;
+    &__wrapper {
+        @include panel;
+        padding: 1rem;
     }
 }
 

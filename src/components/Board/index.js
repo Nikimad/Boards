@@ -1,1 +1,1 @@
-export { default } from "./BoardContainer";
+export { default } from "./Board";
