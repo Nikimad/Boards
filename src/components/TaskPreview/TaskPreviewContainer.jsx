@@ -1,16 +1,13 @@
 import PropTypes from "prop-types";
 import TaskPreview from "./TaskPreview";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const TaskPreviewContainer = ({ task }) => {
-  const navigate = useNavigate();
   const location = useLocation();
-  const handleClick = () => navigate(`task/${task.id}`);
 
   return (
     <TaskPreview
       task={task}
-      onClick={handleClick}
       previousLocation={{ previousLocation: location }}
     />
   );

@@ -3,16 +3,16 @@ import { ReactComponent as View } from "../../assets/svg/view.svg";
 import { Link } from "react-router-dom";
 import s from "./TaskPreview.module.scss";
 
-const TaskPreview = ({ task, onClick, previousLocation }) => (
+const TaskPreview = ({ task, previousLocation }) => (
   <div className={s.taskpreview}>
-    <button onClick={onClick} className={s.taskpreview__content}>
+    <Link to={`task/${task.id}`} className={s.taskpreview__content}>
       <h3 className={s.taskpreview__content__title}>{task.title}</h3>
       <p className={s.taskpreview__content__text}>
         {task.subtasks.length > 0
           ? `${task.checkedSubtasks.length} of ${task.subtasks.length} subtasks`
           : `Status: ${task.status}`}
       </p>
-    </button>
+    </Link>
     <Link
       state={previousLocation}
       to={`/review/board/${task.boardId}/task/${task.id}`}
@@ -32,8 +32,6 @@ TaskPreview.propTypes = {
     ),
     checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
   }),
-  onClick: PropTypes.func,
-  reviewPath: PropTypes.string,
   previousLocation: PropTypes.shape({
     previousLocation: PropTypes.shape({
       pathname: PropTypes.string,
