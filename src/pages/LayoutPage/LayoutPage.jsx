@@ -12,7 +12,7 @@ const LayoutPageContainer = () => {
   return (
     <Layout>
       { isError ? <Navigate to="error" /> :
-        <Navbar boards={boards} searchParams={searchParams} isLoading={isLoading} /> 
+        <Navbar boards={data} searchParams={searchParams} isLoading={isLoading} /> 
       }
       <Outlet />
     </Layout>
