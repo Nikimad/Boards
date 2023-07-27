@@ -29,7 +29,6 @@ const TaskFormContainer = ({ onSubmit, onDelete, task }) => {
       initialValues={
         task ?? {
           boardId: +boardId,
-          id: Date.now(),
           title: "",
           description: "",
           checkedSubtasks: [],
