@@ -14,6 +14,7 @@ export const tasksApi = createApi({
               { type: "Task", id: "LIST" },
             ]
           : [{ type: "Task", id: "LIST" }],
+      transformResponse: (response) => response.sort((a, b) => b.id - a.id),
     }),
     getTask: builder.query({
       query: (id) => `/${id}`,
