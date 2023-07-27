@@ -1,47 +1,22 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import useAction from "../../hooks/useAction";
+import { useNavigate } from "react-router-dom";
 import useModal from "../../hooks/useModal";
+import PropTypes from "prop-types";
 import * as Yup from "yup";
-import { boardsSelectors } from "../../models/boards/boardsSelectors";
-import {
-  postBoard,
-  deleteBoard,
-  patchBoard,
-} from "../../models/boards/boardsThunks";
 import { Formik } from "formik";
 import Modal from "../Modal";
 import BoardForm from "./BoardForm";
 
-const BoardFormContainer = () => {
+const BoardFormContainer = ({ board, onSubmit, onDelete }) => {
   const modalProps = useModal();
   const navigate = useNavigate();
-  const { boardId } = useParams();
-  const { state } = useLocation();
-  const previousSearchParams = new URLSearchParams(
-    state?.previousLocation.search
-  );
-
-  const board = useSelector((state) =>
-    boardsSelectors.selectById(state, boardId)
-  );
-
-  const dispatchSubmitAction = useAction(
-    Boolean(boardId) ? patchBoard : postBoard
-  );
-
-  const dispatchRemoveBoard = useAction(deleteBoard);
 
   const hanldeSubmit = (values) => {
-    dispatchSubmitAction({
-      board: values,
-      searchParams: previousSearchParams.get("board"),
-    });
+    onSubmit(values);
     modalProps.resetModal();
   };
 
   const handleRemove = () => {
-    dispatchRemoveBoard(board.id);
+    onDelete(board.id);
     navigate("/");
     modalProps.resetModal();
   };
@@ -63,10 +38,19 @@ const BoardFormContainer = () => {
       onSubmit={hanldeSubmit}
     >
       <Modal modalProps={modalProps}>
-        <BoardForm isEdit={Boolean(boardId)} onRemove={handleRemove} />
+        <BoardForm isEdit={Boolean(board)} onRemove={handleRemove} />
       </Modal>
     </Formik>
   );
+};
+
+BoardFormContainer.propTypes = {
+  board: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+  }),
+  onSubmit: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default BoardFormContainer;
