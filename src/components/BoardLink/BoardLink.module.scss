@@ -4,11 +4,10 @@
 .boardlink {
   display: grid;
   grid-template-columns: minmax(1em, 30px) 1fr;
-  justify-content: start;
   align-items: center;
   border: 1px solid transparent;
   border-radius: 0 $br $br 0;
-  padding: 1rem;
+  padding: 0.75rem 1rem;
 
   &_active {
     color: $white;

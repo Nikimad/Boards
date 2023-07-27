@@ -20,6 +20,8 @@ const Searchbar = ({ value, onChange, placeholder, className }) => (
 Searchbar.propTypes = {
   value: PropTypes.string,
   onChange: PropTypes.func,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default Searchbar;

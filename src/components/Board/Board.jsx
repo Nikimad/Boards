@@ -4,23 +4,21 @@ import Searchbar from "../Searchbar";
 import TaskPreview from "../TaskPreview";
 import s from "./Board.module.scss";
 
-const Board = ({ tasks, query, filtredLength, length }) =>
-  length > 0 ? (
-    <>
-      <Searchbar param="tasks" placeholder="Search task" />
-      {filtredLength > 0 ? (
-        <div className={s.board}>
-          {tasks.map((task) => (
-            <TaskPreview key={task.id} task={task} />
-          ))}
-        </div>
-      ) : (
-        <Plug message={`No tasks contain: ${query}`} />
-      )}
-    </>
-  ) : (
-    <Plug message="No tasks on this board yet" />
-  );
+const Board = ({ tasks, searchParams }) => (
+  <div className={s.board__wrapper}>
+    <Searchbar param="task" placeholder="Search task" />
+    { tasks.length > 0 ?
+      <div className={s.board}>
+        {tasks.map((task) => (
+          <TaskPreview key={task.id} task={task} />
+        ))}
+      </div> :
+      Boolean(searchParams) ?  
+        (<Plug message="Can't find requested tasks" />) : 
+        (<Plug message="No tasks on this board yet" />)
+    }
+  </div>
+);
 
 Board.propTypes = {
   tasks: PropTypes.arrayOf(
@@ -33,9 +31,7 @@ Board.propTypes = {
       checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
     })
   ),
-  query: PropTypes.string,
-  filtredLength: PropTypes.number,
-  length: PropTypes.number,
+  searchParams: PropTypes.oneOfType([PropTypes.shape(null), PropTypes.string]),
 };
 
 export default Board;

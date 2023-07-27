@@ -1,14 +1,16 @@
 import { Routes, Route } from "react-router-dom";
-import BoardForm from "../components/BoardForm";
-import TaskForm from "../components/TaskForm";
+import BoardModalPage from "../pages/BoardModalPage";
+import TaskModalPage from "../pages/TaskModalPage";
 
 const ModalRoutes = () => (
   <Routes>
-    <Route path="board/:boardId">
-      <Route path=":action" element={<BoardForm />} />
-      <Route path="task/:taskId/:action" element={<TaskForm />} />
+  <Route path=":action">
+    <Route path="board/:boardId?">
+      <Route index element={<BoardModalPage />} />
+      <Route path="task/:taskId?" element={<TaskModalPage />} />
     </Route>
-  </Routes>
+  </Route>
+</Routes>
 );
 
 export default ModalRoutes;

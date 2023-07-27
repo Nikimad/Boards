@@ -4,7 +4,7 @@ import { Form as FormikForm } from "formik";
 import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
 import s from "../../styles/form.module.scss";
 
-const Form = ({ formTitle, submitTitle, isEdit, children }) => (
+const Form = ({ formTitle, submitTitle, isEdit, onRemove, children }) => (
   <FormikForm className={s.form}>
     <h2>{formTitle}</h2>
     {children}
@@ -17,8 +17,8 @@ const Form = ({ formTitle, submitTitle, isEdit, children }) => (
         />
       </label>
       {isEdit ? (
-        <label className={s.form__controls__reset}>
-          <input type="reset" value="Remove" />
+        <label className={s.form__controls__remove}>
+          <input type="button" value="Remove" onClick={onRemove} />
           <Delete />
         </label>
       ) : null}

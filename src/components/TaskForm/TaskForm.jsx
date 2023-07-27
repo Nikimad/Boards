@@ -1,17 +1,17 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-import getId from "../../helpers/getId";
 import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
 import { ReactComponent as Select } from "../../assets/svg/select.svg";
 import { Field, FieldArray, ErrorMessage } from "formik";
 import Form from "../Form";
 import s from "../../styles/form.module.scss";
 
-const TaskForm = ({ values, isEdit }) => (
+const TaskForm = ({ values, isEdit, onRemove }) => (
   <Form
     formTitle={isEdit ? "Edit task" : "Add new task"}
     submitTitle={isEdit ? "Edit" : "Create task"}
     isEdit={isEdit}
+    onRemove={onRemove}
   >
     <label className={s.form__label}>
       <span className={s.form__label__title}>Title</span>
@@ -54,7 +54,7 @@ const TaskForm = ({ values, isEdit }) => (
                     className={s.form__label__error}
                   />
                 </label>
-                <label className={cn(s.form__label, s.form__controls__reset)}>
+                <label className={cn(s.form__label, s.form__controls__remove)}>
                   <input type="button" onClick={() => remove(index)} />
                   <Delete />
                 </label>
@@ -66,7 +66,7 @@ const TaskForm = ({ values, isEdit }) => (
             onClick={() =>
               push({
                 title: "",
-                id: getId(),
+                id: Date.now(),
               })
             }
           >
@@ -106,6 +106,7 @@ TaskForm.propTypes = {
     ),
   }),
   isEdit: PropTypes.bool,
+  onRemove: PropTypes.func,
 };
 
 export default TaskForm;

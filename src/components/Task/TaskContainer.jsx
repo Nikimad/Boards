@@ -1,20 +1,24 @@
-import { Navigate, useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { taskByIdSelector } from "../../models/tasks/tasksSelectors";
+import { useNavigate } from "react-router-dom";
+import PropTypes from "prop-types";
 import Task from "./Task";
 
-const TaskContainer = () => {
-  const { boardId, taskId } = useParams();
-  const task = useSelector(taskByIdSelector(taskId));
-
+const TaskContainer = ({ task, children }) => {
   const navigate = useNavigate();
   const onBack = () => navigate(-1);
 
-  return Boolean(task) ? (
-    <Task task={task} onBack={onBack} />
-  ) : (
-    <Navigate to={`/board/${boardId}`} />
-  );
+  return <Task task={task} onBack={onBack} children={children} />;
+};
+
+TaskContainer.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.number,
+    status: PropTypes.string,
+    subtasks: PropTypes.arrayOf(
+      PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })
+    ),
+    checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
+  }),
+  children: PropTypes.element,
 };
 
 export default TaskContainer;

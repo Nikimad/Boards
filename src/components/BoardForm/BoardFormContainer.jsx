@@ -1,37 +1,22 @@
-import { useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { boardByIdSelector } from "../../models/boards/boardsSelectors";
-import useAction from "../../hooks/useAction";
+import { useNavigate } from "react-router-dom";
 import useModal from "../../hooks/useModal";
-import {
-  addBoard,
-  editBoard,
-  removeBoard,
-} from "../../models/boards/boardsSlice";
+import PropTypes from "prop-types";
 import * as Yup from "yup";
 import { Formik } from "formik";
 import Modal from "../Modal";
 import BoardForm from "./BoardForm";
 
-const BoardFormContainer = () => {
+const BoardFormContainer = ({ board, onSubmit, onDelete }) => {
   const modalProps = useModal();
   const navigate = useNavigate();
-  const { boardId, action } = useParams();
 
-  const board = useSelector(boardByIdSelector(boardId));
-
-  const dispatchSubmitAction = useAction(
-    action === "edit" ? editBoard : addBoard
-  );
-  const dispatchRemoveBoard = useAction(removeBoard);
-
-  const onSubmit = (values) => {
-    dispatchSubmitAction(values);
+  const hanldeSubmit = (values) => {
+    onSubmit(values);
     modalProps.resetModal();
   };
 
-  const onReset = () => {
-    dispatchRemoveBoard(board);
+  const handleRemove = () => {
+    onDelete(board.id);
     navigate("/");
     modalProps.resetModal();
   };
@@ -40,9 +25,7 @@ const BoardFormContainer = () => {
     <Formik
       initialValues={
         board ?? {
-          id: +boardId,
           title: "",
-          tasksIds: [],
         }
       }
       validationSchema={Yup.object({
@@ -51,14 +34,22 @@ const BoardFormContainer = () => {
           .max(16, "Title must be 16 characters or less")
           .required("Title is required"),
       })}
-      onSubmit={onSubmit}
-      onReset={onReset}
+      onSubmit={hanldeSubmit}
     >
       <Modal modalProps={modalProps}>
-        <BoardForm isEdit={action === "edit"} />
+        <BoardForm isEdit={Boolean(board)} onRemove={handleRemove} />
       </Modal>
     </Formik>
   );
+};
+
+BoardFormContainer.propTypes = {
+  board: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+  }),
+  onSubmit: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default BoardFormContainer;

@@ -9,6 +9,7 @@
   background-color: $violet-400;
   border-bottom: $border;
   transition: $trans;
+  animation: in forwards $trans;
   padding: 1rem;
 
   &__wrapper {
@@ -18,7 +19,6 @@
   &__title {
     font-size: 2em;
     font-weight: 900;
-    line-height: 1.75;
   }
 
   &__editable {
@@ -66,11 +66,6 @@
       background-color: $violet-100;
     }
   }
-
-  &_empty {
-    visibility: hidden;
-    transform: translateY(-100%);
-  }
 }
 
 @media screen and (min-width: $bp) {
@@ -87,5 +82,13 @@
         display: inline;
       }
     }
+  }
+}
+
+@keyframes in {
+  from {
+    transform: translateY(-100%);
+  } to {
+    transform: translateY(0);
   }
 }

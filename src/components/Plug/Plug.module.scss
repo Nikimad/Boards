@@ -1,14 +1,24 @@
 @use "/src/styles/colors.scss" as *;
+@use "/src/styles/mixins.scss" as *;
 
 .plug {
     display: grid;
     grid-template-rows: auto min-content;
     justify-items: center;
     align-content: center;
-    height: 100%;
     font-size: 1.5em;
     font-weight: 900;
     color: $gray;
+    transform: translate(-50%, -50%);
+    top: 50%;
+    left: 50%;
+    z-index: -1;
+    @include panel;
+
+    &__loader {
+        fill: currentColor;
+        animation: rotate ease 3s infinite;
+    }
 
     svg {
         max-height: 3em;
@@ -18,5 +28,19 @@
         line-break: anywhere;
         text-align: center;
         margin-top: 0;
+    }
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0);
+    } 25% {
+        transform: rotate(90deg);
+    } 50% {
+        transform: rotate(180deg);
+    } 75% {
+        transform: rotate(240deg);
+    } 100% {
+        transform: rotate(360deg);
     }
 }

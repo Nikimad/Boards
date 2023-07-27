@@ -1,4 +1,5 @@
 import { useSearchParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import Searchbar from "./Searchbar";
 
 const SearchbarContainer = ({ param, placeholder, className }) => {
@@ -14,6 +15,12 @@ const SearchbarContainer = ({ param, placeholder, className }) => {
       className={className}
     />
   );
+};
+
+Searchbar.propTypes = {
+  param: PropTypes.string,
+  placeholder: PropTypes.string,
+  className: PropTypes.string,
 };
 
 export default SearchbarContainer;

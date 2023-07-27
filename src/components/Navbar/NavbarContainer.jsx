@@ -1,33 +1,34 @@
-import { useLocation, useSearchParams } from "react-router-dom";
 import { useContext } from "react";
+import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import HiddableContentContext from "../../context/HiddableContentContext";
-import { useSelector } from "react-redux";
-import { boardsSelector } from "../../models/boards/boardsSelectors";
-import getId from "../../helpers/getId";
 import Navbar from "./Navbar";
 
-const NavbarContainer = () => {
-  const [searchParams] = useSearchParams();
-
-  const { boards, length, filtredLength } = useSelector(
-    boardsSelector(searchParams.get("boards") ?? "")
-  );
-
-  const { isHidden, toggleIsHidden } = useContext(HiddableContentContext);
+const NavbarContainer = ({ boards, searchParams, isLoading }) => {
+  const { isHidden } = useContext(HiddableContentContext);
   const location = useLocation();
 
   return (
     <Navbar
       isHidden={isHidden}
-      toggleIsHidden={toggleIsHidden}
-      query={searchParams.get("boards")}
       boards={boards}
-      length={length}
-      filtredLength={filtredLength}
-      path={`board/${getId()}/create`}
+      searchParams={searchParams}
       previousLocation={{ previousLocation: location }}
+      isLoading={isLoading}
     />
   );
+};
+
+NavbarContainer.propTypes = {
+  boards: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      createdAt: PropTypes.number,
+    })
+  ),
+  searchParams: PropTypes.oneOfType([PropTypes.shape(null), PropTypes.string]),
+  isLoading: PropTypes.bool,
 };
 
 export default NavbarContainer;

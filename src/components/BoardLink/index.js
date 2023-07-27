@@ -1,1 +1,1 @@
-export { default } from "./BoardLink";
+export { default } from "./BoardLinkContainer";
