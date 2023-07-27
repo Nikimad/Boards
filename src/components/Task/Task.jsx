@@ -1,13 +1,12 @@
 import PropTypes from "prop-types";
-import TaskForm from "../TaskForm";
 import s from "./Task.module.scss";
 
-const Task = ({ task, onBack }) => (
+const Task = ({ task, onBack, children }) => (
   <div className={s.task}>
     {task.description.length > 0 ? (
       <p className={s.task__description}>{task.description}</p>
     ) : null}
-    <TaskForm />
+    { children }
     <button className={s.task__button} onClick={onBack}>
       Back
     </button>
@@ -24,6 +23,7 @@ Task.propTypes = {
     checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
   }),
   onBack: PropTypes.func,
+  children: PropTypes.element,
 };
 
 export default Task;
