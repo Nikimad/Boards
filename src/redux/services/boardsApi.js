@@ -14,6 +14,7 @@ export const boardsApi = createApi({
             { type: "Board", id: "LIST" },
           ]
         : [{ type: "Board", id: "LIST" }],
+      transformResponse: (response) => response.sort((a, b) => b.id - a.id),
     }),
     getBoard: builder.query({
       query: (id) => `/${id}`,
