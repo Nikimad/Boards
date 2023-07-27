@@ -19,6 +19,13 @@
     }
 }
 
+@mixin panel {
+    grid-area: panel;
+    position: relative;
+    width: 100%;
+    @include scroll-bar;
+}
+
 @mixin visually-hidden {
     position: absolute;
     width: 1px;
