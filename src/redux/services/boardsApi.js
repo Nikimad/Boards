@@ -16,7 +16,7 @@ export const boardsApi = createApi({
         : [{ type: "Board", id: "LIST" }],
     }),
     getBoard: builder.query({
-      query: (id) => id,
+      query: (id) => `/${id}`,
       providesTags: (result) =>
       result
         ? [
@@ -35,14 +35,14 @@ export const boardsApi = createApi({
     }),
     deleteBoard: builder.mutation({
       query: (id) => ({
-        url: String(id),
+        url: `/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: [{ type: "Board", id: "LIST" }],
     }),
     patchBoard: builder.mutation({
       query: ({ id, ...body }) => ({
-        url: String(id),
+        url: `/${id}`,
         method: "PATCH",
         body,
       }),
