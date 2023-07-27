@@ -9,11 +9,9 @@ import s from "./Navbar.module.scss";
 const Navbar = ({
   isHidden,
   boards,
-  totalBoards,
   searchParams,
   previousLocation,
   isLoading,
-  isErr,
 }) => (
   <div className={s.navbar} aria-hidden={isHidden}>
     <div className={s.navbar__header}>
@@ -24,30 +22,23 @@ const Navbar = ({
         {isLoading ? <Loader className={s.navbar__loader} /> : boards.length})
       </p>
     </div>
-    {isErr ? (
-      <p className={s.navbar__err}>Oops something went wrong</p>
-    ) : (
-      <>
-        <Searchbar
-          param="board"
-          placeholder="Search board"
-          className={s.navbar__search}
-          isDisabled={!Boolean(searchParams) && totalBoards === 0}
-        />
-        <nav className={s.navbar__nav}>
-          {boards.map((board) => (
-            <BoardLink key={board.id} board={board} />
-          ))}
-        </nav>
-        <Link
-          to="create/board"
-          state={previousLocation}
-          className={s.navbar__link}
-        >
-          + Create New Board
-        </Link>
-      </>
-    )}
+    <Searchbar
+      param="board"
+      placeholder="Search board"
+      className={s.navbar__search}
+    />
+    <nav className={s.navbar__nav}>
+      {boards.map((board) => (
+        <BoardLink key={board.id} board={board} />
+      ))}
+    </nav>
+    <Link
+      to="create/board"
+      state={previousLocation}
+      className={s.navbar__link}
+    >
+      + Create New Board
+    </Link>
   </div>
 );
 
@@ -60,7 +51,6 @@ Navbar.propTypes = {
       createdAt: PropTypes.number,
     })
   ),
-  totalBoards: PropTypes.number,
   searchParams: PropTypes.oneOfType([PropTypes.shape(null), PropTypes.string]),
   previousLocation: PropTypes.shape({
     previousLocation: PropTypes.shape({
@@ -72,7 +62,6 @@ Navbar.propTypes = {
     }),
   }),
   isLoading: PropTypes.bool,
-  isErr: PropTypes.bool,
 };
 
 export default Navbar;

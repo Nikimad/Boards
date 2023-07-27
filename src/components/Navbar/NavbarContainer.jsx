@@ -1,52 +1,34 @@
-import { useEffect } from "react";
-import { useLocation, useSearchParams } from "react-router-dom";
 import { useContext } from "react";
-import useAction from "../../hooks/useAction";
-import useDebouncedCallback from "../../hooks/useDebounceCallback";
-import { useSelector } from "react-redux";
-import { boardsSelectors } from "../../models/boards/boardsSelectors";
-import { getBoards } from "../../models/boards/boardsThunks";
+import { useLocation } from "react-router-dom";
+import PropTypes from "prop-types";
 import HiddableContentContext from "../../context/HiddableContentContext";
 import Navbar from "./Navbar";
 
-const NavbarContainer = () => {
+const NavbarContainer = ({ boards, searchParams, isLoading }) => {
   const { isHidden } = useContext(HiddableContentContext);
-
   const location = useLocation();
-  const [searchParams] = useSearchParams();
-
-  const boardSearchParams = searchParams.get("board");
-
-  const visibleBoardsIds = useSelector(boardsSelectors.selectVisibleIds);
-  const boards = useSelector(boardsSelectors.selectByIds(visibleBoardsIds));
-  const totalBoards = useSelector(boardsSelectors.selectTotal);
-  const boardsLoadingStatus = useSelector(boardsSelectors.selectLoadingStatus);
-  const boardsError = useSelector(boardsSelectors.selectError);
-
-  const dispatchGetBoards = useAction(getBoards);
-  const debouncedDispatchGetBoards = useDebouncedCallback(
-    dispatchGetBoards,
-    250
-  );
-
-  useEffect(() => {
-    debouncedDispatchGetBoards(boardSearchParams);
-    return () => {
-      debouncedDispatchGetBoards.cancel();
-    };
-  }, [debouncedDispatchGetBoards, boardSearchParams]);
 
   return (
     <Navbar
       isHidden={isHidden}
       boards={boards}
-      totalBoards={totalBoards}
-      searchParams={boardSearchParams}
+      searchParams={searchParams}
       previousLocation={{ previousLocation: location }}
-      isLoading={boardsLoadingStatus === "loading"}
-      isErr={Boolean(boardsError)}
+      isLoading={isLoading}
     />
   );
+};
+
+NavbarContainer.propTypes = {
+  boards: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      title: PropTypes.string,
+      createdAt: PropTypes.number,
+    })
+  ),
+  searchParams: PropTypes.oneOfType([PropTypes.shape(null), PropTypes.string]),
+  isLoading: PropTypes.bool,
 };
 
 export default NavbarContainer;
