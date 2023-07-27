@@ -1,45 +1,24 @@
-import { useNavigate, useParams, useLocation } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
 import useModal from "../../hooks/useModal";
-import useAction from "../../hooks/useAction";
+import PropTypes from "prop-types";
 import * as Yup from "yup";
-import { tasksSelectors } from "../../models/tasks/tasksSelectors";
-import {
-  postTask,
-  deleteTask,
-  patchTask,
-} from "../../models/tasks/tasksThunks";
 import { Formik } from "formik";
 import Modal from "../Modal";
 import TaskForm from "./TaskForm";
 import TaskAutoSaveForm from "../TaskAutoSaveForm";
 
-const TaskFormContainer = () => {
+const TaskFormContainer = ({ onSubmit, onDelete, task }) => {
+  const { action, boardId } = useParams();
   const modalProps = useModal();
   const navigate = useNavigate();
-  const { boardId, taskId, action } = useParams();
-  const { state } = useLocation();
-  const previousSearchParams = new URLSearchParams(
-    state?.previousLocation.search
-  );
-
-  const task = useSelector((state) => tasksSelectors.selectById(state, taskId));
-
-  const dispatchSubmitAction = useAction(
-    action === "create" ? postTask : patchTask
-  );
-  const dispatchRemoveTask = useAction(deleteTask);
 
   const handleSubmit = (values) => {
-    dispatchSubmitAction({
-      task: values,
-      searchParams: previousSearchParams.get("task"),
-    });
+    onSubmit(values);
     if (action !== "review") modalProps.resetModal();
   };
 
   const hanldeRemove = () => {
-    dispatchRemoveTask(task.id);
+    onDelete(task.id);
     navigate(`/board/${boardId}`);
     modalProps.resetModal();
   };
@@ -80,7 +59,7 @@ const TaskFormContainer = () => {
             ) : (
               <TaskForm
                 values={values}
-                isEdit={action === "edit"}
+                isEdit={Boolean(task)}
                 onRemove={hanldeRemove}
               />
             )}
@@ -91,6 +70,19 @@ const TaskFormContainer = () => {
       }
     </Formik>
   );
+};
+
+TaskFormContainer.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.number,
+    status: PropTypes.string,
+    subtasks: PropTypes.arrayOf(
+      PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })
+    ),
+    checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
+  }),
+  onSubmit: PropTypes.func,
+  onDelete: PropTypes.func,
 };
 
 export default TaskFormContainer;
