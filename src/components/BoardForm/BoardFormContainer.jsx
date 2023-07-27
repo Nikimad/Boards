@@ -26,7 +26,6 @@ const BoardFormContainer = ({ board, onSubmit, onDelete }) => {
       initialValues={
         board ?? {
           title: "",
-          id: Date.now(),
         }
       }
       validationSchema={Yup.object({
