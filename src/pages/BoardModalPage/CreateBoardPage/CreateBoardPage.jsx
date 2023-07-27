@@ -1,5 +1,5 @@
-import BoardForm from "../../../components/BoardForm";
 import { usePostBoardMutation } from "../../../redux/services/boardsApi";
+import BoardForm from "../../../components/BoardForm";
 
 const CreateBoardPage = () => {
   const [postBoard] = usePostBoardMutation();
