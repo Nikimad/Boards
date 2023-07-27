@@ -1,33 +1,38 @@
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
-import { boardsSelectors } from "../../models/boards/boardsSelectors";
-import { tasksSelectors } from "../../models/tasks/tasksSelectors";
+import { useNavigate, useLocation, useParams } from "react-router-dom";
+import PropTypes from "prop-types";
 import Header from "./Header";
 
-const HeaderContainer = () => {
-  const navigate = useNavigate();
-  const handleTogglerClick = () => navigate("/");
-  const location = useLocation();
+const HeaderContainer = ({ board, task }) => {
   const { boardId, taskId } = useParams();
 
-  const currentBoard = useSelector((state) =>
-    boardsSelectors.selectById(state, boardId)
-  );
+  const navigate = useNavigate();
+  const location = useLocation();
+  const handleTogglerClick = () => navigate("/");
 
-  const currentTask = useSelector((state) =>
-    tasksSelectors.selectById(state, taskId)
-  );
+  const { title } = task || board;
+  
+  return <Header
+    boardId={boardId}
+    taskId={taskId}
+    title={title}
+    onTogglerClick={handleTogglerClick}
+    previousLocation={{ previousLocation: location }}
+  />;
+};
 
-  return (
-    currentBoard && (
-      <Header
-        onTogglerClick={handleTogglerClick}
-        currentBoard={currentBoard}
-        currentTask={currentTask}
-        previousLocation={{ previousLocation: location }}
-      />
-    )
-  );
+HeaderContainer.propTypes = {
+  task: PropTypes.shape({
+    id: PropTypes.number,
+    status: PropTypes.string,
+    subtasks: PropTypes.arrayOf(
+      PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })
+    ),
+    checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
+  }),
+  board: PropTypes.shape({
+    id: PropTypes.number,
+    title: PropTypes.string,
+  }),
 };
 
 export default HeaderContainer;

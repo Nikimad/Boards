@@ -6,9 +6,10 @@ import { Link } from "react-router-dom";
 import s from "./Header.module.scss";
 
 const Header = ({
+  boardId,
+  taskId,
+  title,
   onTogglerClick,
-  currentBoard,
-  currentTask,
   previousLocation,
 }) => (
   <div className={s.header__wrapper}>
@@ -17,48 +18,33 @@ const Header = ({
         <Logo />
       </button>
       <Link
-        to={`edit/board/${currentBoard.id}/${
-          Boolean(currentTask) ? `task/${currentTask.id}` : ""
-        }`}
+        to={`/edit/board/${boardId}${taskId ? `/task/${taskId}` : ""}`}
         className={s.header__editable}
         state={previousLocation}
       >
         <span className={s.header__title}>
-          {Boolean(currentTask) ? currentTask.title : currentBoard.title}
+          { title }
         </span>
         <Edit />
       </Link>
-      {Boolean(currentTask) ? null : (
-        <Link
-          to={`create/board/${currentBoard.id}/task`}
-          state={previousLocation}
-          className={s.header__button}
-        >
-          +<span className={s.header__button__text}> Add New Task</span>
-        </Link>
-      )}
+      { !taskId &&
+      <Link
+        className={s.header__button}
+        to={`/create/board/${boardId}/task`}
+        state={previousLocation}
+      >
+      +<span className={s.header__button__text}> Add New Task</span>
+      </Link>
+      }
     </header>
   </div>
 );
 
 Header.propTypes = {
+  boardId: PropTypes.string,
+  taskId: PropTypes.string,
+  title: PropTypes.string,
   onTogglerClick: PropTypes.func,
-  currentBoard: PropTypes.shape({
-    id: PropTypes.number,
-    title: PropTypes.string,
-  }),
-  currentTask: PropTypes.shape({
-    title: PropTypes.string,
-    id: PropTypes.number,
-    boardId: PropTypes.number,
-    subtasks: PropTypes.arrayOf(
-      PropTypes.shape({
-        id: PropTypes.number,
-        title: PropTypes.string,
-      })
-    ),
-    checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
-  }),
   previousLocation: PropTypes.shape({
     previousLocation: PropTypes.shape({
       pathname: PropTypes.string,
