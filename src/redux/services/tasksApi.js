@@ -16,7 +16,7 @@ export const tasksApi = createApi({
           : [{ type: "Task", id: "LIST" }],
     }),
     getTask: builder.query({
-      query: (id) => id,
+      query: (id) => `/${id}`,
       providesTags: (result) =>
         result
           ? [
@@ -35,14 +35,14 @@ export const tasksApi = createApi({
     }),
     deleteTask: builder.mutation({
       query: (id) => ({
-        url: String(id),
+        url: `/${id}`,
         method: "DELETE",
       }),
       invalidatesTags: [{ type: "Task", id: "LIST" }],
     }),
     patchTask: builder.mutation({
       query: ({ id, ...body }) => ({
-        url: String(id),
+        url: `/${id}`,
         method: "PATCH",
         body,
       }),
