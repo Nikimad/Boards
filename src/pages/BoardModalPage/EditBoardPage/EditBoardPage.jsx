@@ -1,17 +1,17 @@
 import { useParams } from "react-router-dom";
-import { useGetBoardQuery, useDeleteBoardMutation, usePatchBoardMutation } from "../../../redux/services/boardsApi";
+import { useGetBoardsQuery, useDeleteBoardMutation, usePatchBoardMutation } from "../../../redux/services/boardsApi";
 import BoardForm from "../../../components/BoardForm";
-import Plug from "../../../components/Plug";
 
 export const EditBoardPage = () => {
   const { boardId } = useParams();
-  const { data, isLoading, isError } = useGetBoardQuery(boardId);
+  const { board } = useGetBoardsQuery(undefined, {
+    selectFromResult: ({ data }) => ({ board: data?.find(({ id }) => id === Number(boardId)) })
+  });
+  
   const [deleteBoard] = useDeleteBoardMutation();
   const [patchBoard] = usePatchBoardMutation();
 
-  return isError ? <Navigate to="/error" /> :
-    isLoading ? <Plug isLoading={true} /> :
-    <BoardForm onSubmit={patchBoard} onDelete={deleteBoard} board={data} />
+  return <BoardForm onSubmit={patchBoard} onDelete={deleteBoard} board={board} />
 };
 
 export default EditBoardPage;
