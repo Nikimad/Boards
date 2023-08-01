@@ -6,7 +6,7 @@ export const tasksApi = createApi({
   tagTypes: ["Task"],
   endpoints: (builder) => ({
     getTasks: builder.query({
-      query: ({ boardId, searchParams }) => `?boardId=${boardId}${searchParams ? `&q=${searchParams}` : ""}`,
+      query: (params) => `?boardId=${params?.boardId}${params?.searchParams ? `&q=${params?.searchParams}` : ""}`,
       providesTags: (result) =>
         result
           ? [
