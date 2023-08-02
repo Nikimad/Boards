@@ -5,7 +5,7 @@ import s from "./Searchbar.module.scss";
 
 const Searchbar = ({ value, onChange, placeholder, className }) => (
   <form className={s.searchbar}>
-    <label className={cn(sf.form__label, className)}>
+    <label className={cn(sf.form__label, sf.form__label_noerr, className)}>
       <input
         className={sf.form__input}
         type="text"
