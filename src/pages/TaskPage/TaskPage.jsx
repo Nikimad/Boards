@@ -1,23 +1,29 @@
-import { useParams, Navigate } from "react-router-dom";
-import { useGetTaskQuery } from "../../redux/services/tasksApi";
-import Header from "../../components/Header";
+import { Navigate, useParams } from "react-router-dom";
+import { useGetTasksQuery } from "../../redux/services/tasksApi";
 import Task from "../../components/Task";
-import Plug from "../../components/Plug";
 import EditTaskPage from "../TaskModalPage/EditTaskPage";
+import Header from "../../components/Header";
 
 const TaskPage = () => {
-  const { taskId } = useParams();
-  const { data, isLoading, isError } = useGetTaskQuery(taskId);
+  const { boardId, taskId } = useParams();
+  const { task } = useGetTasksQuery(
+    { boardId },
+    {
+      selectFromResult: ({ data }) => ({
+        task: data.find(({ id }) => id === Number(taskId)),
+      }),
+    }
+  );
 
-  return (
-    isError ? <Navigate to="/error" /> :
-    isLoading ? <Plug isLoading={true} message="Fetch task" /> :
+  return Boolean(taskId) ? (
     <>
-      <Header task={data} />
-      <Task task={data}>
+      <Header task={task} />
+      <Task task={task}>
         <EditTaskPage />
       </Task>
     </>
+  ) : (
+    <Navigate to="/error" />
   );
 };
 
