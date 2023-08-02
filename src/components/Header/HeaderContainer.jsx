@@ -9,7 +9,7 @@ const HeaderContainer = ({ board, task }) => {
   const location = useLocation();
   const handleTogglerClick = () => navigate("/");
 
-  const { title } = task || board;
+  const title = task?.title || board?.title;
   
   return <Header
     boardId={boardId}

@@ -2,6 +2,7 @@
 @use "/src/styles/colors.scss" as *;
 
 .header {
+  grid-area: header;
   display: grid;
   grid-template-columns: minmax(1em, 30px) max-content auto;
   gap: 0.25rem;
@@ -11,10 +12,6 @@
   transition: $trans;
   animation: in forwards $trans;
   padding: 1rem;
-
-  &__wrapper {
-    grid-area: header;
-  }
 
   &__title {
     font-size: 2em;
