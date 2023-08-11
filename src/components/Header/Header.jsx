@@ -12,7 +12,6 @@ const Header = ({
   onTogglerClick,
   previousLocation,
 }) => (
-  <div className={s.header__wrapper}>
     <header className={cn(s.header)}>
       <button onClick={onTogglerClick}>
         <Logo />
@@ -37,7 +36,6 @@ const Header = ({
       </Link>
       }
     </header>
-  </div>
 );
 
 Header.propTypes = {
