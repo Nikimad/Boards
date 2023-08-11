@@ -1,3 +1,4 @@
+@use "./variables.scss" as *;
 @use "./colors.scss" as *;
 
 @mixin scroll-bar {
@@ -37,4 +38,16 @@
     clip-path: inset(100%);
     clip: rect(0 0 0 0);
     overflow: hidden;
+}
+
+@mixin desktop {
+    @media screen and (min-width: $bp) {
+        @content
+    }
+}
+
+@mixin desktop-big {
+    @media screen and (min-width: $bp-big) {
+        @content
+    }
 }
