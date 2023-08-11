@@ -23,6 +23,7 @@ const BoardFormContainer = ({ board, onSubmit, onDelete }) => {
 
   return (
     <Formik
+      enableReinitialize
       initialValues={
         board ?? {
           title: "",
