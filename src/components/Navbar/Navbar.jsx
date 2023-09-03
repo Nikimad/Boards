@@ -34,7 +34,10 @@ const Navbar = ({
     </nav>
     <Link
       to="create/board"
-      state={previousLocation}
+      state={{
+        previousLocation,
+        previousSearchParams: searchParams,
+      }}
       className={s.navbar__link}
     >
       + Create New Board
