@@ -1,26 +1,37 @@
-import { Navigate, useParams } from "react-router-dom";
-import { useGetTaskQuery } from "../../redux/services/tasksApi";
+import { useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
+import useAction from "../../hooks/useAction";
+import {
+  fetchTask,
+  tasksSelectors,
+} from "../../redux/slices/tasks/tasksSlice";
 import Task from "../../components/Task";
 import EditTaskPage from "../TaskModalPage/EditTaskPage";
-import Header from "../../components/Header";
-import Plug from "../../components/Plug/Plug";
 
 const TaskPage = () => {
   const { taskId } = useParams();
+  const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useGetTaskQuery(taskId);
+  const task = useSelector((state) => tasksSelectors.selectById(state, taskId));
+  const isError = useSelector(tasksSelectors.selectIsError);
 
-  return isError ? (
-    <Navigate to="/error" />
-  ) : isLoading ? (
-    <Plug isLoading={true} message="Fetch task" />
-  ) : (
-    <>
-      <Header task={data} />
-      <Task task={data}>
+  const getTask = useAction(fetchTask);
+
+  useEffect(() => {
+    if (!Boolean(task)) getTask(taskId);
+  }, [task, getTask, taskId]);
+
+  useEffect(() => {
+    if (isError) navigate("/error");
+  }, [isError, navigate]);
+
+  return (
+    task && (
+      <Task>
         <EditTaskPage />
       </Task>
-    </>
+    )
   );
 };
 
