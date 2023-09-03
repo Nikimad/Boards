@@ -10,6 +10,7 @@ const Header = ({
   taskId,
   title,
   onTogglerClick,
+  searchParams,
   previousLocation,
 }) => (
     <header className={cn(s.header)}>
@@ -19,7 +20,7 @@ const Header = ({
       <Link
         to={`/edit/board/${boardId}${taskId ? `/task/${taskId}` : ""}`}
         className={s.header__editable}
-        state={previousLocation}
+        state={{previousLocation}}
       >
         <span className={s.header__title}>
           { title }
@@ -30,7 +31,10 @@ const Header = ({
       <Link
         className={s.header__button}
         to={`/create/board/${boardId}/task`}
-        state={previousLocation}
+        state={{
+          previousLocation,
+          previousSearchParams: searchParams,
+        }}
       >
       +<span className={s.header__button__text}> Add New Task</span>
       </Link>
