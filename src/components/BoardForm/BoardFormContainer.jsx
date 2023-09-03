@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import useModal from "../../hooks/useModal";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
@@ -8,10 +8,11 @@ import BoardForm from "./BoardForm";
 
 const BoardFormContainer = ({ board, onSubmit, onDelete }) => {
   const modalProps = useModal();
+  const { state: { previousSearchParams } } = useLocation();
   const navigate = useNavigate();
 
   const hanldeSubmit = (values) => {
-    onSubmit(values);
+    onSubmit({ values, searchParams: previousSearchParams });
     modalProps.resetModal();
   };
 
