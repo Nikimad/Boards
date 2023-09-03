@@ -1,28 +1,37 @@
-import { useSearchParams, Outlet, Navigate } from "react-router-dom";
-import { useGetBoardsQuery } from "../../redux/services/boardsApi";
+import { useEffect } from "react";
+import { useSearchParams, Outlet, useNavigate } from "react-router-dom";
+import useAction from "../../hooks/useAction";
+import {
+  boardsSelectors,
+  fetchBoards,
+} from "../../redux/slices/boards/boardsSlice";
+import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar";
 import Layout from "../../components/Layout";
+import Header from "../../components/Header";
 
 const LayoutPageContainer = () => {
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+
   const boardSearchParams = searchParams.get("board");
-  const {
-    data = [],
-    isLoading,
-    isError,
-  } = useGetBoardsQuery(boardSearchParams);
+
+  const getBoards = useAction(fetchBoards);
+
+  const isError = useSelector(boardsSelectors.selectIsError);
+
+  useEffect(() => {
+    getBoards(boardSearchParams);
+  }, [getBoards, boardSearchParams]);
+
+  useEffect(() => {
+    if (isError) navigate("/error");
+  }, [isError, navigate]);
 
   return (
     <Layout>
-      {isError ? (
-        <Navigate to="error" />
-      ) : (
-        <Navbar
-          boards={data}
-          searchParams={boardSearchParams}
-          isLoading={isLoading}
-        />
-      )}
+      <Navbar />
+      <Header />
       <Outlet />
     </Layout>
   );
