@@ -1,8 +1,10 @@
-import { usePostTaskMutation } from "../../../redux/services/tasksApi";
+import useAction from "../../../hooks/useAction";
+import { postTask as postTaskAction } from "../../../redux/slices/tasks/tasksSlice";
 import TaskForm from "../../../components/TaskForm";
 
 const CreateTaskPage = () => {
-  const [postTask] = usePostTaskMutation();
+  const postTask = useAction(postTaskAction);
+
   return <TaskForm onSubmit={postTask} />;
 };
 

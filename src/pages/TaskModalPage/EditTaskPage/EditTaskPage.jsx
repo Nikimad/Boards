@@ -1,17 +1,22 @@
+import useAction from "../../../hooks/useAction";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useDeleteTaskMutation, useGetTasksQuery, usePatchTaskMutation } from "../../../redux/services/tasksApi";
+import {
+  tasksSelectors,
+  patchTask as patchTaskAction,
+  deleteTask as deleteTaskAction,
+} from "../../../redux/slices/tasks/tasksSlice";
 import TaskForm from "../../../components/TaskForm";
 
 const EditTaskPage = () => {
-  const { boardId, taskId } = useParams();
-  const { task } = useGetTasksQuery({ boardId }, {
-    selectFromResult: ({ data }) => ({ task: data?.find(({ id }) => id === Number(taskId)) }),
-  });
+  const { taskId } = useParams();
+  
+  const task = useSelector((state) => tasksSelectors.selectById(state, taskId));
 
-  const [deleteTask] = useDeleteTaskMutation();
-  const [patchTask] = usePatchTaskMutation();
+  const deleteTask = useAction(deleteTaskAction);
+  const patchTask = useAction(patchTaskAction);
 
-  return <TaskForm onSubmit={patchTask} onDelete={deleteTask} task={task} />
+  return <TaskForm onSubmit={patchTask} onDelete={deleteTask} task={task} />;
 };
 
 export default EditTaskPage;
