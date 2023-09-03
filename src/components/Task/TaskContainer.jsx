@@ -1,23 +1,21 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
+import { tasksSelectors } from "../../redux/slices/tasks/tasksSlice";
 import Task from "./Task";
 
-const TaskContainer = ({ task, children }) => {
+const TaskContainer = ({ children }) => {
+  const { taskId } = useParams();
   const navigate = useNavigate();
+
   const onBack = () => navigate(-1);
+
+  const task = useSelector((state) => tasksSelectors.selectById(state, taskId));
 
   return <Task task={task} onBack={onBack} children={children} />;
 };
 
 TaskContainer.propTypes = {
-  task: PropTypes.shape({
-    id: PropTypes.number,
-    status: PropTypes.string,
-    subtasks: PropTypes.arrayOf(
-      PropTypes.shape({ id: PropTypes.number, title: PropTypes.string })
-    ),
-    checkedSubtasks: PropTypes.arrayOf(PropTypes.string),
-  }),
   children: PropTypes.element,
 };
 
