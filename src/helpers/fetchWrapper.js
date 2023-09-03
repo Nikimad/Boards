@@ -1,6 +1,6 @@
 const handleFetch = async (...args) => {
   const res = await fetch(...args);
-  if (!res.ok) throw new Error();
+  if (!res.ok) throw new Error(res.status);
   if (res.ok) return await res.json();
 };
 
