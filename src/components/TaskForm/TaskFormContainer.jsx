@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams, useLocation } from "react-router-dom";
 import useModal from "../../hooks/useModal";
 import PropTypes from "prop-types";
 import * as Yup from "yup";
@@ -9,11 +9,13 @@ import TaskAutoSaveForm from "../TaskAutoSaveForm";
 
 const TaskFormContainer = ({ onSubmit, onDelete, task }) => {
   const { action, boardId } = useParams();
-  const modalProps = useModal();
+  const location = useLocation();
   const navigate = useNavigate();
+  
+  const modalProps = useModal();
 
   const handleSubmit = (values) => {
-    onSubmit(values);
+    onSubmit({ values, boardId, searchParams: location.state?.previousSearchParams });
     if (action !== "review") modalProps.resetModal();
   };
 
@@ -25,7 +27,7 @@ const TaskFormContainer = ({ onSubmit, onDelete, task }) => {
 
   return (
     <Formik
-      enableReinitialize
+      enableReinitialize={action !== "review"}
       initialValues={
         task ?? {
           boardId: +boardId,
@@ -50,11 +52,11 @@ const TaskFormContainer = ({ onSubmit, onDelete, task }) => {
       })}
       onSubmit={handleSubmit}
     >
-      {({ values, submitForm }) =>
+      {({ values, initialValues, submitForm }) =>
         action ? (
           <Modal modalProps={modalProps}>
             {action === "review" ? (
-              <TaskAutoSaveForm values={values} submitForm={submitForm} />
+              <TaskAutoSaveForm initialValues={initialValues} values={values} submitForm={submitForm} />
             ) : (
               <TaskForm
                 values={values}
@@ -64,7 +66,7 @@ const TaskFormContainer = ({ onSubmit, onDelete, task }) => {
             )}
           </Modal>
         ) : (
-          <TaskAutoSaveForm values={values} submitForm={submitForm} />
+          <TaskAutoSaveForm initialValues={initialValues} values={values} submitForm={submitForm} />
         )
       }
     </Formik>
