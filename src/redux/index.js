@@ -1,12 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { boardsApi } from "./services/boardsApi";
-import { tasksApi } from "./services/tasksApi";
+
+import createSagaMiddleware from "redux-saga";
+import rootSaga from "./sagas";
+
+import boards from "./slices/boards/boardsSlice";
+import tasks from "./slices/tasks/tasksSlice";
+
+const sagaMiddleware = createSagaMiddleware();
 
 export const store = configureStore({
   reducer: {
-    [boardsApi.reducerPath]: boardsApi.reducer,
-    [tasksApi.reducerPath]: tasksApi.reducer,
+    boards,
+    tasks,
   },
   middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(boardsApi.middleware, tasksApi.middleware),
+    getDefaultMiddleware().concat(sagaMiddleware),
 });
+
+sagaMiddleware.run(rootSaga);
