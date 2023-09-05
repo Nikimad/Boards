@@ -1,5 +1,6 @@
 @use "/src/styles/variables.scss" as *;
 @use "/src/styles/colors.scss" as *;
+@use "/src/styles/mixins.scss" as *;
 
 .header {
   grid-area: header;
@@ -65,7 +66,7 @@
   }
 }
 
-@media screen and (min-width: $bp) {
+@include desktop {
   .header {
     grid-template-columns: auto auto;
     justify-content: space-between;
