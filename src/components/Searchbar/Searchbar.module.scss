@@ -1,4 +1,7 @@
+@use "/src/styles/colors.scss" as *;
+
 .searchbar {
     position: sticky;
     top: 0;
+    color: $white;
 }
