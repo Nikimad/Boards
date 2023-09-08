@@ -8,10 +8,10 @@ import s from "./Navbar.module.scss";
 
 const Navbar = ({
   isHidden,
-  boards,
-  searchParams,
-  previousLocation,
   isLoading,
+  searchParams,
+  boards,
+  previousLocation,
 }) => (
   <div className={s.navbar} aria-hidden={isHidden}>
     <div className={s.navbar__header}>
@@ -19,7 +19,7 @@ const Navbar = ({
       <h1 className={s.navbar__header__title}>Boards</h1>
       <p className={s.navbar__header__text}>
         {Boolean(searchParams) ? "Found boards" : "All boards"}(
-        {isLoading ? <Loader className={s.navbar__loader} /> : boards.length})
+        {isLoading ? <Loader /> : boards.length})
       </p>
     </div>
     <Searchbar
@@ -47,6 +47,8 @@ const Navbar = ({
 
 Navbar.propTypes = {
   isHidden: PropTypes.bool,
+  isLoading: PropTypes.bool,
+  searchParams: PropTypes.oneOfType([PropTypes.shape(null), PropTypes.string]),
   boards: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -54,7 +56,6 @@ Navbar.propTypes = {
       createdAt: PropTypes.number,
     })
   ),
-  searchParams: PropTypes.oneOfType([PropTypes.shape(null), PropTypes.string]),
   previousLocation: PropTypes.shape({
     previousLocation: PropTypes.shape({
       pathname: PropTypes.string,
@@ -64,7 +65,6 @@ Navbar.propTypes = {
       key: PropTypes.string,
     }),
   }),
-  isLoading: PropTypes.bool,
 };
 
 export default Navbar;

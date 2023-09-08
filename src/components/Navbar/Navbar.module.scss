@@ -22,31 +22,31 @@
     }
 
     &__header {
-        display: grid;
-        grid-template-columns: minmax(2em, 32px) 1fr;
-        align-items: center;
+        font-weight: 900;
         text-transform: uppercase;
         letter-spacing: 0.1em;
         padding: 1rem 1rem 0 1rem;
 
+        :first-child {
+            vertical-align: text-bottom;
+            width: 2.2em;
+        }
+
         &__title {
+            display: inline-block;
             color: $white;
             margin: 0 0.25em;
         }
 
         &__text {
-            display: flex;
-            align-items: center;
-            height: 1em;
-            grid-column: 1/-1;
-            font-weight: 900;
             margin-top: 0;
-        }
-    }
 
-    &__loader {
-        height: inherit;
-        width: fit-content;
+            :last-child {
+                vertical-align: middle;
+                width: 1em;
+                height: 1em;
+            }
+        }
     }
 
     &__nav {
@@ -81,8 +81,6 @@
     }
 
     &__search {
-        color: $white;
-        font-weight: 400;
         padding: 0 3rem 0 0;
 
         input {
