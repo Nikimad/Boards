@@ -15,8 +15,6 @@
     }
 }
 
-
-
 @include desktop {
     .board {
         grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
