@@ -27,7 +27,7 @@ const TaskFormContainer = ({ onSubmit, onDelete, task }) => {
 
   return (
     <Formik
-      enableReinitialize={action !== "review"}
+      enableReinitialize
       initialValues={
         task ?? {
           boardId: +boardId,
