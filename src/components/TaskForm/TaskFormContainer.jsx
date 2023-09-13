@@ -11,11 +11,21 @@ const TaskFormContainer = ({ onSubmit, onDelete, task }) => {
   const { action, boardId } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
-  
+
   const modalProps = useModal();
 
   const handleSubmit = (values) => {
-    onSubmit({ values, boardId, searchParams: location.state?.previousSearchParams });
+    const checkedSubtasks =
+      action === "create"
+        ? values.checkedSubtasks
+        : values.checkedSubtasks.filter((id) =>
+            values.subtasks.some((subtask) => String(subtask.id) === id)
+          );
+    onSubmit({
+      values: { ...values, checkedSubtasks },
+      boardId,
+      searchParams: location.state?.previousSearchParams,
+    });
     if (action !== "review") modalProps.resetModal();
   };
 
@@ -56,7 +66,11 @@ const TaskFormContainer = ({ onSubmit, onDelete, task }) => {
         action ? (
           <Modal modalProps={modalProps}>
             {action === "review" ? (
-              <TaskAutoSaveForm initialValues={initialValues} values={values} submitForm={submitForm} />
+              <TaskAutoSaveForm
+                initialValues={initialValues}
+                values={values}
+                submitForm={submitForm}
+              />
             ) : (
               <TaskForm
                 values={values}
@@ -66,7 +80,11 @@ const TaskFormContainer = ({ onSubmit, onDelete, task }) => {
             )}
           </Modal>
         ) : (
-          <TaskAutoSaveForm initialValues={initialValues} values={values} submitForm={submitForm} />
+          <TaskAutoSaveForm
+            initialValues={initialValues}
+            values={values}
+            submitForm={submitForm}
+          />
         )
       }
     </Formik>
