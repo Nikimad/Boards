@@ -1,11 +1,11 @@
 import useAction from "../../../hooks/useAction";
-import { postBoard as postBoardAction } from "../../../redux/slices/boards/boardsSlice";
+import { boardsActions } from "../../../redux/slices/boards/boardsSlice";
 import BoardForm from "../../../components/BoardForm";
 
 const CreateBoardPage = () => {
-  const postBoard = useAction(postBoardAction);
+  const createBoard = useAction(boardsActions.createBoard);
 
-  return <BoardForm onSubmit={postBoard} />;
+  return <BoardForm onSubmit={createBoard} />;
 };
 
 export default CreateBoardPage;
