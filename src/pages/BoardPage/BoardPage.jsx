@@ -3,11 +3,11 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import {
+  boardsActions,
   boardsSelectors,
-  fetchBoard,
 } from "../../redux/slices/boards/boardsSlice";
 import {
-  fetchTasks,
+  tasksActions,
   tasksSelectors,
 } from "../../redux/slices/tasks/tasksSlice";
 import Board from "../../components/Board";
@@ -19,8 +19,8 @@ const BoardPage = () => {
 
   const taskSearchParams = searchParams.get("task");
 
-  const getBoard = useAction(fetchBoard);
-  const getTasks = useAction(fetchTasks);
+  const getBoard = useAction(boardsActions.getBoard);
+  const getTasks = useAction(tasksActions.getTasks);
 
   const board = useSelector((state) =>
     boardsSelectors.selectById(state, boardId)
