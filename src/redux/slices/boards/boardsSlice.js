@@ -19,14 +19,32 @@ const boardsSlice = createSlice({
     error: null,
   }),
   reducers: {
-    fetchBoards(state) {
+    getBoards(state) {
       state.isLoading = true;
     },
-    fetchBoardsSuccess(state, { payload }) {
+    getBoardsSuccess(state, { payload }) {
       adapter.addMany(state, payload);
       const visibleIds = payload.map(({ id }) => id);
       state.visibleIds = visibleIds.sort((a, b) => b - a);
       state.isLoading = false;
+    },
+    getBoard(state) {
+      return state;
+    },
+    getBoardSuccess: adapter.addOne,
+    createBoard(state) {
+      return state;
+    },
+    editBoard(state) {
+      return state;
+    },
+    editBoardSuccess: adapter.updateOne,
+    deleteBoard(state) {
+      return state;
+    },
+    deleteBoardSucces(state, { payload }) {
+      adapter.removeOne(state, payload);
+      state.visibleIds = state.visibleIds.filter((id) => id !== payload);
     },
     setIsError(state, { payload }) {
       state.error = payload;
@@ -36,29 +54,10 @@ const boardsSlice = createSlice({
       state.error = null;
       state.isError = false;
     },
-    addBoard: adapter.addOne,
-    updateBoard: adapter.updateOne,
-    removeBoard(state, { payload }) {
-      adapter.removeOne(state, payload);
-      state.visibleIds = state.visibleIds.filter((id) => id !== payload);
-    },
   },
 });
 
-export const fetchBoard = createAction(`${boardsSlice.name}/fetchBoard`);
-export const postBoard = createAction(`${boardsSlice.name}/postBoard`);
-export const patchBoard = createAction(`${boardsSlice.name}/patchBoard`);
-export const deleteBoard = createAction(`${boardsSlice.name}/deleteBoard`);
-
-export const {
-  fetchBoards,
-  fetchBoardsSuccess,
-  addBoard,
-  updateBoard,
-  removeBoard,
-  setIsError,
-  resetIsError,
-} = boardsSlice.actions;
+export const boardsActions = boardsSlice.actions;
 
 export const boardsSelectors = getSelectors(
   adapter,
