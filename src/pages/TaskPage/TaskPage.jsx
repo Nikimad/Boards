@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
 import {
-  fetchTask,
+  tasksActions,
   tasksSelectors,
 } from "../../redux/slices/tasks/tasksSlice";
 import Task from "../../components/Task";
@@ -16,7 +16,7 @@ const TaskPage = () => {
   const task = useSelector((state) => tasksSelectors.selectById(state, taskId));
   const isError = useSelector(tasksSelectors.selectIsError);
 
-  const getTask = useAction(fetchTask);
+  const getTask = useAction(tasksActions.getTask);
 
   useEffect(() => {
     if (!Boolean(task)) getTask(taskId);
