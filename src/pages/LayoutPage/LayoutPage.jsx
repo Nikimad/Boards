@@ -3,7 +3,7 @@ import { useSearchParams, Outlet, useNavigate } from "react-router-dom";
 import useAction from "../../hooks/useAction";
 import {
   boardsSelectors,
-  fetchBoards,
+  boardsActions,
 } from "../../redux/slices/boards/boardsSlice";
 import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar";
@@ -16,7 +16,7 @@ const LayoutPageContainer = () => {
 
   const boardSearchParams = searchParams.get("board");
 
-  const getBoards = useAction(fetchBoards);
+  const getBoards = useAction(boardsActions.getBoards);
 
   const isError = useSelector(boardsSelectors.selectIsError);
 
