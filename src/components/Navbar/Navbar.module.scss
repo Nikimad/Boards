@@ -89,10 +89,8 @@
             border-bottom-left-radius: 0;
         }
     }
-}
 
-@include desktop {
-    .navbar {
+    @include desktop {
         position: static;
     }
 }
