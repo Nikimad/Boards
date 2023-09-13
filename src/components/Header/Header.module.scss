@@ -64,10 +64,8 @@
       background-color: $violet-100;
     }
   }
-}
 
-@include desktop {
-  .header {
+  @include desktop {
     grid-template-columns: auto auto;
     justify-content: space-between;
 
