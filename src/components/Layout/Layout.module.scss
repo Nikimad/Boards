@@ -3,17 +3,15 @@
 
 .layout {
     display: grid;
-    grid-template-areas: 
-    "header"
-    "panel";
+    grid-template-areas:
+        "header"
+        "panel";
     grid-template-rows: min-content 1fr;
     height: 100vh;
     height: 100svh;
-}
 
-@include desktop {
-    .layout {
-        grid-template-areas: 
+    @include desktop {
+        grid-template-areas:
             "navbar header"
             "navbar panel";
         grid-template-columns: max-content 1fr;
