@@ -2,9 +2,8 @@ import useAction from "../../../hooks/useAction";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import {
+  tasksActions,
   tasksSelectors,
-  patchTask as patchTaskAction,
-  deleteTask as deleteTaskAction,
 } from "../../../redux/slices/tasks/tasksSlice";
 import TaskForm from "../../../components/TaskForm";
 
@@ -13,10 +12,10 @@ const EditTaskPage = () => {
   
   const task = useSelector((state) => tasksSelectors.selectById(state, taskId));
 
-  const deleteTask = useAction(deleteTaskAction);
-  const patchTask = useAction(patchTaskAction);
+  const deleteTask = useAction(tasksActions.deleteTask);
+  const editTask = useAction(tasksActions.editTask);
 
-  return <TaskForm onSubmit={patchTask} onDelete={deleteTask} task={task} />;
+  return <TaskForm onSubmit={editTask} onDelete={deleteTask} task={task} />;
 };
 
 export default EditTaskPage;
