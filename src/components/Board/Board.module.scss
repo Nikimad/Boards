@@ -13,16 +13,12 @@
         @include panel;
         padding: 1rem;
     }
-}
 
-@include desktop {
-    .board {
+    @include desktop {
         grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
     }
-}
 
-@include desktop-big {
-    .board {
+    @include desktop-big {
         grid-template-columns: repeat(auto-fill, minmax(20%, 1fr));
     }
 }
