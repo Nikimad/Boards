@@ -35,11 +35,7 @@ const tasksSlice = createSlice({
     createTask(state) {
       return state;
     },
-    editTask(state, { payload }) {
-      payload.values.checkedSubtasks = payload.values.checkedSubtasks.filter(
-        (id) =>
-          payload.values.subtasks.some((subtask) => String(subtask.id) === id)
-      );
+    editTask(state) {
       return state;
     },
     editTaskSuccess: adapter.updateOne,
