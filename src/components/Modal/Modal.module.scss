@@ -34,14 +34,12 @@
       animation: out $trans forwards;
     }
   }
-}
 
-@include desktop {
-  .modal {
+  @include desktop {
     &__content {
       width: 50%;
     }
-  }
+  } 
 }
 
 @keyframes appear {
