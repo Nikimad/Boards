@@ -1,10 +1,8 @@
 import { useEffect } from "react";
 import { useSearchParams, Outlet, useNavigate } from "react-router-dom";
 import useAction from "../../hooks/useAction";
-import {
-  boardsSelectors,
-  boardsActions,
-} from "../../redux/slices/boards/boardsSlice";
+import { boardsActions } from "../../models/boards";
+import { boardsSelectors } from "../../models/boards/selectors";
 import { useSelector } from "react-redux";
 import Navbar from "../../components/Navbar";
 import Layout from "../../components/Layout";
