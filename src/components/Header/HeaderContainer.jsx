@@ -1,7 +1,7 @@
 import { useNavigate, useLocation, useParams, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { boardsSelectors } from "../../redux/slices/boards/boardsSlice";
-import { tasksSelectors } from "../../redux/slices/tasks/tasksSlice";
+import { boardsSelectors } from "../../models/boards/selectors";
+import { tasksSelectors } from "../../models/tasks/selectors";
 import Header from "./Header";
 
 const HeaderContainer = () => {
