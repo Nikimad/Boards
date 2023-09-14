@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { boardsSelectors } from "../../redux/slices/boards/boardsSlice";
+import { boardsSelectors } from "../../models/boards/selectors";
 import HiddableContentContext from "../../context/HiddableContentContext";
 import Navbar from "./Navbar";
 
