@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PropTypes from "prop-types";
-import { tasksSelectors } from "../../redux/slices/tasks/tasksSlice";
+import { tasksSelectors } from "../../models/tasks/selectors";
 import Task from "./Task";
 
 const TaskContainer = ({ children }) => {
