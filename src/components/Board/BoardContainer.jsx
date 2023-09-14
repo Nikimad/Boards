@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { tasksSelectors } from "../../redux/slices/tasks/tasksSlice";
+import { tasksSelectors } from "../../models/tasks/selectors";
 import Board from "./Board";
 
 const BoardContainer = () => {
