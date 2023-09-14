@@ -2,14 +2,10 @@ import { useEffect } from "react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
-import {
-  boardsActions,
-  boardsSelectors,
-} from "../../redux/slices/boards/boardsSlice";
-import {
-  tasksActions,
-  tasksSelectors,
-} from "../../redux/slices/tasks/tasksSlice";
+import { boardsActions } from "../../models/boards";
+import { boardsSelectors } from "../../models/boards/selectors";
+import { tasksActions } from "../../models/tasks";
+import { tasksSelectors } from "../../models/tasks/selectors";
 import Board from "../../components/Board";
 
 const BoardPage = () => {
