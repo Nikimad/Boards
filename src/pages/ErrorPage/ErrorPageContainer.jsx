@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useAction from "../../hooks/useAction";
-import { boardsActions, boardsSelectors } from "../../redux/slices/boards/boardsSlice";
-import { tasksActions, tasksSelectors } from "../../redux/slices/tasks/tasksSlice";
+import { boardsActions } from "../../models/boards";
+import { boardsSelectors } from "../../models/boards/selectors";
+import { tasksActions } from "../../models/tasks";
+import { tasksSelectors } from "../../models/tasks/selectors";
 import ErrorPage from "./ErrorPage";
 
 const ErrorPageContainer = () => {
