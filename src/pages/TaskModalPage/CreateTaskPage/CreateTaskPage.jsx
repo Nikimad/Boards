@@ -1,5 +1,5 @@
 import useAction from "../../../hooks/useAction";
-import { tasksActions } from "../../../redux/slices/tasks/tasksSlice";
+import { tasksActions } from "../../../models/tasks";
 import TaskForm from "../../../components/TaskForm";
 
 const CreateTaskPage = () => {

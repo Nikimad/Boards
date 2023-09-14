@@ -1,10 +1,8 @@
 import useAction from "../../../hooks/useAction";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import {
-  tasksActions,
-  tasksSelectors,
-} from "../../../redux/slices/tasks/tasksSlice";
+import { tasksActions } from "../../../models/tasks";
+import { tasksSelectors } from "../../../models/tasks/selectors";
 import TaskForm from "../../../components/TaskForm";
 
 const EditTaskPage = () => {
