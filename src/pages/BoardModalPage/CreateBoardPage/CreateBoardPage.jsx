@@ -1,5 +1,5 @@
 import useAction from "../../../hooks/useAction";
-import { boardsActions } from "../../../redux/slices/boards/boardsSlice";
+import { boardsActions } from "../../../models/boards";
 import BoardForm from "../../../components/BoardForm";
 
 const CreateBoardPage = () => {

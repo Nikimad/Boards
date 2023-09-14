@@ -1,10 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import useAction from "../../../hooks/useAction";
-import {
-  boardsSelectors,
-  boardsActions,
-} from "../../../redux/slices/boards/boardsSlice";
+import { boardsActions } from "../../../models/boards";
+import { boardsSelectors } from "../../../models/boards/selectors";
 import BoardForm from "../../../components/BoardForm";
 
 export const EditBoardPage = () => {
