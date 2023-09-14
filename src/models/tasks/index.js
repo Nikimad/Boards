@@ -1,10 +1,4 @@
-import {
-  createSlice,
-  createEntityAdapter,
-  createSelector,
-  createAction,
-} from "@reduxjs/toolkit";
-import getSelectors from "../../../helpers/getSelectors";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
 export const adapter = createEntityAdapter({
   sortComparer: (a, b) => b.id - a.id,
@@ -58,13 +52,5 @@ const tasksSlice = createSlice({
 });
 
 export const tasksActions = tasksSlice.actions;
-
-export const tasksSelectors = getSelectors(
-  adapter,
-  createSelector(
-    (state) => state,
-    ({ tasks }) => tasks
-  )
-);
 
 export default tasksSlice.reducer;

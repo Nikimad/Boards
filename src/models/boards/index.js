@@ -1,12 +1,6 @@
-import {
-  createSlice,
-  createEntityAdapter,
-  createSelector,
-  createAction,
-} from "@reduxjs/toolkit";
-import getSelectors from "../../../helpers/getSelectors";
+import { createSlice, createEntityAdapter } from "@reduxjs/toolkit";
 
-const adapter = createEntityAdapter({
+export const adapter = createEntityAdapter({
   sortComparer: (a, b) => b.id - a.id,
 });
 
@@ -58,13 +52,5 @@ const boardsSlice = createSlice({
 });
 
 export const boardsActions = boardsSlice.actions;
-
-export const boardsSelectors = getSelectors(
-  adapter,
-  createSelector(
-    (state) => state,
-    ({ boards }) => boards
-  )
-);
 
 export default boardsSlice.reducer;
