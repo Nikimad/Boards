@@ -1,7 +1,6 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-// TODO(svg-migration): вернуть оригинальный SVG (select.svg)
-import Select from "../SvgPlaceholder";
+import Select from "../../assets/svg/select.svg?react";
 import { Form, Field } from "formik";
 import s from "../../styles/form.module.scss";
 

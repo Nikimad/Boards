@@ -1,6 +1,5 @@
 import PropTypes from "prop-types";
-// TODO(svg-migration): вернуть оригинальный SVG (logo.svg)
-import Logo from "../SvgPlaceholder";
+import Logo from "../../assets/svg/logo.svg?react";
 import { Link } from "react-router";
 import BoardLink from "../BoardLink";
 import Searchbar from "../Searchbar";

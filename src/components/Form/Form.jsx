@@ -1,8 +1,7 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
 import { Form as FormikForm } from "formik";
-// TODO(svg-migration): вернуть оригинальный SVG (delete.svg)
-import Delete from "../SvgPlaceholder";
+import Delete from "../../assets/svg/delete.svg?react";
 import s from "../../styles/form.module.scss";
 
 const Form = ({ formTitle, submitTitle, isEdit, onRemove, children }) => (

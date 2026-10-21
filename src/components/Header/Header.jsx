@@ -1,9 +1,7 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-// TODO(svg-migration): вернуть оригинальный SVG (logo.svg)
-import Logo from "../SvgPlaceholder";
-// TODO(svg-migration): вернуть оригинальный SVG (edit.svg)
-import Edit from "../SvgPlaceholder";
+import Logo from "../../assets/svg/logo.svg?react";
+import Edit from "../../assets/svg/edit.svg?react";
 import { Link } from "react-router";
 import s from "./Header.module.scss";
 
