@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router";
 import useModal from "../../hooks/useModal";
 import PropTypes from "prop-types";
 import * as Yup from "yup";

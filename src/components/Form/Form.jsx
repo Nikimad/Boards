@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
 import { Form as FormikForm } from "formik";
-import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
+import Delete from "../../assets/svg/delete.svg?react";
 import s from "../../styles/form.module.scss";
 
 const Form = ({ formTitle, submitTitle, isEdit, onRemove, children }) => (

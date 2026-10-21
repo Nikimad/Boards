@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import TaskPreview from "./TaskPreview";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 
 const TaskPreviewContainer = ({ task }) => {
   const location = useLocation();

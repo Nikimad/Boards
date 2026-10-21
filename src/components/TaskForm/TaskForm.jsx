@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
-import { ReactComponent as Select } from "../../assets/svg/select.svg";
+import Delete from "../../assets/svg/delete.svg?react";
+import Select from "../../assets/svg/select.svg?react";
 import { Field, FieldArray, ErrorMessage } from "formik";
 import Form from "../Form";
 import s from "../../styles/form.module.scss";

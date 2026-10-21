@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
-import { ReactComponent as Err } from "../../assets/svg/err.svg";
+import Icon from "../../assets/svg/doc.svg?react";
+import Err from "../../assets/svg/err.svg?react";
 import Loader from "../Loader";
 import s from "./Plug.module.scss";
 

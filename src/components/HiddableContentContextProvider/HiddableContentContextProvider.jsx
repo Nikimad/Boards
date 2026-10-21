@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { useState, useCallback, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import HiddableContentContext from "../../context/HiddableContentContext";
 import debounce from "lodash/debounce";
 

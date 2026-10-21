@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-import { NavLink } from "react-router-dom";
-import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
+import { NavLink } from "react-router";
+import Icon from "../../assets/svg/doc.svg?react";
 import s from "./BoardLink.module.scss";
 
 const BoardLink = ({ board, onClick }) => (

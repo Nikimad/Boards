@@ -1,4 +1,4 @@
-import { useSearchParams, Outlet, Navigate } from "react-router-dom";
+import { useSearchParams, Outlet, Navigate } from "react-router";
 import { useGetBoardsQuery } from "../../redux/services/boardsApi";
 import Navbar from "../../components/Navbar";
 import Layout from "../../components/Layout";
