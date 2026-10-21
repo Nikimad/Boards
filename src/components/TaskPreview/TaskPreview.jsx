@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
-import { ReactComponent as View } from "../../assets/svg/view.svg";
+// TODO(svg-migration): вернуть оригинальный SVG (view.svg)
+import View from "../SvgPlaceholder";
 import { Link } from "react-router";
 import s from "./TaskPreview.module.scss";
 

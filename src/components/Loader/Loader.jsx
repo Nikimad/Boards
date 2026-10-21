@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-import { ReactComponent as LoaderIcon } from "../../assets/svg/loader.svg";
+// TODO(svg-migration): вернуть оригинальный SVG (loader.svg)
+import LoaderIcon from "../SvgPlaceholder";
 import s from "./Loader.module.scss";
 
 const Loader = ({ className }) => <LoaderIcon className={cn(s.loader, className)} />

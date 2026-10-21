@@ -1,7 +1,8 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
 import { NavLink } from "react-router";
-import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
+// TODO(svg-migration): вернуть оригинальный SVG (doc.svg)
+import Icon from "../SvgPlaceholder";
 import s from "./BoardLink.module.scss";
 
 const BoardLink = ({ board, onClick }) => (

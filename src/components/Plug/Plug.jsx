@@ -1,6 +1,8 @@
 import PropTypes from "prop-types";
-import { ReactComponent as Icon } from "../../assets/svg/doc.svg";
-import { ReactComponent as Err } from "../../assets/svg/err.svg";
+// TODO(svg-migration): вернуть оригинальный SVG (doc.svg)
+import Icon from "../SvgPlaceholder";
+// TODO(svg-migration): вернуть оригинальный SVG (err.svg)
+import Err from "../SvgPlaceholder";
 import Loader from "../Loader";
 import s from "./Plug.module.scss";
 

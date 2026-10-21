@@ -1,7 +1,9 @@
 import PropTypes from "prop-types";
 import cn from "classnames";
-import { ReactComponent as Delete } from "../../assets/svg/delete.svg";
-import { ReactComponent as Select } from "../../assets/svg/select.svg";
+// TODO(svg-migration): вернуть оригинальный SVG (delete.svg)
+import Delete from "../SvgPlaceholder";
+// TODO(svg-migration): вернуть оригинальный SVG (select.svg)
+import Select from "../SvgPlaceholder";
 import { Field, FieldArray, ErrorMessage } from "formik";
 import Form from "../Form";
 import s from "../../styles/form.module.scss";
