@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import BoardLink from "../BoardLink";
 import Searchbar from "../Searchbar";
 import Loader from "../Loader";

@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import cn from "classnames";
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg";
 import { ReactComponent as Edit } from "../../assets/svg/edit.svg";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import s from "./Header.module.scss";
 
 const Header = ({

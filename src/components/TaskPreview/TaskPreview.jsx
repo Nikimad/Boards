@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import { ReactComponent as View } from "../../assets/svg/view.svg";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import s from "./TaskPreview.module.scss";
 
 const TaskPreview = ({ task, previousLocation }) => (

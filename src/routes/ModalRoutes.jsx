@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router";
 import BoardModalPage from "../pages/BoardModalPage";
 import TaskModalPage from "../pages/TaskModalPage";
 

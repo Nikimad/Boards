@@ -1,4 +1,4 @@
-import { useParams, Navigate, useSearchParams } from "react-router-dom";
+import { useParams, Navigate, useSearchParams } from "react-router";
 import { useGetTasksQuery } from "../../redux/services/tasksApi";
 import { useGetBoardQuery } from "../../redux/services/boardsApi";
 import Board from "../../components/Board";

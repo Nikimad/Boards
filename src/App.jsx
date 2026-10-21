@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation } from "react-router";
 import HiddableContentContextProvider from "./components/HiddableContentContextProvider";
 import PageRoutes from "./routes/PageRoutes";
 import ModalRoutes from "./routes/ModalRoutes";

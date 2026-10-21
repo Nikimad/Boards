@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useDeleteTaskMutation, useGetTasksQuery, usePatchTaskMutation } from "../../../redux/services/tasksApi";
 import TaskForm from "../../../components/TaskForm";
 

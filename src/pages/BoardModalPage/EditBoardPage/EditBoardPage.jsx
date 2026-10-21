@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams } from "react-router";
 import { useGetBoardsQuery, useDeleteBoardMutation, usePatchBoardMutation } from "../../../redux/services/boardsApi";
 import BoardForm from "../../../components/BoardForm";
 
