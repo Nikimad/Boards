@@ -1,0 +1,102 @@
+import cn from "classnames";
+import Delete from "../../assets/svg/delete.svg?react";
+import Select from "../../assets/svg/select.svg?react";
+import { Field, FieldArray, ErrorMessage } from "formik";
+import Form from "../Form";
+import type { TaskFormValues } from "./TaskFormContainer";
+import s from "../../styles/form.module.scss";
+
+interface TaskFormProps {
+  values: TaskFormValues;
+  isEdit: boolean;
+  onRemove: () => void;
+}
+
+const TaskForm = ({ values, isEdit, onRemove }: TaskFormProps) => (
+  <Form
+    formTitle={isEdit ? "Edit task" : "Add new task"}
+    submitTitle={isEdit ? "Edit" : "Create task"}
+    isEdit={isEdit}
+    onRemove={onRemove}
+  >
+    <label className={s.form__label}>
+      <span className={s.form__label__title}>Title</span>
+      <Field className={s.form__input} name="title" type="text" />
+      <ErrorMessage
+        name="title"
+        component="span"
+        className={s.form__label__error}
+      />
+    </label>
+    <label className={s.form__label}>
+      <span className={s.form__label__title}>Description</span>
+      <Field
+        className={cn(s.form__input, s.form__textarea)}
+        name="description"
+        component="textarea"
+      />
+      <ErrorMessage
+        name="description"
+        component="span"
+        className={s.form__label__error}
+      />
+    </label>
+    <FieldArray name="subtasks">
+      {({ remove, push }) => (
+        <fieldset className={cn(s.form__fieldset, s.form__label)}>
+          <span className={s.form__label__title}>Subtasks</span>
+          {values.subtasks.length > 0 &&
+            values.subtasks.map((_, index) => (
+              <div className={s.form__optionalfield} key={index}>
+                <label className={s.form__label}>
+                  <Field
+                    className={s.form__input}
+                    name={`subtasks.${index}.title`}
+                    type="text"
+                  />
+                  <ErrorMessage
+                    name={`subtasks.${index}.title`}
+                    component="span"
+                    className={s.form__label__error}
+                  />
+                </label>
+                <label className={cn(s.form__label, s.form__controls__remove)}>
+                  <input type="button" onClick={() => remove(index)} />
+                  <Delete />
+                </label>
+              </div>
+            ))}
+          <button
+            type="button"
+            className={s.form__controls__submit}
+            onClick={() =>
+              push({
+                title: "",
+                id: Date.now(),
+              })
+            }
+          >
+            Add Subtask
+          </button>
+        </fieldset>
+      )}
+    </FieldArray>
+    <label className={cn(s.form__label, s.form__label_noerr)}>
+      <span className={s.form__label__title}>Status</span>
+      <Field
+        className={cn(s.form__input, s.form__select)}
+        name="status"
+        component="select"
+      >
+        <option defaultValue="todo" value="todo">
+          Todo
+        </option>
+        <option value="doing">Doing</option>
+        <option value="done">Done</option>
+      </Field>
+      <Select className={s.form__select__appearance} />
+    </label>
+  </Form>
+);
+
+export default TaskForm;
